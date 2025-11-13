@@ -1,0 +1,540 @@
+Running tests with in-memory SQLite...
+go test -v -cover ./...
+FAIL	api.sting9.org/cmd/api [setup failed]
+FAIL	api.sting9.org/config [setup failed]
+FAIL	api.sting9.org/internal/database [setup failed]
+FAIL	api.sting9.org/internal/handlers [setup failed]
+FAIL	api.sting9.org/internal/middleware [setup failed]
+FAIL	api.sting9.org/internal/models [setup failed]
+FAIL	api.sting9.org/internal/repository [setup failed]
+FAIL	api.sting9.org/internal/service/exporter [setup failed]
+FAIL	api.sting9.org/testutil [setup failed]
+=== RUN   TestAnonymizer_Anonymize
+=== RUN   TestAnonymizer_Anonymize/single_email
+=== RUN   TestAnonymizer_Anonymize/multiple_emails
+=== RUN   TestAnonymizer_Anonymize/email_with_numbers
+=== RUN   TestAnonymizer_Anonymize/email_with_plus_sign
+=== RUN   TestAnonymizer_Anonymize/phone_with_parentheses
+=== RUN   TestAnonymizer_Anonymize/phone_with_dashes
+=== RUN   TestAnonymizer_Anonymize/phone_with_dots
+=== RUN   TestAnonymizer_Anonymize/phone_no_separator
+=== RUN   TestAnonymizer_Anonymize/multiple_phone_numbers
+=== RUN   TestAnonymizer_Anonymize/international_with_country_code
+=== RUN   TestAnonymizer_Anonymize/international_with_plus_and_spaces
+=== RUN   TestAnonymizer_Anonymize/SSN_standard_format
+=== RUN   TestAnonymizer_Anonymize/SSN_in_sentence
+=== RUN   TestAnonymizer_Anonymize/credit_card_with_dashes
+=== RUN   TestAnonymizer_Anonymize/credit_card_with_spaces
+=== RUN   TestAnonymizer_Anonymize/credit_card_no_separator
+    anonymizer_test.go:229: Anonymize() failed
+        Input:    "Card 4532123456789010"
+        Expected: "Card [CC_REDACTED]"
+        Got:      "Card 453212[PHONE_REDACTED]"
+=== RUN   TestAnonymizer_Anonymize/multiple_credit_cards
+    anonymizer_test.go:229: Anonymize() failed
+        Input:    "Cards: 4532-1234-5678-9010 or 5425233430109903"
+        Expected: "Cards: [CC_REDACTED] or [CC_REDACTED]"
+        Got:      "Cards: [CC_REDACTED] or 542523[PHONE_REDACTED]"
+=== RUN   TestAnonymizer_Anonymize/public_IPv4
+=== RUN   TestAnonymizer_Anonymize/private_IPv4_preserved_(localhost)
+=== RUN   TestAnonymizer_Anonymize/private_IPv4_preserved_(192.168)
+=== RUN   TestAnonymizer_Anonymize/private_IPv4_preserved_(10.x)
+=== RUN   TestAnonymizer_Anonymize/IPv6_full
+=== RUN   TestAnonymizer_Anonymize/IPv6_short
+    anonymizer_test.go:229: Anonymize() failed
+        Input:    "Connect to 2001:db8:85a3::8a2e:370:7334"
+        Expected: "Connect to [IP_REDACTED]"
+        Got:      "Connect to 2001:db8:85a3::8a2e:370:7334"
+=== RUN   TestAnonymizer_Anonymize/address_with_Street
+=== RUN   TestAnonymizer_Anonymize/address_with_Ave
+=== RUN   TestAnonymizer_Anonymize/address_with_Rd
+=== RUN   TestAnonymizer_Anonymize/address_with_Blvd
+=== RUN   TestAnonymizer_Anonymize/address_with_Dr
+=== RUN   TestAnonymizer_Anonymize/account_with_Account
+=== RUN   TestAnonymizer_Anonymize/account_with_Acct
+    anonymizer_test.go:229: Anonymize() failed
+        Input:    "Acct: 987654321012"
+        Expected: "[ACCOUNT_REDACTED]"
+        Got:      "Acct: 98[PHONE_REDACTED]"
+=== RUN   TestAnonymizer_Anonymize/account_with_Account_Number
+    anonymizer_test.go:229: Anonymize() failed
+        Input:    "Account Number: 1234567890"
+        Expected: "[ACCOUNT_REDACTED]"
+        Got:      "Account Number: [PHONE_REDACTED]"
+=== RUN   TestAnonymizer_Anonymize/mixed_PII_types
+    anonymizer_test.go:229: Anonymize() failed
+        Input:    "Email bob@test.com, call 555-1234, SSN 123-45-6789"
+        Expected: "Email [EMAIL_REDACTED], call [PHONE_REDACTED], SSN [SSN_REDACTED]"
+        Got:      "Email [EMAIL_REDACTED], call 555-1234, SSN [SSN_REDACTED]"
+=== RUN   TestAnonymizer_Anonymize/comprehensive_PII
+=== RUN   TestAnonymizer_Anonymize/clean_message
+=== RUN   TestAnonymizer_Anonymize/business_message
+=== RUN   TestAnonymizer_Anonymize/empty_string
+=== RUN   TestAnonymizer_Anonymize/only_whitespace
+--- FAIL: TestAnonymizer_Anonymize (0.00s)
+    --- PASS: TestAnonymizer_Anonymize/single_email (0.00s)
+    --- PASS: TestAnonymizer_Anonymize/multiple_emails (0.00s)
+    --- PASS: TestAnonymizer_Anonymize/email_with_numbers (0.00s)
+    --- PASS: TestAnonymizer_Anonymize/email_with_plus_sign (0.00s)
+    --- PASS: TestAnonymizer_Anonymize/phone_with_parentheses (0.00s)
+    --- PASS: TestAnonymizer_Anonymize/phone_with_dashes (0.00s)
+    --- PASS: TestAnonymizer_Anonymize/phone_with_dots (0.00s)
+    --- PASS: TestAnonymizer_Anonymize/phone_no_separator (0.00s)
+    --- PASS: TestAnonymizer_Anonymize/multiple_phone_numbers (0.00s)
+    --- PASS: TestAnonymizer_Anonymize/international_with_country_code (0.00s)
+    --- PASS: TestAnonymizer_Anonymize/international_with_plus_and_spaces (0.00s)
+    --- PASS: TestAnonymizer_Anonymize/SSN_standard_format (0.00s)
+    --- PASS: TestAnonymizer_Anonymize/SSN_in_sentence (0.00s)
+    --- PASS: TestAnonymizer_Anonymize/credit_card_with_dashes (0.00s)
+    --- PASS: TestAnonymizer_Anonymize/credit_card_with_spaces (0.00s)
+    --- FAIL: TestAnonymizer_Anonymize/credit_card_no_separator (0.00s)
+    --- FAIL: TestAnonymizer_Anonymize/multiple_credit_cards (0.00s)
+    --- PASS: TestAnonymizer_Anonymize/public_IPv4 (0.00s)
+    --- PASS: TestAnonymizer_Anonymize/private_IPv4_preserved_(localhost) (0.00s)
+    --- PASS: TestAnonymizer_Anonymize/private_IPv4_preserved_(192.168) (0.00s)
+    --- PASS: TestAnonymizer_Anonymize/private_IPv4_preserved_(10.x) (0.00s)
+    --- PASS: TestAnonymizer_Anonymize/IPv6_full (0.00s)
+    --- FAIL: TestAnonymizer_Anonymize/IPv6_short (0.00s)
+    --- PASS: TestAnonymizer_Anonymize/address_with_Street (0.00s)
+    --- PASS: TestAnonymizer_Anonymize/address_with_Ave (0.00s)
+    --- PASS: TestAnonymizer_Anonymize/address_with_Rd (0.00s)
+    --- PASS: TestAnonymizer_Anonymize/address_with_Blvd (0.00s)
+    --- PASS: TestAnonymizer_Anonymize/address_with_Dr (0.00s)
+    --- PASS: TestAnonymizer_Anonymize/account_with_Account (0.00s)
+    --- FAIL: TestAnonymizer_Anonymize/account_with_Acct (0.00s)
+    --- FAIL: TestAnonymizer_Anonymize/account_with_Account_Number (0.00s)
+    --- FAIL: TestAnonymizer_Anonymize/mixed_PII_types (0.00s)
+    --- PASS: TestAnonymizer_Anonymize/comprehensive_PII (0.00s)
+    --- PASS: TestAnonymizer_Anonymize/clean_message (0.00s)
+    --- PASS: TestAnonymizer_Anonymize/business_message (0.00s)
+    --- PASS: TestAnonymizer_Anonymize/empty_string (0.00s)
+    --- PASS: TestAnonymizer_Anonymize/only_whitespace (0.00s)
+=== RUN   TestAnonymizer_ExtractURLs
+=== RUN   TestAnonymizer_ExtractURLs/single_HTTP_URL
+=== RUN   TestAnonymizer_ExtractURLs/single_HTTPS_URL
+=== RUN   TestAnonymizer_ExtractURLs/multiple_URLs
+=== RUN   TestAnonymizer_ExtractURLs/URL_with_query_parameters
+=== RUN   TestAnonymizer_ExtractURLs/duplicate_URLs
+=== RUN   TestAnonymizer_ExtractURLs/no_URLs
+=== RUN   TestAnonymizer_ExtractURLs/URL_with_port
+=== RUN   TestAnonymizer_ExtractURLs/phishing_URL
+--- PASS: TestAnonymizer_ExtractURLs (0.00s)
+    --- PASS: TestAnonymizer_ExtractURLs/single_HTTP_URL (0.00s)
+    --- PASS: TestAnonymizer_ExtractURLs/single_HTTPS_URL (0.00s)
+    --- PASS: TestAnonymizer_ExtractURLs/multiple_URLs (0.00s)
+    --- PASS: TestAnonymizer_ExtractURLs/URL_with_query_parameters (0.00s)
+    --- PASS: TestAnonymizer_ExtractURLs/duplicate_URLs (0.00s)
+    --- PASS: TestAnonymizer_ExtractURLs/no_URLs (0.00s)
+    --- PASS: TestAnonymizer_ExtractURLs/URL_with_port (0.00s)
+    --- PASS: TestAnonymizer_ExtractURLs/phishing_URL (0.00s)
+=== RUN   TestAnonymizer_DetectPIITypes
+=== RUN   TestAnonymizer_DetectPIITypes/email_only
+=== RUN   TestAnonymizer_DetectPIITypes/phone_only
+=== RUN   TestAnonymizer_DetectPIITypes/SSN_only
+=== RUN   TestAnonymizer_DetectPIITypes/credit_card_only
+=== RUN   TestAnonymizer_DetectPIITypes/IP_address_only
+=== RUN   TestAnonymizer_DetectPIITypes/address_only
+=== RUN   TestAnonymizer_DetectPIITypes/account_number_only
+=== RUN   TestAnonymizer_DetectPIITypes/multiple_PII_types
+    anonymizer_test.go:386: DetectPIITypes() length mismatch
+        Input:    "Email: test@example.com, Phone: 555-1234, SSN: 123-45-6789"
+        Expected: [email phone ssn] (3)
+        Got:      [email ssn] (2)
+=== RUN   TestAnonymizer_DetectPIITypes/all_PII_types
+    anonymizer_test.go:386: DetectPIITypes() length mismatch
+        Input:    "Email test@example.com, Phone 555-1234, SSN 123-45-6789, Card 4532-1234-5678-9010, IP 203.0.113.1, 123 Main Street, Account #987654321"
+        Expected: [email phone ssn credit_card ip_address address account_number] (7)
+        Got:      [email ssn credit_card ip_address address account_number] (6)
+=== RUN   TestAnonymizer_DetectPIITypes/no_PII
+--- FAIL: TestAnonymizer_DetectPIITypes (0.00s)
+    --- PASS: TestAnonymizer_DetectPIITypes/email_only (0.00s)
+    --- PASS: TestAnonymizer_DetectPIITypes/phone_only (0.00s)
+    --- PASS: TestAnonymizer_DetectPIITypes/SSN_only (0.00s)
+    --- PASS: TestAnonymizer_DetectPIITypes/credit_card_only (0.00s)
+    --- PASS: TestAnonymizer_DetectPIITypes/IP_address_only (0.00s)
+    --- PASS: TestAnonymizer_DetectPIITypes/address_only (0.00s)
+    --- PASS: TestAnonymizer_DetectPIITypes/account_number_only (0.00s)
+    --- FAIL: TestAnonymizer_DetectPIITypes/multiple_PII_types (0.00s)
+    --- FAIL: TestAnonymizer_DetectPIITypes/all_PII_types (0.00s)
+    --- PASS: TestAnonymizer_DetectPIITypes/no_PII (0.00s)
+=== RUN   TestAnonymizer_AnonymizeMetadata
+=== RUN   TestAnonymizer_AnonymizeMetadata/metadata_with_emails
+=== RUN   TestAnonymizer_AnonymizeMetadata/metadata_with_phone
+=== RUN   TestAnonymizer_AnonymizeMetadata/metadata_with_mixed_PII
+    anonymizer_test.go:478: AnonymizeMetadata() value mismatch for key "info"
+        Expected: "Email: [EMAIL_REDACTED], Phone: [PHONE_REDACTED], [ACCOUNT_REDACTED]"
+        Got:      "Email: [EMAIL_REDACTED], Phone: 555-1234, [ACCOUNT_REDACTED]"
+=== RUN   TestAnonymizer_AnonymizeMetadata/empty_metadata
+=== RUN   TestAnonymizer_AnonymizeMetadata/metadata_with_no_PII
+--- FAIL: TestAnonymizer_AnonymizeMetadata (0.00s)
+    --- PASS: TestAnonymizer_AnonymizeMetadata/metadata_with_emails (0.00s)
+    --- PASS: TestAnonymizer_AnonymizeMetadata/metadata_with_phone (0.00s)
+    --- FAIL: TestAnonymizer_AnonymizeMetadata/metadata_with_mixed_PII (0.00s)
+    --- PASS: TestAnonymizer_AnonymizeMetadata/empty_metadata (0.00s)
+    --- PASS: TestAnonymizer_AnonymizeMetadata/metadata_with_no_PII (0.00s)
+=== RUN   TestAnonymizer_RealWorldPhishing
+=== RUN   TestAnonymizer_RealWorldPhishing/bank_phishing
+=== RUN   TestAnonymizer_RealWorldPhishing/package_delivery_scam
+=== RUN   TestAnonymizer_RealWorldPhishing/tech_support_scam
+--- PASS: TestAnonymizer_RealWorldPhishing (0.00s)
+    --- PASS: TestAnonymizer_RealWorldPhishing/bank_phishing (0.00s)
+    --- PASS: TestAnonymizer_RealWorldPhishing/package_delivery_scam (0.00s)
+    --- PASS: TestAnonymizer_RealWorldPhishing/tech_support_scam (0.00s)
+FAIL
+coverage: 100.0% of statements
+FAIL	api.sting9.org/internal/service/anonymizer	0.003s
+=== RUN   TestProcessor_DetectLanguage
+=== RUN   TestProcessor_DetectLanguage/english_simple
+    processor_test.go:106: DetectLanguage() failed
+        Content:  "Hello, this is a test message"
+        Expected: en
+        Got:      unknown
+=== RUN   TestProcessor_DetectLanguage/english_phishing
+=== RUN   TestProcessor_DetectLanguage/english_with_keywords
+=== RUN   TestProcessor_DetectLanguage/spanish_simple
+=== RUN   TestProcessor_DetectLanguage/spanish_phishing
+=== RUN   TestProcessor_DetectLanguage/french_simple
+    processor_test.go:106: DetectLanguage() failed
+        Content:  "Bonjour, ceci est un message de test"
+        Expected: fr
+        Got:      unknown
+=== RUN   TestProcessor_DetectLanguage/french_phishing
+=== RUN   TestProcessor_DetectLanguage/german_simple
+    processor_test.go:106: DetectLanguage() failed
+        Content:  "Hallo, dies ist eine Testnachricht"
+        Expected: de
+        Got:      unknown
+=== RUN   TestProcessor_DetectLanguage/german_phishing
+    processor_test.go:106: DetectLanguage() failed
+        Content:  "Ihr Konto wurde gesperrt. Klicken Sie hier zur Verifizierung."
+        Expected: de
+        Got:      unknown
+=== RUN   TestProcessor_DetectLanguage/chinese
+=== RUN   TestProcessor_DetectLanguage/arabic
+=== RUN   TestProcessor_DetectLanguage/russian
+=== RUN   TestProcessor_DetectLanguage/unknown_-_too_short
+=== RUN   TestProcessor_DetectLanguage/unknown_-_no_clear_language
+=== RUN   TestProcessor_DetectLanguage/empty_string
+--- FAIL: TestProcessor_DetectLanguage (0.00s)
+    --- FAIL: TestProcessor_DetectLanguage/english_simple (0.00s)
+    --- PASS: TestProcessor_DetectLanguage/english_phishing (0.00s)
+    --- PASS: TestProcessor_DetectLanguage/english_with_keywords (0.00s)
+    --- PASS: TestProcessor_DetectLanguage/spanish_simple (0.00s)
+    --- PASS: TestProcessor_DetectLanguage/spanish_phishing (0.00s)
+    --- FAIL: TestProcessor_DetectLanguage/french_simple (0.00s)
+    --- PASS: TestProcessor_DetectLanguage/french_phishing (0.00s)
+    --- FAIL: TestProcessor_DetectLanguage/german_simple (0.00s)
+    --- FAIL: TestProcessor_DetectLanguage/german_phishing (0.00s)
+    --- PASS: TestProcessor_DetectLanguage/chinese (0.00s)
+    --- PASS: TestProcessor_DetectLanguage/arabic (0.00s)
+    --- PASS: TestProcessor_DetectLanguage/russian (0.00s)
+    --- PASS: TestProcessor_DetectLanguage/unknown_-_too_short (0.00s)
+    --- PASS: TestProcessor_DetectLanguage/unknown_-_no_clear_language (0.00s)
+    --- PASS: TestProcessor_DetectLanguage/empty_string (0.00s)
+=== RUN   TestProcessor_ClassifyMessage
+=== RUN   TestProcessor_ClassifyMessage/phishing_-_account_suspension
+    processor_test.go:236: ClassifyMessage() failed
+        Content:  "Your account has been suspended. Click here to verify your identity immediately."
+        Expected: phishing
+        Got:      spam
+=== RUN   TestProcessor_ClassifyMessage/phishing_-_security_alert
+=== RUN   TestProcessor_ClassifyMessage/phishing_-_payment_update
+=== RUN   TestProcessor_ClassifyMessage/phishing_-_prize_winner
+=== RUN   TestProcessor_ClassifyMessage/phishing_-_inheritance
+=== RUN   TestProcessor_ClassifyMessage/BEC_-_wire_transfer
+=== RUN   TestProcessor_ClassifyMessage/BEC_-_invoice
+=== RUN   TestProcessor_ClassifyMessage/BEC_-_bank_details_change
+=== RUN   TestProcessor_ClassifyMessage/smishing_-_package_delivery
+=== RUN   TestProcessor_ClassifyMessage/smishing_-_free_gift
+=== RUN   TestProcessor_ClassifyMessage/smishing_-_subscription
+=== RUN   TestProcessor_ClassifyMessage/tech_support_-_microsoft
+=== RUN   TestProcessor_ClassifyMessage/tech_support_-_apple
+=== RUN   TestProcessor_ClassifyMessage/tech_support_-_refund
+=== RUN   TestProcessor_ClassifyMessage/romance_scam_-_money_request
+=== RUN   TestProcessor_ClassifyMessage/romance_scam_-_western_union
+=== RUN   TestProcessor_ClassifyMessage/romance_scam_-_gift_card
+=== RUN   TestProcessor_ClassifyMessage/spam_-_generic
+    processor_test.go:236: ClassifyMessage() failed
+        Content:  "Buy our product now! Limited time offer!"
+        Expected: spam
+        Got:      phishing
+=== RUN   TestProcessor_ClassifyMessage/spam_-_advertising
+=== RUN   TestProcessor_ClassifyMessage/spam_-_no_clear_category
+--- FAIL: TestProcessor_ClassifyMessage (0.00s)
+    --- FAIL: TestProcessor_ClassifyMessage/phishing_-_account_suspension (0.00s)
+    --- PASS: TestProcessor_ClassifyMessage/phishing_-_security_alert (0.00s)
+    --- PASS: TestProcessor_ClassifyMessage/phishing_-_payment_update (0.00s)
+    --- PASS: TestProcessor_ClassifyMessage/phishing_-_prize_winner (0.00s)
+    --- PASS: TestProcessor_ClassifyMessage/phishing_-_inheritance (0.00s)
+    --- PASS: TestProcessor_ClassifyMessage/BEC_-_wire_transfer (0.00s)
+    --- PASS: TestProcessor_ClassifyMessage/BEC_-_invoice (0.00s)
+    --- PASS: TestProcessor_ClassifyMessage/BEC_-_bank_details_change (0.00s)
+    --- PASS: TestProcessor_ClassifyMessage/smishing_-_package_delivery (0.00s)
+    --- PASS: TestProcessor_ClassifyMessage/smishing_-_free_gift (0.00s)
+    --- PASS: TestProcessor_ClassifyMessage/smishing_-_subscription (0.00s)
+    --- PASS: TestProcessor_ClassifyMessage/tech_support_-_microsoft (0.00s)
+    --- PASS: TestProcessor_ClassifyMessage/tech_support_-_apple (0.00s)
+    --- PASS: TestProcessor_ClassifyMessage/tech_support_-_refund (0.00s)
+    --- PASS: TestProcessor_ClassifyMessage/romance_scam_-_money_request (0.00s)
+    --- PASS: TestProcessor_ClassifyMessage/romance_scam_-_western_union (0.00s)
+    --- PASS: TestProcessor_ClassifyMessage/romance_scam_-_gift_card (0.00s)
+    --- FAIL: TestProcessor_ClassifyMessage/spam_-_generic (0.00s)
+    --- PASS: TestProcessor_ClassifyMessage/spam_-_advertising (0.00s)
+    --- PASS: TestProcessor_ClassifyMessage/spam_-_no_clear_category (0.00s)
+=== RUN   TestProcessor_Process
+=== RUN   TestProcessor_Process/english_phishing_with_URL
+    processor_test.go:290: Process() category mismatch
+        Expected: phishing
+        Got:      spam
+=== RUN   TestProcessor_Process/spanish_phishing
+    processor_test.go:290: Process() category mismatch
+        Expected: phishing
+        Got:      spam
+=== RUN   TestProcessor_Process/BEC_no_URLs
+    processor_test.go:286: Process() language mismatch
+        Expected: en
+        Got:      es
+=== RUN   TestProcessor_Process/smishing_with_multiple_URLs
+    processor_test.go:286: Process() language mismatch
+        Expected: en
+        Got:      es
+--- FAIL: TestProcessor_Process (0.00s)
+    --- FAIL: TestProcessor_Process/english_phishing_with_URL (0.00s)
+    --- FAIL: TestProcessor_Process/spanish_phishing (0.00s)
+    --- FAIL: TestProcessor_Process/BEC_no_URLs (0.00s)
+    --- FAIL: TestProcessor_Process/smishing_with_multiple_URLs (0.00s)
+=== RUN   TestProcessor_ExtractKeywords
+=== RUN   TestProcessor_ExtractKeywords/phishing_with_repeated_keywords
+=== RUN   TestProcessor_ExtractKeywords/normal_message
+=== RUN   TestProcessor_ExtractKeywords/short_message
+=== RUN   TestProcessor_ExtractKeywords/spam_with_repeated_words
+--- PASS: TestProcessor_ExtractKeywords (0.00s)
+    --- PASS: TestProcessor_ExtractKeywords/phishing_with_repeated_keywords (0.00s)
+    --- PASS: TestProcessor_ExtractKeywords/normal_message (0.00s)
+    --- PASS: TestProcessor_ExtractKeywords/short_message (0.00s)
+    --- PASS: TestProcessor_ExtractKeywords/spam_with_repeated_words (0.00s)
+=== RUN   TestCountPatterns
+=== RUN   TestCountPatterns/all_patterns_match
+=== RUN   TestCountPatterns/some_patterns_match
+=== RUN   TestCountPatterns/no_patterns_match
+=== RUN   TestCountPatterns/case_insensitive
+    processor_test.go:409: countPatterns() failed
+        Content:  "Your ACCOUNT has been SUSPENDED"
+        Patterns: [account suspended]
+        Expected: 2
+        Got:      0
+=== RUN   TestCountPatterns/duplicate_patterns_in_content
+--- FAIL: TestCountPatterns (0.00s)
+    --- PASS: TestCountPatterns/all_patterns_match (0.00s)
+    --- PASS: TestCountPatterns/some_patterns_match (0.00s)
+    --- PASS: TestCountPatterns/no_patterns_match (0.00s)
+    --- FAIL: TestCountPatterns/case_insensitive (0.00s)
+    --- PASS: TestCountPatterns/duplicate_patterns_in_content (0.00s)
+=== RUN   TestProcessor_RealWorldScams
+=== RUN   TestProcessor_RealWorldScams/PayPal_phishing
+=== RUN   TestProcessor_RealWorldScams/Amazon_delivery_smishing
+    processor_test.go:524: DetectLanguage() failed
+        Content:  "Amazon: Your package delivery failed.\nTrack your order: http://amaz0n-track.com\nReply STOP to unsubscribe"
+        Expected: en
+        Got:      es
+=== RUN   TestProcessor_RealWorldScams/CEO_fraud_BEC
+=== RUN   TestProcessor_RealWorldScams/Microsoft_tech_support_scam
+    processor_test.go:524: DetectLanguage() failed
+        Content:  "Microsoft Security Alert\n\nYour computer has been infected with a virus.\nCall our tech support team immediately: 1-800-555-FAKE\n\nYour antivirus subscription has expired.\nRefund available."
+        Expected: en
+        Got:      es
+--- FAIL: TestProcessor_RealWorldScams (0.00s)
+    --- PASS: TestProcessor_RealWorldScams/PayPal_phishing (0.00s)
+    --- FAIL: TestProcessor_RealWorldScams/Amazon_delivery_smishing (0.00s)
+    --- PASS: TestProcessor_RealWorldScams/CEO_fraud_BEC (0.00s)
+    --- FAIL: TestProcessor_RealWorldScams/Microsoft_tech_support_scam (0.00s)
+FAIL
+coverage: 100.0% of statements
+FAIL	api.sting9.org/internal/service/processor	0.002s
+=== RUN   TestParser_Parse
+=== RUN   TestParser_Parse/simple_email
+=== RUN   TestParser_Parse/email_with_multiple_headers
+=== RUN   TestParser_Parse/phishing_email
+=== RUN   TestParser_Parse/email_with_no_body
+=== RUN   TestParser_Parse/email_with_extra_whitespace_in_headers
+=== RUN   TestParser_Parse/empty_email
+--- PASS: TestParser_Parse (0.00s)
+    --- PASS: TestParser_Parse/simple_email (0.00s)
+    --- PASS: TestParser_Parse/email_with_multiple_headers (0.00s)
+    --- PASS: TestParser_Parse/phishing_email (0.00s)
+    --- PASS: TestParser_Parse/email_with_no_body (0.00s)
+    --- PASS: TestParser_Parse/email_with_extra_whitespace_in_headers (0.00s)
+    --- PASS: TestParser_Parse/empty_email (0.00s)
+=== RUN   TestParser_ParseHeaders
+--- PASS: TestParser_ParseHeaders (0.00s)
+=== RUN   TestParser_ExtractPlainText
+=== RUN   TestParser_ExtractPlainText/simple_HTML
+=== RUN   TestParser_ExtractPlainText/HTML_with_br_tags
+=== RUN   TestParser_ExtractPlainText/HTML_with_paragraphs
+=== RUN   TestParser_ExtractPlainText/HTML_with_script_tags
+=== RUN   TestParser_ExtractPlainText/HTML_with_style_tags
+=== RUN   TestParser_ExtractPlainText/HTML_with_links
+=== RUN   TestParser_ExtractPlainText/complex_phishing_HTML
+    parser_test.go:257: ExtractPlainText() = "Security Alert\nYour account has been suspended.\n\n\n\n\nClick here to verify", want "Security Alert\nYour account has been suspended.\n\nClick here to verify"
+=== RUN   TestParser_ExtractPlainText/HTML_entities
+=== RUN   TestParser_ExtractPlainText/nested_tags
+=== RUN   TestParser_ExtractPlainText/plain_text_(no_HTML)
+=== RUN   TestParser_ExtractPlainText/empty_string
+=== RUN   TestParser_ExtractPlainText/whitespace_only
+--- FAIL: TestParser_ExtractPlainText (0.00s)
+    --- PASS: TestParser_ExtractPlainText/simple_HTML (0.00s)
+    --- PASS: TestParser_ExtractPlainText/HTML_with_br_tags (0.00s)
+    --- PASS: TestParser_ExtractPlainText/HTML_with_paragraphs (0.00s)
+    --- PASS: TestParser_ExtractPlainText/HTML_with_script_tags (0.00s)
+    --- PASS: TestParser_ExtractPlainText/HTML_with_style_tags (0.00s)
+    --- PASS: TestParser_ExtractPlainText/HTML_with_links (0.00s)
+    --- FAIL: TestParser_ExtractPlainText/complex_phishing_HTML (0.00s)
+    --- PASS: TestParser_ExtractPlainText/HTML_entities (0.00s)
+    --- PASS: TestParser_ExtractPlainText/nested_tags (0.00s)
+    --- PASS: TestParser_ExtractPlainText/plain_text_(no_HTML) (0.00s)
+    --- PASS: TestParser_ExtractPlainText/empty_string (0.00s)
+    --- PASS: TestParser_ExtractPlainText/whitespace_only (0.00s)
+=== RUN   TestRemoveTagContent
+=== RUN   TestRemoveTagContent/remove_script_tag
+=== RUN   TestRemoveTagContent/remove_style_tag
+=== RUN   TestRemoveTagContent/remove_multiple_script_tags
+=== RUN   TestRemoveTagContent/no_matching_tags
+=== RUN   TestRemoveTagContent/case_insensitive
+--- PASS: TestRemoveTagContent (0.00s)
+    --- PASS: TestRemoveTagContent/remove_script_tag (0.00s)
+    --- PASS: TestRemoveTagContent/remove_style_tag (0.00s)
+    --- PASS: TestRemoveTagContent/remove_multiple_script_tags (0.00s)
+    --- PASS: TestRemoveTagContent/no_matching_tags (0.00s)
+    --- PASS: TestRemoveTagContent/case_insensitive (0.00s)
+=== RUN   TestParser_RealWorldPhishing
+=== RUN   TestParser_RealWorldPhishing/PayPal_phishing
+=== RUN   TestParser_RealWorldPhishing/Bank_phishing_with_HTML
+=== RUN   TestParser_RealWorldPhishing/Package_delivery_scam
+--- PASS: TestParser_RealWorldPhishing (0.00s)
+    --- PASS: TestParser_RealWorldPhishing/PayPal_phishing (0.00s)
+    --- PASS: TestParser_RealWorldPhishing/Bank_phishing_with_HTML (0.00s)
+    --- PASS: TestParser_RealWorldPhishing/Package_delivery_scam (0.00s)
+=== RUN   TestParser_EdgeCases
+=== RUN   TestParser_EdgeCases/email_with_only_headers
+=== RUN   TestParser_EdgeCases/email_with_malformed_headers
+=== RUN   TestParser_EdgeCases/very_large_email
+=== RUN   TestParser_EdgeCases/HTML_with_XSS_attempt
+--- PASS: TestParser_EdgeCases (0.00s)
+    --- PASS: TestParser_EdgeCases/email_with_only_headers (0.00s)
+    --- PASS: TestParser_EdgeCases/email_with_malformed_headers (0.00s)
+    --- PASS: TestParser_EdgeCases/very_large_email (0.00s)
+    --- PASS: TestParser_EdgeCases/HTML_with_XSS_attempt (0.00s)
+FAIL
+coverage: 98.1% of statements
+FAIL	api.sting9.org/pkg/email	0.002s
+=== RUN   TestValidator_ValidateEmail
+=== RUN   TestValidator_ValidateEmail/simple_valid_email
+=== RUN   TestValidator_ValidateEmail/email_with_subdomain
+=== RUN   TestValidator_ValidateEmail/email_with_plus_sign
+=== RUN   TestValidator_ValidateEmail/email_with_dots
+=== RUN   TestValidator_ValidateEmail/email_with_numbers
+=== RUN   TestValidator_ValidateEmail/email_with_hyphen_in_domain
+=== RUN   TestValidator_ValidateEmail/empty_email
+=== RUN   TestValidator_ValidateEmail/missing_@_symbol
+=== RUN   TestValidator_ValidateEmail/missing_domain
+=== RUN   TestValidator_ValidateEmail/missing_username
+=== RUN   TestValidator_ValidateEmail/missing_TLD
+    validator_test.go:88: ValidateEmail("user@example") error = <nil>, expectError true
+=== RUN   TestValidator_ValidateEmail/multiple_@_symbols
+=== RUN   TestValidator_ValidateEmail/spaces_in_email
+--- FAIL: TestValidator_ValidateEmail (0.00s)
+    --- PASS: TestValidator_ValidateEmail/simple_valid_email (0.00s)
+    --- PASS: TestValidator_ValidateEmail/email_with_subdomain (0.00s)
+    --- PASS: TestValidator_ValidateEmail/email_with_plus_sign (0.00s)
+    --- PASS: TestValidator_ValidateEmail/email_with_dots (0.00s)
+    --- PASS: TestValidator_ValidateEmail/email_with_numbers (0.00s)
+    --- PASS: TestValidator_ValidateEmail/email_with_hyphen_in_domain (0.00s)
+    --- PASS: TestValidator_ValidateEmail/empty_email (0.00s)
+    --- PASS: TestValidator_ValidateEmail/missing_@_symbol (0.00s)
+    --- PASS: TestValidator_ValidateEmail/missing_domain (0.00s)
+    --- PASS: TestValidator_ValidateEmail/missing_username (0.00s)
+    --- FAIL: TestValidator_ValidateEmail/missing_TLD (0.00s)
+    --- PASS: TestValidator_ValidateEmail/multiple_@_symbols (0.00s)
+    --- PASS: TestValidator_ValidateEmail/spaces_in_email (0.00s)
+=== RUN   TestValidator_ValidatePassword
+=== RUN   TestValidator_ValidatePassword/valid_password_with_all_requirements
+=== RUN   TestValidator_ValidatePassword/valid_password_simple
+=== RUN   TestValidator_ValidatePassword/valid_password_longer
+=== RUN   TestValidator_ValidatePassword/too_short
+    validator_test.go:166: ValidatePassword("Test1") error message = "password must be at least 8 characters", want "at least 8 characters"
+=== RUN   TestValidator_ValidatePassword/no_number
+    validator_test.go:166: ValidatePassword("TestPassword") error message = "password must contain at least one number", want "at least one number"
+=== RUN   TestValidator_ValidatePassword/no_uppercase
+    validator_test.go:166: ValidatePassword("testpassword1") error message = "password must contain at least one uppercase letter", want "at least one uppercase"
+=== RUN   TestValidator_ValidatePassword/no_lowercase
+    validator_test.go:166: ValidatePassword("TESTPASSWORD1") error message = "password must contain at least one lowercase letter", want "at least one lowercase"
+=== RUN   TestValidator_ValidatePassword/only_numbers
+=== RUN   TestValidator_ValidatePassword/empty_password
+    validator_test.go:166: ValidatePassword("") error message = "password must be at least 8 characters", want "at least 8 characters"
+--- FAIL: TestValidator_ValidatePassword (0.00s)
+    --- PASS: TestValidator_ValidatePassword/valid_password_with_all_requirements (0.00s)
+    --- PASS: TestValidator_ValidatePassword/valid_password_simple (0.00s)
+    --- PASS: TestValidator_ValidatePassword/valid_password_longer (0.00s)
+    --- FAIL: TestValidator_ValidatePassword/too_short (0.00s)
+    --- FAIL: TestValidator_ValidatePassword/no_number (0.00s)
+    --- FAIL: TestValidator_ValidatePassword/no_uppercase (0.00s)
+    --- FAIL: TestValidator_ValidatePassword/no_lowercase (0.00s)
+    --- PASS: TestValidator_ValidatePassword/only_numbers (0.00s)
+    --- FAIL: TestValidator_ValidatePassword/empty_password (0.00s)
+=== RUN   TestValidator_ValidateSubmissionType
+=== RUN   TestValidator_ValidateSubmissionType/email_type
+=== RUN   TestValidator_ValidateSubmissionType/sms_type
+=== RUN   TestValidator_ValidateSubmissionType/whatsapp_type
+=== RUN   TestValidator_ValidateSubmissionType/telegram_type
+=== RUN   TestValidator_ValidateSubmissionType/signal_type
+=== RUN   TestValidator_ValidateSubmissionType/social_media_type
+=== RUN   TestValidator_ValidateSubmissionType/other_type
+=== RUN   TestValidator_ValidateSubmissionType/invalid_type
+=== RUN   TestValidator_ValidateSubmissionType/uppercase_type
+=== RUN   TestValidator_ValidateSubmissionType/empty_type
+=== RUN   TestValidator_ValidateSubmissionType/random_string
+--- PASS: TestValidator_ValidateSubmissionType (0.00s)
+    --- PASS: TestValidator_ValidateSubmissionType/email_type (0.00s)
+    --- PASS: TestValidator_ValidateSubmissionType/sms_type (0.00s)
+    --- PASS: TestValidator_ValidateSubmissionType/whatsapp_type (0.00s)
+    --- PASS: TestValidator_ValidateSubmissionType/telegram_type (0.00s)
+    --- PASS: TestValidator_ValidateSubmissionType/signal_type (0.00s)
+    --- PASS: TestValidator_ValidateSubmissionType/social_media_type (0.00s)
+    --- PASS: TestValidator_ValidateSubmissionType/other_type (0.00s)
+    --- PASS: TestValidator_ValidateSubmissionType/invalid_type (0.00s)
+    --- PASS: TestValidator_ValidateSubmissionType/uppercase_type (0.00s)
+    --- PASS: TestValidator_ValidateSubmissionType/empty_type (0.00s)
+    --- PASS: TestValidator_ValidateSubmissionType/random_string (0.00s)
+=== RUN   TestValidator_ValidateFileExtension
+=== RUN   TestValidator_ValidateFileExtension/valid_.txt_file
+=== RUN   TestValidator_ValidateFileExtension/valid_.pdf_file
+=== RUN   TestValidator_ValidateFileExtension/case_insensitive_extension
+=== RUN   TestValidator_ValidateFileExtension/filename_with_multiple_dots
+=== RUN   TestValidator_ValidateFileExtension/not_allowed_extension
+=== RUN   TestValidator_ValidateFileExtension/no_extension
+--- FAIL: TestValidator_ValidateFileExtension (0.00s)
+    --- PASS: TestValidator_ValidateFileExtension/valid_.txt_file (0.00s)
+    --- PASS: TestValidator_ValidateFileExtension/valid_.pdf_file (0.00s)
+    --- PASS: TestValidator_ValidateFileExtension/case_insensitive_extension (0.00s)
+    --- PASS: TestValidator_ValidateFileExtension/filename_with_multiple_dots (0.00s)
+    --- PASS: TestValidator_ValidateFileExtension/not_allowed_extension (0.00s)
+    --- FAIL: TestValidator_ValidateFileExtension/no_extension (0.00s)
+panic: runtime error: slice bounds out of range [-1:] [recovered, repanicked]
+
+goroutine 50 [running]:
+testing.tRunner.func1.2({0x5e2a40, 0xc000020498})
+	/usr/local/go/src/testing/testing.go:1872 +0x237
+testing.tRunner.func1()
+	/usr/local/go/src/testing/testing.go:1875 +0x35b
+panic({0x5e2a40?, 0xc000020498?})
+	/usr/local/go/src/runtime/panic.go:783 +0x132
+api.sting9.org/pkg/validator.(*Validator).ValidateFileExtension(0xf?, {0x5f5449, 0x8}, {0xc0000354f0, 0x1, 0x5520e0?})
+	/home/nls/projects/sting9/web/api.sting9.org/pkg/validator/validator.go:91 +0x1c5
+api.sting9.org/pkg/validator.TestValidator_ValidateFileExtension.func1(0xc00018d180)
+	/home/nls/projects/sting9/web/api.sting9.org/pkg/validator/validator_test.go:307 +0x3c
+testing.tRunner(0xc00018d180, 0xc0000ed270)
+	/usr/local/go/src/testing/testing.go:1934 +0xea
+created by testing.(*T).Run in goroutine 44
+	/usr/local/go/src/testing/testing.go:1997 +0x465
+FAIL	api.sting9.org/pkg/validator	0.004s
+FAIL
