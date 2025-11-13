@@ -1,0 +1,96 @@
+{
+  "id": "individuals",
+  "title": "Individuals Course",
+  "subtitle": "Protect Yourself and Your Family from Daily Digital Threats",
+  "description": "A comprehensive 2-hour course designed for everyday users to recognize and defend against phishing, smishing, romance scams, financial fraud, and other common digital threats.",
+  "duration": "~2 hours",
+  "target_audience": "General consumers, less tech-savvy users, anyone managing personal finances online",
+  "icon": "👤",
+  "difficulty": "beginner",
+  "chapters": [
+    {
+      "number": 1,
+      "slug": "understanding-threat-landscape",
+      "title": "Understanding the Threat Landscape",
+      "duration": "10 min",
+      "description": "Learn about the global scale of phishing and why everyone is a potential target"
+    },
+    {
+      "number": 2,
+      "slug": "email-phishing-scams",
+      "title": "Email Phishing Scams",
+      "duration": "10 min",
+      "description": "Identify common email phishing tactics and recognize red flags"
+    },
+    {
+      "number": 3,
+      "slug": "smishing-text-scams",
+      "title": "Smishing - Text Message Scams",
+      "duration": "10 min",
+      "description": "Understand SMS phishing threats and safe mobile messaging practices"
+    },
+    {
+      "number": 4,
+      "slug": "social-media-scams",
+      "title": "Social Media Scams",
+      "duration": "10 min",
+      "description": "Protect yourself on Facebook, Instagram, LinkedIn, and other platforms"
+    },
+    {
+      "number": 5,
+      "slug": "banking-financial-scams",
+      "title": "Banking and Financial Scams",
+      "duration": "10 min",
+      "description": "Recognize financial institution phishing and payment app vulnerabilities"
+    },
+    {
+      "number": 6,
+      "slug": "package-delivery-scams",
+      "title": "Package Delivery Scams",
+      "duration": "10 min",
+      "description": "Identify fake delivery notifications and track packages safely"
+    },
+    {
+      "number": 7,
+      "slug": "romance-scams",
+      "title": "Romance Scams",
+      "duration": "10 min",
+      "description": "Understand emotional manipulation tactics and protect yourself on dating platforms"
+    },
+    {
+      "number": 8,
+      "slug": "tax-irs-scams",
+      "title": "Tax and IRS Scams",
+      "duration": "10 min",
+      "description": "Recognize IRS impersonation and understand how tax agencies actually communicate"
+    },
+    {
+      "number": 9,
+      "slug": "cryptocurrency-investment-scams",
+      "title": "Cryptocurrency and Investment Scams",
+      "duration": "10 min",
+      "description": "Spot fraudulent investment schemes and cryptocurrency scams"
+    },
+    {
+      "number": 10,
+      "slug": "online-shopping-ecommerce-scams",
+      "title": "Online Shopping and E-Commerce Scams",
+      "duration": "10 min",
+      "description": "Identify fraudulent retailers and shop safely online"
+    },
+    {
+      "number": 11,
+      "slug": "psychological-manipulation",
+      "title": "Recognizing Psychological Manipulation",
+      "duration": "10 min",
+      "description": "Understand how scammers exploit human emotions and build mental defenses"
+    },
+    {
+      "number": 12,
+      "slug": "what-to-do-if-compromised",
+      "title": "What To Do If Targeted or Compromised",
+      "duration": "10 min",
+      "description": "Learn immediate response steps and recovery procedures"
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "id": "professionals",
+  "title": "Professionals Course",
+  "subtitle": "Defend Your Organization from Sophisticated Business Attacks",
+  "description": "An advanced 2-hour course for business professionals covering BEC, CEO fraud, wire transfer fraud, supply chain attacks, deepfakes, and building security-conscious organizations.",
+  "duration": "~2 hours",
+  "target_audience": "Business professionals, executives, managers, IT/security teams, HR and finance departments",
+  "icon": "💼",
+  "difficulty": "intermediate",
+  "chapters": [
+    {
+      "number": 1,
+      "slug": "bec-landscape",
+      "title": "Business Email Compromise Landscape",
+      "duration": "10 min",
+      "description": "Understand the scale and sophistication of BEC attacks"
+    },
+    {
+      "number": 2,
+      "slug": "ceo-fraud-whaling",
+      "title": "CEO Fraud and Whaling Attacks",
+      "duration": "10 min",
+      "description": "Recognize executive impersonation tactics and implement verification procedures"
+    },
+    {
+      "number": 3,
+      "slug": "wire-transfer-invoice-fraud",
+      "title": "Wire Transfer and Invoice Fraud",
+      "duration": "10 min",
+      "description": "Understand wire fraud mechanisms and payment verification procedures"
+    },
+    {
+      "number": 4,
+      "slug": "vendor-email-compromise",
+      "title": "Vendor Email Compromise (VEC)",
+      "duration": "10 min",
+      "description": "Recognize supply chain vulnerabilities and vendor security protocols"
+    },
+    {
+      "number": 5,
+      "slug": "payroll-diversion-scams",
+      "title": "Payroll Diversion Scams",
+      "duration": "10 min",
+      "description": "Understand payroll attacks and implement security controls"
+    },
+    {
+      "number": 6,
+      "slug": "m365-google-workspace-attacks",
+      "title": "Microsoft 365 / Google Workspace Attacks",
+      "duration": "10 min",
+      "description": "Recognize cloud platform threats and implement security controls"
+    },
+    {
+      "number": 7,
+      "slug": "supply-chain-third-party-risks",
+      "title": "Supply Chain and Third-Party Risks",
+      "duration": "10 min",
+      "description": "Assess third-party security risks and vendor management"
+    },
+    {
+      "number": 8,
+      "slug": "advanced-persistent-threats",
+      "title": "Advanced Persistent Threats (APTs)",
+      "duration": "10 min",
+      "description": "Understand APT tactics and implement defenses"
+    },
+    {
+      "number": 9,
+      "slug": "deepfakes-ai-enhanced-attacks",
+      "title": "Deepfakes and AI-Enhanced Attacks",
+      "duration": "10 min",
+      "description": "Recognize AI-powered phishing and verification procedures"
+    },
+    {
+      "number": 10,
+      "slug": "incident-response-policies",
+      "title": "Incident Response and Corporate Policies",
+      "duration": "10 min",
+      "description": "Develop comprehensive response plans and security policies"
+    },
+    {
+      "number": 11,
+      "slug": "security-awareness-training",
+      "title": "Security Awareness Training Programs",
+      "duration": "10 min",
+      "description": "Design effective training programs and measure effectiveness"
+    },
+    {
+      "number": 12,
+      "slug": "building-security-culture",
+      "title": "Building a Security-Conscious Organization",
+      "duration": "10 min",
+      "description": "Create security culture and continuous improvement programs"
+    }
+  ]
+}
