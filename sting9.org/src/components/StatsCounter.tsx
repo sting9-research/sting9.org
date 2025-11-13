@@ -82,10 +82,10 @@ export default function StatsCounter() {
             </div>
             <div className="w-full bg-slate-200 rounded-full h-4 overflow-hidden">
               <div
-                className="bg-gradient-to-r from-emerald-500 to-emerald-600 h-4 rounded-full transition-all duration-1000 ease-out relative overflow-hidden"
+                className="bg-linear-to-r from-emerald-500 to-emerald-600 h-4 rounded-full transition-all duration-1000 ease-out relative overflow-hidden"
                 style={{ width: '0.55%' }}
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"></div>
+                <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/30 to-transparent animate-shimmer"></div>
               </div>
             </div>
             <p className="text-sm text-slate-500 mt-3 text-center">
