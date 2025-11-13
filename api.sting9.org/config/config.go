@@ -71,26 +71,26 @@ func Load() (*Config, error) {
 	cfg.Server.Environment = getEnv("ENVIRONMENT", "development")
 
 	// Database configuration
-	dbPort, err := strconv.Atoi(getEnv("DB_PORT", "5432"))
+	dbPort, err := strconv.Atoi(getEnv("DATABASE_PORT", "5432"))
 	if err != nil {
-		return nil, fmt.Errorf("invalid DB_PORT: %w", err)
+		return nil, fmt.Errorf("invalid DATABASE_PORT: %w", err)
 	}
-	maxConns, err := strconv.Atoi(getEnv("DB_MAX_CONNS", "25"))
+	maxConns, err := strconv.Atoi(getEnv("DATABASE_MAX_CONNS", "25"))
 	if err != nil {
-		return nil, fmt.Errorf("invalid DB_MAX_CONNS: %w", err)
+		return nil, fmt.Errorf("invalid DATABASE_MAX_CONNS: %w", err)
 	}
-	minConns, err := strconv.Atoi(getEnv("DB_MIN_CONNS", "5"))
+	minConns, err := strconv.Atoi(getEnv("DATABASE_MIN_CONNS", "5"))
 	if err != nil {
-		return nil, fmt.Errorf("invalid DB_MIN_CONNS: %w", err)
+		return nil, fmt.Errorf("invalid DATABASE_MIN_CONNS: %w", err)
 	}
 
 	cfg.Database = DatabaseConfig{
-		Host:     getEnv("DB_HOST", "localhost"),
+		Host:     getEnv("DATABASE_HOST", "localhost"),
 		Port:     dbPort,
-		User:     getEnv("DB_USER", "sting9"),
-		Password: getEnv("DB_PASSWORD", ""),
-		DBName:   getEnv("DB_NAME", "sting9"),
-		SSLMode:  getEnv("DB_SSL_MODE", "disable"),
+		User:     getEnv("DATABASE_USERNAME", "sting9"),
+		Password: getEnv("DATABASE_PASSWORD", ""),
+		DBName:   getEnv("DATABASE_PATH", "sting9"),
+		SSLMode:  getEnv("DATABASE_SSL_MODE", "disable"),
 		MaxConns: int32(maxConns),
 		MinConns: int32(minConns),
 	}
