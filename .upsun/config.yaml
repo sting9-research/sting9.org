@@ -1,0 +1,84 @@
+applications:
+  react:
+    type: nodejs:24
+    dependencies: 
+      nodejs:
+        "pnpm": "*"
+    source:
+      root: "sting9.org"
+    hooks:
+      build: |
+        set -eux
+        pnpm install
+        pnpm build
+    web:
+      commands:
+        start: pnpm run start
+      locations:
+        "/dist":
+          passthru: true
+          allow: false
+  api:
+    source:
+      root: "api.sting9.org"
+
+    type: 'golang:1.25'
+
+    hooks:
+      build: |
+        set -e
+        # Download dependencies
+        go mod download
+
+        # Install golang-migrate for database migrations
+        go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+
+        # Build the application
+        go build -o bin/api cmd/api/main.go
+
+      deploy: |
+        set -e
+        # Run migrations
+        make migrate-up
+
+    web:
+      commands:
+        start: ./bin/api
+      locations:
+        /:
+          passthru: true
+          allow: false
+
+    relationships:
+      database: 'db:postgresql'
+
+    variables:
+      env:
+        ENVIRONMENT: 'production'
+        LOG_LEVEL: 'info'
+
+services:
+  db:
+    type: postgresql:17
+
+# Routes - Define how requests are routed to applications
+routes:
+  # Primary domain
+  "https://{default}/":
+    type: upstream
+    upstream: "react:http"
+    cache:
+      enabled: true
+      # Cache based on URI and query parameters
+      cookies: ["*"]
+      default_ttl: 300
+      # Don't cache these paths
+      headers: ["Accept", "Accept-Language"]
+  "https://api.{default}/":
+    type: upstream
+    upstream: "api:http"
+    cache:
+      enabled: true
+      cookies: ["*"]
+      default_ttl: 300
+      headers: ["Accept", "Accept-Language"]
