@@ -34,14 +34,18 @@ const (
 
 // SubmissionMetadata holds additional information about the submission
 type SubmissionMetadata struct {
-	Subject     string            `json:"subject,omitempty"`
-	From        string            `json:"from,omitempty"`
-	To          string            `json:"to,omitempty"`
-	Date        string            `json:"date,omitempty"`
-	Headers     map[string]string `json:"headers,omitempty"`
-	URLs        []string          `json:"urls,omitempty"`
-	Attachments []string          `json:"attachments,omitempty"`
-	PhoneNumber string            `json:"phone_number,omitempty"`
+	Subject        string            `json:"subject,omitempty"`
+	From           string            `json:"from,omitempty"`
+	To             string            `json:"to,omitempty"`
+	Date           string            `json:"date,omitempty"`
+	Headers        map[string]string `json:"headers,omitempty"`
+	URLs           []string          `json:"urls,omitempty"`
+	Attachments    []string          `json:"attachments,omitempty"`
+	PhoneNumber    string            `json:"phone_number,omitempty"`
+	Brand          string            `json:"brand,omitempty"`           // Impersonated brand (e.g., "Costco", "UPS")
+	SenderType     string            `json:"sender_type,omitempty"`     // "phone", "shortcode", etc.
+	OriginalSender string            `json:"original_sender,omitempty"` // Sender before anonymization
+	Indicators     []string          `json:"indicators,omitempty"`      // ["url", "phone", "email"]
 }
 
 // CreateSubmissionRequest represents the request to create a new submission
