@@ -76,6 +76,28 @@ export default function Hero() {
             </a>
           </div>
 
+          {/* Email forwarding alert */}
+          <div className="max-w-2xl mx-auto mb-6 mt-8">
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 flex items-start gap-3">
+              <Mail className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+              <div className="text-left">
+                <p className="text-sm text-blue-900 font-medium mb-1">
+                  Quick submission via email forwarding
+                </p>
+                <p className="text-sm text-blue-800">
+                  Simply forward suspicious emails to{' '}
+                  <a
+                    href="mailto:submit@sting9.org"
+                    className="font-semibold underline hover:text-blue-600 transition-colors"
+                  >
+                    submit@sting9.org
+                  </a>
+                  {' '}and we'll automatically process them.
+                </p>
+              </div>
+            </div>
+          </div>
+
           {/* Privacy note */}
           <p className="text-sm text-slate-500">
             <Shield className="w-4 h-4 inline-block mr-1" />

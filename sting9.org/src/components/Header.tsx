@@ -35,7 +35,10 @@ export default function Header() {
                 alt="Sting9 Logo"
                 className="w-10 h-10 object-contain"
               />
-              <div className="text-2xl font-bold text-slate-900">Sting9 Research Initiative</div>
+              <div className="text-2xl font-bold text-slate-900">
+                <span className="lg:hidden">Sting9</span>
+                <span className="hidden lg:inline">Sting9 Research Initiative</span>
+              </div>
             </Link>
 
             {/* Desktop Navigation */}
