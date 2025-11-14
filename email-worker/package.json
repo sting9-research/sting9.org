@@ -1,0 +1,37 @@
+{
+  "name": "sting9-email-worker",
+  "version": "1.0.0",
+  "description": "Cloudflare Email Worker for receiving and processing phishing email submissions",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "vitest",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "eslint src --ext .ts"
+  },
+  "keywords": [
+    "cloudflare",
+    "workers",
+    "email",
+    "phishing",
+    "sting9"
+  ],
+  "author": "Sting9 Research Initiative",
+  "license": "MIT",
+  "dependencies": {
+    "postal-mime": "^2.3.2"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241127.0",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.2",
+    "wrangler": "^3.22.4"
+  }
+}

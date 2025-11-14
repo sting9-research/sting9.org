@@ -1,0 +1,33 @@
+From: jane.smith@company.com
+To: submit@sting9.org
+Subject: FW: Package Delivery Failed - Action Required
+Date: Tue, 15 Jan 2025 14:22:00 +0000
+Content-Type: text/plain; charset="UTF-8"
+
+Begin forwarded message:
+
+From: UPS Delivery <delivery@ups-tracking-center.com>
+Date: January 15, 2025 at 2:05:15 PM GMT
+Subject: Package Delivery Failed - Action Required
+To: jane.smith@company.com
+
+UPS Tracking Number: 1Z9999999999999999
+
+DELIVERY ATTEMPT FAILED
+
+We attempted to deliver your package but no one was available to receive it.
+
+Package Details:
+Tracking: 1Z9999999999999999
+Sender: Amazon
+Delivery Address: 123 Main Street
+Status: FAILED - Action Required
+
+To reschedule delivery, please update your delivery preferences:
+http://ups-redelivery.suspicious-site.com/reschedule?id=1Z9999999999999999
+
+Your package will be returned to sender if no action is taken within 48 hours.
+
+Update Delivery Preferences: http://ups-redelivery.suspicious-site.com/preferences
+
+UPS Customer Service

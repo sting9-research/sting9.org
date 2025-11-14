@@ -1,0 +1,21 @@
+name = "sting9-email-worker"
+main = "src/index.ts"
+compatibility_date = "2024-01-14"
+
+# Email Worker configuration
+[email]
+name = "EMAIL"
+
+# Environment variables
+[vars]
+API_BASE_URL = "https://api.sting9.org"
+MAX_EMAIL_SIZE_MB = "10"
+RATE_LIMIT_PER_HOUR = "10"
+
+# Production environment
+[env.production]
+vars = { API_BASE_URL = "https://api.sting9.org" }
+
+# Staging environment
+[env.staging]
+vars = { API_BASE_URL = "https://staging-api.sting9.org" }

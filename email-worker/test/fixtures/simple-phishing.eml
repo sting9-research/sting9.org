@@ -1,0 +1,23 @@
+From: Apple Support <support@apple-id-verify.com>
+To: user@example.com
+Subject: Your Apple ID has been locked
+Date: Wed, 16 Jan 2025 08:15:00 -0800
+Content-Type: text/html; charset="UTF-8"
+
+<!DOCTYPE html>
+<html>
+<body>
+<p>Dear Apple Customer,</p>
+
+<p>Your Apple ID has been locked due to suspicious activity detected on your account.</p>
+
+<p>To unlock your account, please verify your identity:</p>
+
+<p><a href="https://appleid-unlock.phishing-site.com/verify">Verify Your Apple ID</a></p>
+
+<p>If you do not verify within 24 hours, your account will be permanently disabled and all data will be lost.</p>
+
+<p>Best regards,<br>
+Apple Security Team</p>
+</body>
+</html>

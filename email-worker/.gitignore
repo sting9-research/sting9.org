@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+.worker-next/
+.wrangler/
+
+# Environment files
+.env
+.env.local
+.dev.vars
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Test outputs
+coverage/
+.nyc_output/
+
+# Wrangler
+.wrangler/
+worker/
+
+# Temporary files
+*.tmp
+.cache/
