@@ -111,6 +111,9 @@ The API will be available at `http://localhost:8080`
 #### Statistics
 - `GET /api/v1/stats` - Get dataset statistics
 
+#### Leaderboard
+- `GET /api/v1/leaderboard` - Get top 50 submitters by submission count
+
 ### Protected Endpoints (Requires JWT)
 
 #### Submissions
@@ -143,9 +146,12 @@ curl -X POST http://localhost:8080/api/v1/submissions \
     "metadata": {
       "subject": "Urgent: Account Verification Required",
       "from": "noreply@fake-bank.com"
-    }
+    },
+    "submitter_email": "contributor@example.com"
   }'
 ```
+
+**Note:** The `submitter_email` field is optional but recommended if you want to appear on the leaderboard and track your contributions to the dataset.
 
 ### Register as Researcher
 
@@ -193,6 +199,31 @@ Response:
 curl http://localhost:8080/api/v1/stats
 ```
 
+### Get Leaderboard
+
+View the top 50 contributors by number of submissions:
+
+```bash
+curl http://localhost:8080/api/v1/leaderboard
+```
+
+Response:
+```json
+{
+  "leaderboard": [
+    {
+      "email": "top-contributor@example.com",
+      "submission_count": 1523
+    },
+    {
+      "email": "researcher@university.edu",
+      "submission_count": 847
+    }
+  ],
+  "updated_at": "2025-11-15T10:30:00Z"
+}
+```
+
 ### Export Dataset (Authenticated)
 
 ```bash
@@ -208,6 +239,7 @@ curl -X GET "http://localhost:8080/api/v1/export?format=json&page=1&page_size=10
 - Automatic PII redaction
 - Classification and language detection
 - Metadata extraction (URLs, headers, etc.)
+- Optional submitter email for leaderboard tracking
 
 ### Users
 - Email/password authentication

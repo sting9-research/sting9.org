@@ -1,8 +1,8 @@
 -- name: CreateSubmission :one
 INSERT INTO submissions (
-    type, raw_content, anonymized_content, metadata, language, category, status, submitter_ip, user_agent
+    type, raw_content, anonymized_content, metadata, language, category, status, submitter_ip, user_agent, submitter_email
 ) VALUES (
-    $1, $2, $3, $4, $5, $6, $7, $8, $9
+    $1, $2, $3, $4, $5, $6, $7, $8, $9, $10
 )
 RETURNING *;
 
@@ -65,3 +65,15 @@ SELECT COUNT(*) FROM submissions WHERE type = $1 AND deleted_at IS NULL;
 
 -- name: CountSubmissionsByCategory :one
 SELECT COUNT(*) FROM submissions WHERE category = $1 AND deleted_at IS NULL;
+
+-- name: GetLeaderboard :many
+SELECT
+    submitter_email,
+    COUNT(*) as submission_count
+FROM submissions
+WHERE deleted_at IS NULL
+    AND submitter_email IS NOT NULL
+    AND submitter_email != ''
+GROUP BY submitter_email
+ORDER BY submission_count DESC
+LIMIT 50;

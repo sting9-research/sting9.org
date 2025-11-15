@@ -67,6 +67,14 @@ func (h *SubmissionHandler) CreateSubmission(w http.ResponseWriter, r *http.Requ
 		return
 	}
 
+	// Validate email if provided (optional field)
+	if req.SubmitterEmail != "" {
+		if err := h.validator.ValidateEmail(req.SubmitterEmail); err != nil {
+			respondError(w, http.StatusBadRequest, err.Error())
+			return
+		}
+	}
+
 	// Sanitize content
 	sanitizedContent := h.validator.SanitizeString(req.Content)
 
@@ -94,11 +102,17 @@ func (h *SubmissionHandler) CreateSubmission(w http.ResponseWriter, r *http.Requ
 	ipAddress := getIPAddress(r)
 	userAgent := r.UserAgent()
 
+	// Prepare email value (can be nil)
+	var submitterEmail *string
+	if req.SubmitterEmail != "" {
+		submitterEmail = &req.SubmitterEmail
+	}
+
 	// Insert into database
 	query := `
-		INSERT INTO submissions (type, raw_content, anonymized_content, metadata, language, category, status, submitter_ip, user_agent)
-		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-		RETURNING id, type, anonymized_content, metadata, language, category, status, created_at, processed_at
+		INSERT INTO submissions (type, raw_content, anonymized_content, metadata, language, category, status, submitter_ip, user_agent, submitter_email)
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+		RETURNING id, type, anonymized_content, metadata, language, category, status, submitter_email, created_at, processed_at
 	`
 
 	var response models.SubmissionResponse
@@ -114,6 +128,7 @@ func (h *SubmissionHandler) CreateSubmission(w http.ResponseWriter, r *http.Requ
 		models.SubmissionStatusProcessed,
 		ipAddress,
 		userAgent,
+		submitterEmail,
 	).Scan(
 		&response.ID,
 		&response.Type,
@@ -122,6 +137,7 @@ func (h *SubmissionHandler) CreateSubmission(w http.ResponseWriter, r *http.Requ
 		&response.Language,
 		&response.Category,
 		&response.Status,
+		&response.SubmitterEmail,
 		&response.CreatedAt,
 		&response.ProcessedAt,
 	)
@@ -165,7 +181,7 @@ func (h *SubmissionHandler) GetSubmission(w http.ResponseWriter, r *http.Request
 	}
 
 	query := `
-		SELECT id, type, anonymized_content, metadata, language, category, status, created_at, processed_at
+		SELECT id, type, anonymized_content, metadata, language, category, status, submitter_email, created_at, processed_at
 		FROM submissions
 		WHERE id = $1 AND deleted_at IS NULL
 	`
@@ -181,6 +197,7 @@ func (h *SubmissionHandler) GetSubmission(w http.ResponseWriter, r *http.Request
 		&response.Language,
 		&response.Category,
 		&response.Status,
+		&response.SubmitterEmail,
 		&response.CreatedAt,
 		&response.ProcessedAt,
 	)
@@ -234,7 +251,7 @@ func (h *SubmissionHandler) ListSubmissions(w http.ResponseWriter, r *http.Reque
 
 	// Get submissions
 	query := `
-		SELECT id, type, anonymized_content, metadata, language, category, status, created_at, processed_at
+		SELECT id, type, anonymized_content, metadata, language, category, status, submitter_email, created_at, processed_at
 		FROM submissions
 		WHERE deleted_at IS NULL
 		ORDER BY created_at DESC
@@ -262,6 +279,7 @@ func (h *SubmissionHandler) ListSubmissions(w http.ResponseWriter, r *http.Reque
 			&submission.Language,
 			&submission.Category,
 			&submission.Status,
+			&submission.SubmitterEmail,
 			&submission.CreatedAt,
 			&submission.ProcessedAt,
 		)
@@ -376,4 +394,59 @@ func respondJSON(w http.ResponseWriter, status int, data interface{}) {
 
 func respondError(w http.ResponseWriter, status int, message string) {
 	respondJSON(w, status, models.NewErrorResponse(status, message))
+}
+
+// GetLeaderboard godoc
+// @Summary Get submission leaderboard
+// @Description Get the top 50 submitters by submission count
+// @Tags submissions
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.LeaderboardResponse
+// @Failure 500 {object} models.ErrorResponse
+// @Router /leaderboard [get]
+func (h *SubmissionHandler) GetLeaderboard(w http.ResponseWriter, r *http.Request) {
+	query := `
+		SELECT
+			submitter_email,
+			COUNT(*) as submission_count
+		FROM submissions
+		WHERE deleted_at IS NULL
+			AND submitter_email IS NOT NULL
+			AND submitter_email != ''
+		GROUP BY submitter_email
+		ORDER BY submission_count DESC
+		LIMIT 50
+	`
+
+	rows, err := h.db.Query(r.Context(), query)
+	if err != nil {
+		h.logger.Error("Failed to get leaderboard", slog.Any("error", err))
+		respondError(w, http.StatusInternalServerError, "Failed to retrieve leaderboard")
+		return
+	}
+	defer rows.Close()
+
+	var leaderboard []models.LeaderboardEntry
+	for rows.Next() {
+		var entry models.LeaderboardEntry
+		err := rows.Scan(&entry.Email, &entry.SubmissionCount)
+		if err != nil {
+			h.logger.Error("Failed to scan leaderboard entry", slog.Any("error", err))
+			continue
+		}
+		leaderboard = append(leaderboard, entry)
+	}
+
+	// Handle empty leaderboard
+	if leaderboard == nil {
+		leaderboard = []models.LeaderboardEntry{}
+	}
+
+	response := models.LeaderboardResponse{
+		Leaderboard: leaderboard,
+		UpdatedAt:   time.Now(),
+	}
+
+	respondJSON(w, http.StatusOK, response)
 }

@@ -50,9 +50,10 @@ type SubmissionMetadata struct {
 
 // CreateSubmissionRequest represents the request to create a new submission
 type CreateSubmissionRequest struct {
-	Type     SubmissionType     `json:"type" validate:"required,oneof=email sms whatsapp telegram signal social_media other"`
-	Content  string             `json:"content" validate:"required,min=10"`
-	Metadata SubmissionMetadata `json:"metadata,omitempty"`
+	Type            SubmissionType     `json:"type" validate:"required,oneof=email sms whatsapp telegram signal social_media other"`
+	Content         string             `json:"content" validate:"required,min=10"`
+	Metadata        SubmissionMetadata `json:"metadata,omitempty"`
+	SubmitterEmail  string             `json:"submitter_email,omitempty" validate:"omitempty,email"`
 }
 
 // BulkSubmissionRequest represents a bulk submission request
@@ -70,6 +71,7 @@ type SubmissionResponse struct {
 	Language           *string            `json:"language,omitempty"`
 	Category           *string            `json:"category,omitempty"`
 	Status             SubmissionStatus   `json:"status"`
+	SubmitterEmail     *string            `json:"submitter_email,omitempty"`
 	CreatedAt          time.Time          `json:"created_at"`
 	ProcessedAt        *time.Time         `json:"processed_at,omitempty"`
 }
@@ -96,4 +98,16 @@ func ParseMetadata(jsonbData json.RawMessage) (SubmissionMetadata, error) {
 // ToJSON converts SubmissionMetadata to JSON bytes
 func (m SubmissionMetadata) ToJSON() ([]byte, error) {
 	return json.Marshal(m)
+}
+
+// LeaderboardEntry represents a single entry in the leaderboard
+type LeaderboardEntry struct {
+	Email            string `json:"email"`
+	SubmissionCount  int64  `json:"submission_count"`
+}
+
+// LeaderboardResponse represents the leaderboard response
+type LeaderboardResponse struct {
+	Leaderboard []LeaderboardEntry `json:"leaderboard"`
+	UpdatedAt   time.Time          `json:"updated_at"`
 }

@@ -119,6 +119,9 @@ func main() {
 
 			// Public statistics
 			r.Get("/stats", statsHandler.GetStatistics)
+
+			// Public leaderboard
+			r.Get("/leaderboard", submissionHandler.GetLeaderboard)
 		})
 
 		// Protected routes (requires authentication)
