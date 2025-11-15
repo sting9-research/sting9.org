@@ -190,6 +190,8 @@ type Submission struct {
 	DeletedAt         pgtype.Timestamptz   `json:"deleted_at"`
 	// Email address of the person submitting the phishing/smishing content
 	SubmitterEmail *string `json:"submitter_email"`
+	// Public display name for leaderboard - optional, shown instead of email for privacy
+	SubmitterNickname *string `json:"submitter_nickname"`
 }
 
 type User struct {

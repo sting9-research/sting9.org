@@ -75,6 +75,18 @@ func (h *SubmissionHandler) CreateSubmission(w http.ResponseWriter, r *http.Requ
 		}
 	}
 
+	// Validate nickname if provided (optional field)
+	if req.SubmitterNickname != "" {
+		if len(req.SubmitterNickname) < 2 {
+			respondError(w, http.StatusBadRequest, "Nickname must be at least 2 characters")
+			return
+		}
+		if len(req.SubmitterNickname) > 50 {
+			respondError(w, http.StatusBadRequest, "Nickname must be less than 50 characters")
+			return
+		}
+	}
+
 	// Sanitize content
 	sanitizedContent := h.validator.SanitizeString(req.Content)
 
@@ -108,11 +120,18 @@ func (h *SubmissionHandler) CreateSubmission(w http.ResponseWriter, r *http.Requ
 		submitterEmail = &req.SubmitterEmail
 	}
 
+	// Prepare nickname value (can be nil)
+	var submitterNickname *string
+	if req.SubmitterNickname != "" {
+		nickname := h.validator.SanitizeString(req.SubmitterNickname)
+		submitterNickname = &nickname
+	}
+
 	// Insert into database
 	query := `
-		INSERT INTO submissions (type, raw_content, anonymized_content, metadata, language, category, status, submitter_ip, user_agent, submitter_email)
-		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-		RETURNING id, type, anonymized_content, metadata, language, category, status, submitter_email, created_at, processed_at
+		INSERT INTO submissions (type, raw_content, anonymized_content, metadata, language, category, status, submitter_ip, user_agent, submitter_email, submitter_nickname)
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+		RETURNING id, type, anonymized_content, metadata, language, category, status, submitter_email, submitter_nickname, created_at, processed_at
 	`
 
 	var response models.SubmissionResponse
@@ -129,6 +148,7 @@ func (h *SubmissionHandler) CreateSubmission(w http.ResponseWriter, r *http.Requ
 		ipAddress,
 		userAgent,
 		submitterEmail,
+		submitterNickname,
 	).Scan(
 		&response.ID,
 		&response.Type,
@@ -138,6 +158,7 @@ func (h *SubmissionHandler) CreateSubmission(w http.ResponseWriter, r *http.Requ
 		&response.Category,
 		&response.Status,
 		&response.SubmitterEmail,
+		&response.SubmitterNickname,
 		&response.CreatedAt,
 		&response.ProcessedAt,
 	)
@@ -181,7 +202,7 @@ func (h *SubmissionHandler) GetSubmission(w http.ResponseWriter, r *http.Request
 	}
 
 	query := `
-		SELECT id, type, anonymized_content, metadata, language, category, status, submitter_email, created_at, processed_at
+		SELECT id, type, anonymized_content, metadata, language, category, status, submitter_email, submitter_nickname, created_at, processed_at
 		FROM submissions
 		WHERE id = $1 AND deleted_at IS NULL
 	`
@@ -198,6 +219,7 @@ func (h *SubmissionHandler) GetSubmission(w http.ResponseWriter, r *http.Request
 		&response.Category,
 		&response.Status,
 		&response.SubmitterEmail,
+		&response.SubmitterNickname,
 		&response.CreatedAt,
 		&response.ProcessedAt,
 	)
@@ -251,7 +273,7 @@ func (h *SubmissionHandler) ListSubmissions(w http.ResponseWriter, r *http.Reque
 
 	// Get submissions
 	query := `
-		SELECT id, type, anonymized_content, metadata, language, category, status, submitter_email, created_at, processed_at
+		SELECT id, type, anonymized_content, metadata, language, category, status, submitter_email, submitter_nickname, created_at, processed_at
 		FROM submissions
 		WHERE deleted_at IS NULL
 		ORDER BY created_at DESC
@@ -280,6 +302,7 @@ func (h *SubmissionHandler) ListSubmissions(w http.ResponseWriter, r *http.Reque
 			&submission.Category,
 			&submission.Status,
 			&submission.SubmitterEmail,
+			&submission.SubmitterNickname,
 			&submission.CreatedAt,
 			&submission.ProcessedAt,
 		)
@@ -408,13 +431,13 @@ func respondError(w http.ResponseWriter, status int, message string) {
 func (h *SubmissionHandler) GetLeaderboard(w http.ResponseWriter, r *http.Request) {
 	query := `
 		SELECT
-			submitter_email,
+			submitter_nickname,
 			COUNT(*) as submission_count
 		FROM submissions
 		WHERE deleted_at IS NULL
-			AND submitter_email IS NOT NULL
-			AND submitter_email != ''
-		GROUP BY submitter_email
+			AND submitter_nickname IS NOT NULL
+			AND submitter_nickname != ''
+		GROUP BY submitter_nickname
 		ORDER BY submission_count DESC
 		LIMIT 50
 	`
@@ -430,7 +453,7 @@ func (h *SubmissionHandler) GetLeaderboard(w http.ResponseWriter, r *http.Reques
 	var leaderboard []models.LeaderboardEntry
 	for rows.Next() {
 		var entry models.LeaderboardEntry
-		err := rows.Scan(&entry.Email, &entry.SubmissionCount)
+		err := rows.Scan(&entry.Nickname, &entry.SubmissionCount)
 		if err != nil {
 			h.logger.Error("Failed to scan leaderboard entry", slog.Any("error", err))
 			continue

@@ -47,11 +47,11 @@ func (q *Queries) CountSubmissionsByType(ctx context.Context, type_ SubmissionTy
 
 const createSubmission = `-- name: CreateSubmission :one
 INSERT INTO submissions (
-    type, raw_content, anonymized_content, metadata, language, category, status, submitter_ip, user_agent, submitter_email
+    type, raw_content, anonymized_content, metadata, language, category, status, submitter_ip, user_agent, submitter_email, submitter_nickname
 ) VALUES (
-    $1, $2, $3, $4, $5, $6, $7, $8, $9, $10
+    $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11
 )
-RETURNING id, type, raw_content, anonymized_content, metadata, language, category, status, submitter_ip, user_agent, created_at, processed_at, updated_at, deleted_at, submitter_email
+RETURNING id, type, raw_content, anonymized_content, metadata, language, category, status, submitter_ip, user_agent, created_at, processed_at, updated_at, deleted_at, submitter_email, submitter_nickname
 `
 
 type CreateSubmissionParams struct {
@@ -65,6 +65,7 @@ type CreateSubmissionParams struct {
 	SubmitterIp       *string              `json:"submitter_ip"`
 	UserAgent         *string              `json:"user_agent"`
 	SubmitterEmail    *string              `json:"submitter_email"`
+	SubmitterNickname *string              `json:"submitter_nickname"`
 }
 
 func (q *Queries) CreateSubmission(ctx context.Context, arg CreateSubmissionParams) (Submission, error) {
@@ -79,6 +80,7 @@ func (q *Queries) CreateSubmission(ctx context.Context, arg CreateSubmissionPara
 		arg.SubmitterIp,
 		arg.UserAgent,
 		arg.SubmitterEmail,
+		arg.SubmitterNickname,
 	)
 	var i Submission
 	err := row.Scan(
@@ -97,6 +99,7 @@ func (q *Queries) CreateSubmission(ctx context.Context, arg CreateSubmissionPara
 		&i.UpdatedAt,
 		&i.DeletedAt,
 		&i.SubmitterEmail,
+		&i.SubmitterNickname,
 	)
 	return i, err
 }
@@ -114,20 +117,20 @@ func (q *Queries) DeleteSubmission(ctx context.Context, id uuid.UUID) error {
 
 const getLeaderboard = `-- name: GetLeaderboard :many
 SELECT
-    submitter_email,
+    submitter_nickname,
     COUNT(*) as submission_count
 FROM submissions
 WHERE deleted_at IS NULL
-    AND submitter_email IS NOT NULL
-    AND submitter_email != ''
-GROUP BY submitter_email
+    AND submitter_nickname IS NOT NULL
+    AND submitter_nickname != ''
+GROUP BY submitter_nickname
 ORDER BY submission_count DESC
 LIMIT 50
 `
 
 type GetLeaderboardRow struct {
-	SubmitterEmail  *string `json:"submitter_email"`
-	SubmissionCount int64   `json:"submission_count"`
+	SubmitterNickname *string `json:"submitter_nickname"`
+	SubmissionCount   int64   `json:"submission_count"`
 }
 
 func (q *Queries) GetLeaderboard(ctx context.Context) ([]GetLeaderboardRow, error) {
@@ -139,7 +142,7 @@ func (q *Queries) GetLeaderboard(ctx context.Context) ([]GetLeaderboardRow, erro
 	items := []GetLeaderboardRow{}
 	for rows.Next() {
 		var i GetLeaderboardRow
-		if err := rows.Scan(&i.SubmitterEmail, &i.SubmissionCount); err != nil {
+		if err := rows.Scan(&i.SubmitterNickname, &i.SubmissionCount); err != nil {
 			return nil, err
 		}
 		items = append(items, i)
@@ -151,7 +154,7 @@ func (q *Queries) GetLeaderboard(ctx context.Context) ([]GetLeaderboardRow, erro
 }
 
 const getSubmissionByID = `-- name: GetSubmissionByID :one
-SELECT id, type, raw_content, anonymized_content, metadata, language, category, status, submitter_ip, user_agent, created_at, processed_at, updated_at, deleted_at, submitter_email FROM submissions
+SELECT id, type, raw_content, anonymized_content, metadata, language, category, status, submitter_ip, user_agent, created_at, processed_at, updated_at, deleted_at, submitter_email, submitter_nickname FROM submissions
 WHERE id = $1 AND deleted_at IS NULL
 `
 
@@ -174,12 +177,13 @@ func (q *Queries) GetSubmissionByID(ctx context.Context, id uuid.UUID) (Submissi
 		&i.UpdatedAt,
 		&i.DeletedAt,
 		&i.SubmitterEmail,
+		&i.SubmitterNickname,
 	)
 	return i, err
 }
 
 const listSubmissions = `-- name: ListSubmissions :many
-SELECT id, type, raw_content, anonymized_content, metadata, language, category, status, submitter_ip, user_agent, created_at, processed_at, updated_at, deleted_at, submitter_email FROM submissions
+SELECT id, type, raw_content, anonymized_content, metadata, language, category, status, submitter_ip, user_agent, created_at, processed_at, updated_at, deleted_at, submitter_email, submitter_nickname FROM submissions
 WHERE deleted_at IS NULL
 ORDER BY created_at DESC
 LIMIT $1 OFFSET $2
@@ -215,6 +219,7 @@ func (q *Queries) ListSubmissions(ctx context.Context, arg ListSubmissionsParams
 			&i.UpdatedAt,
 			&i.DeletedAt,
 			&i.SubmitterEmail,
+			&i.SubmitterNickname,
 		); err != nil {
 			return nil, err
 		}
@@ -227,7 +232,7 @@ func (q *Queries) ListSubmissions(ctx context.Context, arg ListSubmissionsParams
 }
 
 const listSubmissionsByCategory = `-- name: ListSubmissionsByCategory :many
-SELECT id, type, raw_content, anonymized_content, metadata, language, category, status, submitter_ip, user_agent, created_at, processed_at, updated_at, deleted_at, submitter_email FROM submissions
+SELECT id, type, raw_content, anonymized_content, metadata, language, category, status, submitter_ip, user_agent, created_at, processed_at, updated_at, deleted_at, submitter_email, submitter_nickname FROM submissions
 WHERE category = $1 AND deleted_at IS NULL
 ORDER BY created_at DESC
 LIMIT $2 OFFSET $3
@@ -264,6 +269,7 @@ func (q *Queries) ListSubmissionsByCategory(ctx context.Context, arg ListSubmiss
 			&i.UpdatedAt,
 			&i.DeletedAt,
 			&i.SubmitterEmail,
+			&i.SubmitterNickname,
 		); err != nil {
 			return nil, err
 		}
@@ -276,7 +282,7 @@ func (q *Queries) ListSubmissionsByCategory(ctx context.Context, arg ListSubmiss
 }
 
 const listSubmissionsByDateRange = `-- name: ListSubmissionsByDateRange :many
-SELECT id, type, raw_content, anonymized_content, metadata, language, category, status, submitter_ip, user_agent, created_at, processed_at, updated_at, deleted_at, submitter_email FROM submissions
+SELECT id, type, raw_content, anonymized_content, metadata, language, category, status, submitter_ip, user_agent, created_at, processed_at, updated_at, deleted_at, submitter_email, submitter_nickname FROM submissions
 WHERE created_at >= $1 AND created_at <= $2 AND deleted_at IS NULL
 ORDER BY created_at DESC
 LIMIT $3 OFFSET $4
@@ -319,6 +325,7 @@ func (q *Queries) ListSubmissionsByDateRange(ctx context.Context, arg ListSubmis
 			&i.UpdatedAt,
 			&i.DeletedAt,
 			&i.SubmitterEmail,
+			&i.SubmitterNickname,
 		); err != nil {
 			return nil, err
 		}
@@ -331,7 +338,7 @@ func (q *Queries) ListSubmissionsByDateRange(ctx context.Context, arg ListSubmis
 }
 
 const listSubmissionsByStatus = `-- name: ListSubmissionsByStatus :many
-SELECT id, type, raw_content, anonymized_content, metadata, language, category, status, submitter_ip, user_agent, created_at, processed_at, updated_at, deleted_at, submitter_email FROM submissions
+SELECT id, type, raw_content, anonymized_content, metadata, language, category, status, submitter_ip, user_agent, created_at, processed_at, updated_at, deleted_at, submitter_email, submitter_nickname FROM submissions
 WHERE status = $1 AND deleted_at IS NULL
 ORDER BY created_at DESC
 LIMIT $2 OFFSET $3
@@ -368,6 +375,7 @@ func (q *Queries) ListSubmissionsByStatus(ctx context.Context, arg ListSubmissio
 			&i.UpdatedAt,
 			&i.DeletedAt,
 			&i.SubmitterEmail,
+			&i.SubmitterNickname,
 		); err != nil {
 			return nil, err
 		}
@@ -380,7 +388,7 @@ func (q *Queries) ListSubmissionsByStatus(ctx context.Context, arg ListSubmissio
 }
 
 const listSubmissionsByType = `-- name: ListSubmissionsByType :many
-SELECT id, type, raw_content, anonymized_content, metadata, language, category, status, submitter_ip, user_agent, created_at, processed_at, updated_at, deleted_at, submitter_email FROM submissions
+SELECT id, type, raw_content, anonymized_content, metadata, language, category, status, submitter_ip, user_agent, created_at, processed_at, updated_at, deleted_at, submitter_email, submitter_nickname FROM submissions
 WHERE type = $1 AND deleted_at IS NULL
 ORDER BY created_at DESC
 LIMIT $2 OFFSET $3
@@ -417,6 +425,7 @@ func (q *Queries) ListSubmissionsByType(ctx context.Context, arg ListSubmissions
 			&i.UpdatedAt,
 			&i.DeletedAt,
 			&i.SubmitterEmail,
+			&i.SubmitterNickname,
 		); err != nil {
 			return nil, err
 		}
@@ -432,7 +441,7 @@ const updateSubmissionContent = `-- name: UpdateSubmissionContent :one
 UPDATE submissions
 SET anonymized_content = $2, language = $3, category = $4
 WHERE id = $1 AND deleted_at IS NULL
-RETURNING id, type, raw_content, anonymized_content, metadata, language, category, status, submitter_ip, user_agent, created_at, processed_at, updated_at, deleted_at, submitter_email
+RETURNING id, type, raw_content, anonymized_content, metadata, language, category, status, submitter_ip, user_agent, created_at, processed_at, updated_at, deleted_at, submitter_email, submitter_nickname
 `
 
 type UpdateSubmissionContentParams struct {
@@ -466,6 +475,7 @@ func (q *Queries) UpdateSubmissionContent(ctx context.Context, arg UpdateSubmiss
 		&i.UpdatedAt,
 		&i.DeletedAt,
 		&i.SubmitterEmail,
+		&i.SubmitterNickname,
 	)
 	return i, err
 }
@@ -474,7 +484,7 @@ const updateSubmissionStatus = `-- name: UpdateSubmissionStatus :one
 UPDATE submissions
 SET status = $2, processed_at = CASE WHEN $2 = 'processed' THEN NOW() ELSE processed_at END
 WHERE id = $1 AND deleted_at IS NULL
-RETURNING id, type, raw_content, anonymized_content, metadata, language, category, status, submitter_ip, user_agent, created_at, processed_at, updated_at, deleted_at, submitter_email
+RETURNING id, type, raw_content, anonymized_content, metadata, language, category, status, submitter_ip, user_agent, created_at, processed_at, updated_at, deleted_at, submitter_email, submitter_nickname
 `
 
 type UpdateSubmissionStatusParams struct {
@@ -501,6 +511,7 @@ func (q *Queries) UpdateSubmissionStatus(ctx context.Context, arg UpdateSubmissi
 		&i.UpdatedAt,
 		&i.DeletedAt,
 		&i.SubmitterEmail,
+		&i.SubmitterNickname,
 	)
 	return i, err
 }

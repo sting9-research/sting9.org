@@ -2,7 +2,7 @@ import { Trophy, Medal, Award, TrendingUp } from 'lucide-react'
 import { useState, useEffect } from 'react'
 
 interface LeaderboardEntry {
-  email: string
+  nickname: string
   submission_count: number
 }
 
@@ -59,12 +59,12 @@ export default function Leaderboard() {
     return 'bg-slate-50 text-slate-600 border-slate-200'
   }
 
-  const formatEmail = (email: string) => {
-    // Truncate long emails for better display
-    if (email.length > 30) {
-      return email.substring(0, 27) + '...'
+  const formatNickname = (nickname: string) => {
+    // Truncate long nicknames for better display
+    if (nickname.length > 30) {
+      return nickname.substring(0, 27) + '...'
     }
-    return email
+    return nickname
   }
 
   const topThree = data?.leaderboard.slice(0, 3) || []
@@ -116,8 +116,8 @@ export default function Leaderboard() {
                       {getRankIcon(1)}
                     </div>
                     <div className="text-3xl font-bold text-slate-700 mb-1">#2</div>
-                    <div className="text-sm font-medium text-slate-900 mb-2 truncate" title={topThree[1].email}>
-                      {formatEmail(topThree[1].email)}
+                    <div className="text-sm font-medium text-slate-900 mb-2 truncate" title={topThree[1].nickname}>
+                      {formatNickname(topThree[1].nickname)}
                     </div>
                     <div className="text-2xl font-bold text-slate-600">
                       {topThree[1].submission_count.toLocaleString()}
@@ -138,8 +138,8 @@ export default function Leaderboard() {
                       {getRankIcon(0)}
                     </div>
                     <div className="text-4xl font-bold text-amber-700 mb-1">#1</div>
-                    <div className="text-base font-bold text-slate-900 mb-3 truncate" title={topThree[0].email}>
-                      {formatEmail(topThree[0].email)}
+                    <div className="text-base font-bold text-slate-900 mb-3 truncate" title={topThree[0].nickname}>
+                      {formatNickname(topThree[0].nickname)}
                     </div>
                     <div className="text-3xl font-bold text-amber-600">
                       {topThree[0].submission_count.toLocaleString()}
@@ -157,8 +157,8 @@ export default function Leaderboard() {
                       {getRankIcon(2)}
                     </div>
                     <div className="text-3xl font-bold text-orange-700 mb-1">#3</div>
-                    <div className="text-sm font-medium text-slate-900 mb-2 truncate" title={topThree[2].email}>
-                      {formatEmail(topThree[2].email)}
+                    <div className="text-sm font-medium text-slate-900 mb-2 truncate" title={topThree[2].nickname}>
+                      {formatNickname(topThree[2].nickname)}
                     </div>
                     <div className="text-2xl font-bold text-orange-600">
                       {topThree[2].submission_count.toLocaleString()}
@@ -183,7 +183,7 @@ export default function Leaderboard() {
                   const actualRank = index + 4
                   return (
                     <div
-                      key={entry.email}
+                      key={entry.nickname}
                       className="flex items-center justify-between p-4 hover:bg-slate-50 transition-colors"
                     >
                       <div className="flex items-center gap-4 flex-1 min-w-0">
@@ -191,8 +191,8 @@ export default function Leaderboard() {
                           #{actualRank}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <div className="font-medium text-slate-900 truncate" title={entry.email}>
-                            {entry.email}
+                          <div className="font-medium text-slate-900 truncate" title={entry.nickname}>
+                            {entry.nickname}
                           </div>
                         </div>
                       </div>
@@ -228,7 +228,7 @@ export default function Leaderboard() {
           <div className="mt-12 text-center">
             <div className="bg-emerald-50 border-2 border-emerald-200 rounded-xl p-6 max-w-2xl mx-auto">
               <p className="text-slate-700 mb-4">
-                <strong>Want to see your name here?</strong> Submit suspicious messages and include your email to join the leaderboard!
+                <strong>Want to see your nickname here?</strong> Submit suspicious messages and include your nickname to join the leaderboard!
               </p>
               <a
                 href="/submit/email"

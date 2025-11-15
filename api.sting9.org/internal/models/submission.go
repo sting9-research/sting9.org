@@ -50,10 +50,11 @@ type SubmissionMetadata struct {
 
 // CreateSubmissionRequest represents the request to create a new submission
 type CreateSubmissionRequest struct {
-	Type            SubmissionType     `json:"type" validate:"required,oneof=email sms whatsapp telegram signal social_media other"`
-	Content         string             `json:"content" validate:"required,min=10"`
-	Metadata        SubmissionMetadata `json:"metadata,omitempty"`
-	SubmitterEmail  string             `json:"submitter_email,omitempty" validate:"omitempty,email"`
+	Type             SubmissionType     `json:"type" validate:"required,oneof=email sms whatsapp telegram signal social_media other"`
+	Content          string             `json:"content" validate:"required,min=10"`
+	Metadata         SubmissionMetadata `json:"metadata,omitempty"`
+	SubmitterEmail   string             `json:"submitter_email,omitempty" validate:"omitempty,email"`
+	SubmitterNickname string            `json:"submitter_nickname,omitempty" validate:"omitempty,min=2,max=50"`
 }
 
 // BulkSubmissionRequest represents a bulk submission request
@@ -72,6 +73,7 @@ type SubmissionResponse struct {
 	Category           *string            `json:"category,omitempty"`
 	Status             SubmissionStatus   `json:"status"`
 	SubmitterEmail     *string            `json:"submitter_email,omitempty"`
+	SubmitterNickname  *string            `json:"submitter_nickname,omitempty"`
 	CreatedAt          time.Time          `json:"created_at"`
 	ProcessedAt        *time.Time         `json:"processed_at,omitempty"`
 }
@@ -102,7 +104,7 @@ func (m SubmissionMetadata) ToJSON() ([]byte, error) {
 
 // LeaderboardEntry represents a single entry in the leaderboard
 type LeaderboardEntry struct {
-	Email            string `json:"email"`
+	Nickname         string `json:"nickname"`
 	SubmissionCount  int64  `json:"submission_count"`
 }
 
