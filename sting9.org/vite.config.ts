@@ -6,6 +6,7 @@ import viteTsConfigPaths from 'vite-tsconfig-paths'
 import tailwindcss from '@tailwindcss/vite'
 import { nitro } from 'nitro/vite'
 
+// Vite configuration for TanStack Start with Nitro
 const config = defineConfig({
   plugins: [
     devtools(),
