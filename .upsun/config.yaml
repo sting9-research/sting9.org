@@ -14,10 +14,6 @@ applications:
     web:
       commands:
         start: pnpm run start
-      locations:
-        "/dist":
-          passthru: true
-          allow: false
   api:
     source:
       root: "api.sting9.org"
