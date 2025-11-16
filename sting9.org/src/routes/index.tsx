@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import Hero from '../components/Hero'
 import StatsCounter from '../components/StatsCounter'
-// import Leaderboard from '../components/Leaderboard'
+import Leaderboard from '../components/Leaderboard'
 import HowItWorks from '../components/HowItWorks'
 import ImpactSection from '../components/ImpactSection'
 import ThreatExamples from '../components/ThreatExamples'
@@ -14,7 +14,7 @@ function HomePage() {
     <div className="min-h-screen bg-white">
       <Hero />
       <StatsCounter />
-      {/* <Leaderboard /> */}
+      <Leaderboard />
       <HowItWorks />
       <ImpactSection />
       <ThreatExamples />
