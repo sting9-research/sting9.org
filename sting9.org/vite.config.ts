@@ -4,20 +4,18 @@ import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 import viteReact from '@vitejs/plugin-react'
 import viteTsConfigPaths from 'vite-tsconfig-paths'
 import tailwindcss from '@tailwindcss/vite'
-import { nitro } from 'nitro/vite'
+import { nitroV2Plugin } from '@tanstack/nitro-v2-vite-plugin'
 
 // Vite configuration for TanStack Start with Nitro
 const config = defineConfig({
   plugins: [
-    // devtools(),
-    // TanStack Start MUST come before Nitro for proper SSR hydration
-    tanstackStart(),
-    nitro(),
+    nitroV2Plugin(),
     // this is the plugin that enables path aliases
     viteTsConfigPaths({
       projects: ['./tsconfig.json'],
     }),
     tailwindcss(),
+    tanstackStart(),
     viteReact(),
   ],
 })
