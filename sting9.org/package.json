@@ -6,8 +6,7 @@
     "dev": "vite dev --port 3000",
     "build": "vite build",
     "serve": "vite preview",
-    "test": "vitest run",
-    "start": "vite dev --port 8888"
+    "test": "vitest run"
   },
   "dependencies": {
     "@scalar/api-reference": "^1.39.3",
