@@ -10,10 +10,15 @@ applications:
       build: |
         set -eux
         pnpm install
-        NITR_PRESET=platform_sh npm run build
+        pnpm build
     web:
       commands:
-        start: "node .output/server/index.mjs"
+        start: pnpm run start
+      locations:
+        "/":
+          root: "dist/client"
+          passthru: true
+          allow: false
   api:
     source:
       root: "api.sting9.org"
@@ -40,10 +45,6 @@ applications:
     web:
       commands:
         start: ./bin/api
-      locations:
-        /:
-          passthru: true
-          allow: false
 
     relationships:
       database: 'db:postgresql'
