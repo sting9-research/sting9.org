@@ -7,7 +7,7 @@
     "build": "vite build",
     "serve": "vite preview",
     "test": "vitest run",
-    "start": "node .output/server/index.mjs"
+    "start": "vite dev --port 8888"
   },
   "dependencies": {
     "@scalar/api-reference": "^1.39.3",
