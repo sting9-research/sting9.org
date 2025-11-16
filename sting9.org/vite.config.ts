@@ -9,14 +9,17 @@ import { nitroV2Plugin } from '@tanstack/nitro-v2-vite-plugin'
 // Vite configuration for TanStack Start with Nitro
 const config = defineConfig({
   plugins: [
-    tanstackStart(),
+    // Nitro must come first to properly format the request object
     nitroV2Plugin(),
-    // this is the plugin that enables path aliases
+    // Path aliases and styling
     viteTsConfigPaths({
       projects: ['./tsconfig.json'],
     }),
     tailwindcss(),
+    // React must come before TanStack Start
     viteReact(),
+    // TanStack Start must come last
+    tanstackStart(),
   ],
 })
 
