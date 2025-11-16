@@ -1,18 +1,16 @@
 applications:
   react:
     type: nodejs:24
+    dependencies: 
+      nodejs:
+        "pnpm": "*"
     source:
       root: "sting9.org"
     hooks:
       build: |
         set -eux
-        corepack enable
-        npx nypm install
+        pnpm install
         NITR_PRESET=platform_sh npm run build
-    mounts:
-      '.data':
-        source: storage
-        source_path: .data
     web:
       commands:
         start: "node .output/server/index.mjs"
