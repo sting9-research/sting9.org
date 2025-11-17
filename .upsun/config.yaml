@@ -37,6 +37,12 @@ applications:
         # Build the application
         go build -o bin/api cmd/api/main.go
 
+        # Build the refresh-stats binary
+        go build -o bin/refresh-stats cmd/refresh-stats/main.go
+
+        # Build the import-datasets binary
+        go build -o bin/import-datasets cmd/import-datasets/main.go
+
       deploy: |
         set -e
         # Run migrations
@@ -53,6 +59,13 @@ applications:
       env:
         ENVIRONMENT: 'production'
         LOG_LEVEL: 'info'
+
+    crons:
+      refresh-stats:
+        spec: 'H * * * *'
+        commands:
+          start: ./bin/refresh-stats
+          stop: killall ./bin/refresh-stats
 
 services:
   db:
