@@ -9,6 +9,8 @@ export const Route = createFileRoute('/submit/email')({
 function SubmitEmailPage() {
   const [formData, setFormData] = useState({
     content: '',
+    submitter_email: '',
+    submitter_nickname: '',
     from: '',
     to: '',
     subject: '',
@@ -37,6 +39,8 @@ function SubmitEmailPage() {
       const submission = {
         type: 'email',
         content: formData.content,
+        submitter_email: formData.submitter_email || undefined,
+        submitter_nickname: formData.submitter_nickname || undefined,
         metadata: {
           from: formData.from || undefined,
           to: formData.to || undefined,
@@ -253,6 +257,53 @@ function SubmitEmailPage() {
                   <p className="mt-2 text-sm text-slate-500">
                     Required • Minimum 10 characters • Include full message body
                   </p>
+                </div>
+
+                {/* Submitter Information */}
+                <div className="border-t border-slate-200 pt-6">
+                  <h3 className="text-lg font-semibold text-slate-900 mb-4">
+                    Your Information (Optional)
+                  </h3>
+
+                  <div className="space-y-4">
+                    {/* Submitter Email */}
+                    <div>
+                      <label htmlFor="submitter_email" className="block text-sm font-medium text-slate-700 mb-2">
+                        Your Email
+                      </label>
+                      <input
+                        type="email"
+                        id="submitter_email"
+                        name="submitter_email"
+                        value={formData.submitter_email}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                        placeholder="your.email@example.com"
+                      />
+                      <p className="mt-1 text-xs text-slate-500">
+                        Optional • We may contact you if we have questions about this submission
+                      </p>
+                    </div>
+
+                    {/* Submitter Nickname */}
+                    <div>
+                      <label htmlFor="submitter_nickname" className="block text-sm font-medium text-slate-700 mb-2">
+                        Display Name
+                      </label>
+                      <input
+                        type="text"
+                        id="submitter_nickname"
+                        name="submitter_nickname"
+                        value={formData.submitter_nickname}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                        placeholder="Your name or nickname"
+                      />
+                      <p className="mt-1 text-xs text-slate-500">
+                        Optional • For recognition on our contributor leaderboard
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Optional Fields */}
