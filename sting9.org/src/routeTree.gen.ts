@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as StatsRouteImport } from './routes/stats'
 import { Route as SecurityRouteImport } from './routes/security'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PartnersRouteImport } from './routes/partners'
@@ -38,6 +39,11 @@ import { Route as DemoStartSsrDataOnlyRouteImport } from './routes/demo/start.ss
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StatsRoute = StatsRouteImport.update({
+  id: '/stats',
+  path: '/stats',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SecurityRoute = SecurityRouteImport.update({
@@ -172,6 +178,7 @@ export interface FileRoutesByFullPath {
   '/partners': typeof PartnersRoute
   '/privacy': typeof PrivacyRoute
   '/security': typeof SecurityRoute
+  '/stats': typeof StatsRoute
   '/terms': typeof TermsRoute
   '/research/api-docs': typeof ResearchApiDocsRoute
   '/submit/email': typeof SubmitEmailRoute
@@ -199,6 +206,7 @@ export interface FileRoutesByTo {
   '/partners': typeof PartnersRoute
   '/privacy': typeof PrivacyRoute
   '/security': typeof SecurityRoute
+  '/stats': typeof StatsRoute
   '/terms': typeof TermsRoute
   '/research/api-docs': typeof ResearchApiDocsRoute
   '/submit/email': typeof SubmitEmailRoute
@@ -227,6 +235,7 @@ export interface FileRoutesById {
   '/partners': typeof PartnersRoute
   '/privacy': typeof PrivacyRoute
   '/security': typeof SecurityRoute
+  '/stats': typeof StatsRoute
   '/terms': typeof TermsRoute
   '/research/api-docs': typeof ResearchApiDocsRoute
   '/submit/email': typeof SubmitEmailRoute
@@ -256,6 +265,7 @@ export interface FileRouteTypes {
     | '/partners'
     | '/privacy'
     | '/security'
+    | '/stats'
     | '/terms'
     | '/research/api-docs'
     | '/submit/email'
@@ -283,6 +293,7 @@ export interface FileRouteTypes {
     | '/partners'
     | '/privacy'
     | '/security'
+    | '/stats'
     | '/terms'
     | '/research/api-docs'
     | '/submit/email'
@@ -310,6 +321,7 @@ export interface FileRouteTypes {
     | '/partners'
     | '/privacy'
     | '/security'
+    | '/stats'
     | '/terms'
     | '/research/api-docs'
     | '/submit/email'
@@ -338,6 +350,7 @@ export interface RootRouteChildren {
   PartnersRoute: typeof PartnersRoute
   PrivacyRoute: typeof PrivacyRoute
   SecurityRoute: typeof SecurityRoute
+  StatsRoute: typeof StatsRoute
   TermsRoute: typeof TermsRoute
   ResearchApiDocsRoute: typeof ResearchApiDocsRoute
   SubmitEmailRoute: typeof SubmitEmailRoute
@@ -364,6 +377,13 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/stats': {
+      id: '/stats'
+      path: '/stats'
+      fullPath: '/stats'
+      preLoaderRoute: typeof StatsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/security': {
@@ -546,6 +566,7 @@ const rootRouteChildren: RootRouteChildren = {
   PartnersRoute: PartnersRoute,
   PrivacyRoute: PrivacyRoute,
   SecurityRoute: SecurityRoute,
+  StatsRoute: StatsRoute,
   TermsRoute: TermsRoute,
   ResearchApiDocsRoute: ResearchApiDocsRoute,
   SubmitEmailRoute: SubmitEmailRoute,

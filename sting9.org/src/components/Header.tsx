@@ -10,6 +10,7 @@ import {
   Users,
   BookOpen,
   FileCode,
+  PieChart,
 } from 'lucide-react'
 
 export default function Header() {
@@ -17,6 +18,8 @@ export default function Header() {
 
   const navLinks = [
     { to: '/', label: 'Home', icon: <Home size={20} /> },
+    { to: '/stats', label: 'Statistics', icon: <PieChart size={20} /> },
+    { to: '/dataset', label: 'Dataset', icon: <Database size={20} /> },
     { to: '/learn', label: 'Learn About Threats', icon: <BookOpen size={20} /> },
     { to: '/submit/email', label: 'Submit Email', icon: <Upload size={20} /> },
     { to: '/submit/sms', label: 'Submit SMS', icon: <Upload size={20} /> },

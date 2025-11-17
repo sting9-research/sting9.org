@@ -1,4 +1,5 @@
 import { Database, Globe, Languages, Target } from 'lucide-react'
+import { useState, useEffect } from 'react'
 
 interface Stat {
   icon: React.ReactNode
@@ -8,31 +9,62 @@ interface Stat {
   color: string
 }
 
+interface ApiStats {
+  total_submissions: number
+  submissions_by_type: Record<string, number>
+  submissions_by_category: Record<string, number>
+  submissions_by_status: Record<string, number>
+  languages_detected: Record<string, number>
+  submissions_by_date: Record<string, number>
+  updated_at: string
+}
+
 export default function StatsCounter() {
+  const [apiStats, setApiStats] = useState<ApiStats | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetch('https://api.sting9.org/api/v1/stats')
+      .then(res => res.json())
+      .then(data => {
+        setApiStats(data.statistics)
+        setLoading(false)
+      })
+      .catch(err => {
+        console.error('Failed to fetch stats:', err)
+        setLoading(false)
+      })
+  }, [])
+
+  // Calculate stats from API data
+  const languageCount = apiStats ? Object.keys(apiStats.languages_detected).filter(lang => lang !== 'unknown').length : 0
+  const categoryCount = apiStats ? Object.keys(apiStats.submissions_by_category).length : 0
+  const totalSubmissions = apiStats?.total_submissions || 0
+
   const stats: Stat[] = [
     {
       icon: <Database className="w-8 h-8" />,
-      value: '5,547',
+      value: loading ? '...' : totalSubmissions.toLocaleString(),
       label: 'Messages Collected',
       color: 'text-emerald-600',
     },
     {
       icon: <Languages className="w-8 h-8" />,
-      value: '12',
-      label: 'Languages Supported',
+      value: loading ? '...' : languageCount.toString(),
+      label: 'Languages Detected',
       suffix: '+',
       color: 'text-blue-600',
     },
     {
       icon: <Globe className="w-8 h-8" />,
-      value: '8',
-      label: 'Countries Contributing',
+      value: loading ? '...' : Object.keys(apiStats?.submissions_by_type || {}).length.toString(),
+      label: 'Message Types',
       color: 'text-purple-600',
     },
     {
       icon: <Target className="w-8 h-8" />,
-      value: '45',
-      label: 'Attack Types Identified',
+      value: loading ? '...' : categoryCount.toString(),
+      label: 'Threat Categories',
       suffix: '+',
       color: 'text-amber-600',
     },
@@ -77,19 +109,19 @@ export default function StatsCounter() {
                 Progress to 1M Goal
               </span>
               <span className="text-2xl font-bold text-slate-900">
-                0.55%
+                {loading ? '...' : `${((totalSubmissions / 1000000) * 100).toFixed(2)}%`}
               </span>
             </div>
             <div className="w-full bg-slate-200 rounded-full h-4 overflow-hidden">
               <div
                 className="bg-linear-to-r from-emerald-500 to-emerald-600 h-4 rounded-full transition-all duration-1000 ease-out relative overflow-hidden"
-                style={{ width: '0.55%' }}
+                style={{ width: loading ? '0%' : `${Math.min((totalSubmissions / 1000000) * 100, 100)}%` }}
               >
                 <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/30 to-transparent animate-shimmer"></div>
               </div>
             </div>
             <p className="text-sm text-slate-500 mt-3 text-center">
-              Every submission brings us closer to 99.9% detection accuracy
+              {loading ? 'Loading...' : `${totalSubmissions.toLocaleString()} of 1,000,000 messages • Every submission brings us closer to 99.9% detection accuracy`}
             </p>
           </div>
         </div>
