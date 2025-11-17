@@ -28,6 +28,23 @@ build: ## Build the API binary
 	$(GO) build -o bin/api cmd/api/main.go
 	@echo "Build complete: bin/api"
 
+.PHONY: build-refresh-stats
+build-refresh-stats: ## Build the refresh-stats CLI tool
+	@echo "Building refresh-stats CLI..."
+	$(GO) build -o bin/refresh-stats cmd/refresh-stats/main.go
+	@echo "Build complete: bin/refresh-stats"
+
+.PHONY: build-all
+build-all: ## Build all binaries (API, CLI tools)
+	@echo "Building all binaries..."
+	$(GO) build -o bin/api cmd/api/main.go
+	$(GO) build -o bin/refresh-stats cmd/refresh-stats/main.go
+	$(GO) build -o bin/import-datasets cmd/import-datasets/main.go
+	@echo "Build complete!"
+	@echo "  - bin/api"
+	@echo "  - bin/refresh-stats"
+	@echo "  - bin/import-datasets"
+
 .PHONY: test
 test: ## Run all tests (uses in-memory SQLite - no DB required!)
 	@echo "Running tests with in-memory SQLite..."
@@ -184,6 +201,36 @@ db-seed: ## Seed database with sample data
 	@echo "Seeding database..."
 	@# Add your seed script here
 	@echo "Seeding complete!"
+
+.PHONY: stats-refresh
+stats-refresh: ## Refresh database statistics
+	@echo "Refreshing statistics..."
+	@if [ -f bin/refresh-stats ]; then \
+		./bin/refresh-stats; \
+	else \
+		echo "Building refresh-stats first..."; \
+		$(MAKE) build-refresh-stats; \
+		./bin/refresh-stats; \
+	fi
+
+.PHONY: stats-refresh-verbose
+stats-refresh-verbose: ## Refresh statistics with verbose output
+	@if [ -f bin/refresh-stats ]; then \
+		./bin/refresh-stats -verbose; \
+	else \
+		echo "Building refresh-stats first..."; \
+		$(MAKE) build-refresh-stats; \
+		./bin/refresh-stats -verbose; \
+	fi
+
+.PHONY: stats-refresh-quiet
+stats-refresh-quiet: ## Refresh statistics quietly (for cron jobs)
+	@if [ -f bin/refresh-stats ]; then \
+		./bin/refresh-stats -quiet; \
+	else \
+		$(MAKE) build-refresh-stats >/dev/null 2>&1; \
+		./bin/refresh-stats -quiet; \
+	fi
 
 .PHONY: docker-build
 docker-build: ## Build Docker image

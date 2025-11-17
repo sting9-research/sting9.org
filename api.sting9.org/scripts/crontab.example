@@ -1,0 +1,122 @@
+# Sting9 Statistics Refresh - Crontab Examples
+#
+# Copy the appropriate line(s) to your crontab with: crontab -e
+#
+# IMPORTANT: Update the path to match your installation directory
+#
+# Format:
+# ┌───────────── minute (0 - 59)
+# │ ┌───────────── hour (0 - 23)
+# │ │ ┌───────────── day of month (1 - 31)
+# │ │ │ ┌───────────── month (1 - 12)
+# │ │ │ │ ┌───────────── day of week (0 - 6) (Sunday = 0)
+# │ │ │ │ │
+# * * * * * command
+
+# Set environment variables (if needed)
+# DATABASE_URL=postgresql://sting9:password@localhost:5432/sting9?sslmode=disable
+
+# ============================================================================
+# RECOMMENDED SCHEDULES
+# ============================================================================
+
+# Every 15 minutes (recommended for production)
+*/15 * * * * /path/to/sting9.org/web/api.sting9.org/scripts/refresh-stats.sh -q >> /var/log/sting9/stats-refresh.log 2>&1
+
+# Every 30 minutes (good for medium traffic)
+*/30 * * * * /path/to/sting9.org/web/api.sting9.org/scripts/refresh-stats.sh -q >> /var/log/sting9/stats-refresh.log 2>&1
+
+# Every hour (good for low traffic)
+0 * * * * /path/to/sting9.org/web/api.sting9.org/scripts/refresh-stats.sh -q >> /var/log/sting9/stats-refresh.log 2>&1
+
+# ============================================================================
+# HIGH-TRAFFIC SCHEDULES
+# ============================================================================
+
+# Every 5 minutes (for very high traffic sites)
+*/5 * * * * /path/to/sting9.org/web/api.sting9.org/scripts/refresh-stats.sh -q >> /var/log/sting9/stats-refresh.log 2>&1
+
+# Every 10 minutes
+*/10 * * * * /path/to/sting9.org/web/api.sting9.org/scripts/refresh-stats.sh -q >> /var/log/sting9/stats-refresh.log 2>&1
+
+# ============================================================================
+# LOW-TRAFFIC SCHEDULES
+# ============================================================================
+
+# Every 6 hours (midnight, 6am, noon, 6pm)
+0 */6 * * * /path/to/sting9.org/web/api.sting9.org/scripts/refresh-stats.sh -q >> /var/log/sting9/stats-refresh.log 2>&1
+
+# Daily at 3 AM
+0 3 * * * /path/to/sting9.org/web/api.sting9.org/scripts/refresh-stats.sh -q >> /var/log/sting9/stats-refresh.log 2>&1
+
+# Twice daily (6 AM and 6 PM)
+0 6,18 * * * /path/to/sting9.org/web/api.sting9.org/scripts/refresh-stats.sh -q >> /var/log/sting9/stats-refresh.log 2>&1
+
+# ============================================================================
+# BUSINESS HOURS ONLY
+# ============================================================================
+
+# Every 30 minutes during business hours (9 AM - 5 PM, Monday-Friday)
+*/30 9-17 * * 1-5 /path/to/sting9.org/web/api.sting9.org/scripts/refresh-stats.sh -q >> /var/log/sting9/stats-refresh.log 2>&1
+
+# Every hour during business hours
+0 9-17 * * 1-5 /path/to/sting9.org/web/api.sting9.org/scripts/refresh-stats.sh -q >> /var/log/sting9/stats-refresh.log 2>&1
+
+# ============================================================================
+# DOCKER ENVIRONMENTS
+# ============================================================================
+
+# Using docker-compose to execute in container
+*/15 * * * * cd /path/to/sting9.org/web/api.sting9.org && docker-compose exec -T postgres psql -U sting9 -d sting9 -c "SELECT update_statistics();" >> /var/log/sting9/stats-refresh.log 2>&1
+
+# ============================================================================
+# ADVANCED OPTIONS
+# ============================================================================
+
+# With verbose output (for debugging)
+*/15 * * * * /path/to/sting9.org/web/api.sting9.org/scripts/refresh-stats.sh -v >> /var/log/sting9/stats-refresh-verbose.log 2>&1
+
+# With email notification on failure (requires mail configured)
+*/15 * * * * /path/to/sting9.org/web/api.sting9.org/scripts/refresh-stats.sh -q >> /var/log/sting9/stats-refresh.log 2>&1 || echo "Stats refresh failed at $(date)" | mail -s "Sting9 Stats Refresh Failed" admin@example.com
+
+# Using Make instead of the script
+*/15 * * * * cd /path/to/sting9.org/web/api.sting9.org && make stats-refresh-quiet >> /var/log/sting9/stats-refresh.log 2>&1
+
+# Using the binary directly
+*/15 * * * * DATABASE_URL=postgresql://sting9:password@localhost:5432/sting9 /path/to/sting9.org/web/api.sting9.org/bin/refresh-stats -quiet >> /var/log/sting9/stats-refresh.log 2>&1
+
+# ============================================================================
+# SETUP INSTRUCTIONS
+# ============================================================================
+#
+# 1. Create log directory:
+#    sudo mkdir -p /var/log/sting9
+#    sudo chown $USER:$USER /var/log/sting9
+#
+# 2. Set up log rotation (create /etc/logrotate.d/sting9):
+#    /var/log/sting9/stats-refresh.log {
+#        daily
+#        rotate 14
+#        compress
+#        delaycompress
+#        missingok
+#        notifempty
+#        create 0640 your_user your_group
+#    }
+#
+# 3. Edit your crontab:
+#    crontab -e
+#
+# 4. Add one of the schedules above (modify the path!)
+#
+# 5. Verify cron is running:
+#    sudo systemctl status cron   # systemd
+#    sudo service cron status      # sysvinit
+#
+# 6. List your cron jobs:
+#    crontab -l
+#
+# 7. Monitor the logs:
+#    tail -f /var/log/sting9/stats-refresh.log
+#
+# ============================================================================
