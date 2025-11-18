@@ -175,6 +175,22 @@ export default function Footer() {
             </div>
           </div>
         </div>
+
+        {/* Upsun hosting banner */}
+        <div className="mt-8 pt-6 border-t border-slate-800">
+          <div className="text-center">
+            <a
+              href="https://upsun.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-slate-300 transition-colors group"
+            >
+              <span>Hosted with</span>
+              <span className="text-purple-400 group-hover:scale-110 transition-transform inline-block">💜</span>
+              <span>by <span className="font-semibold text-slate-300">Upsun</span></span>
+            </a>
+          </div>
+        </div>
       </div>
     </footer>
   )
