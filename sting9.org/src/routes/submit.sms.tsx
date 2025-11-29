@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 import { MessageSquare, AlertTriangle, CheckCircle2, Send, Shield, Info, Phone } from 'lucide-react'
+import * as m from '../paraglide/messages.js'
 
 export const Route = createFileRoute('/submit/sms')({
   component: SubmitSMSPage,
@@ -102,7 +103,7 @@ function SubmitSMSPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="section-spacing bg-gradient-to-b from-slate-50 to-white">
+      <section className="section-spacing bg-linear-to-b from-slate-50 to-white">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 bg-amber-100 text-amber-800 px-4 py-2 rounded-full text-sm font-semibold mb-6">
@@ -169,7 +170,7 @@ function SubmitSMSPage() {
               {/* Privacy Notice */}
               <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
                 <div className="flex items-start gap-3">
-                  <Shield className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                  <Shield className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
                   <div>
                     <h3 className="font-semibold text-emerald-900 text-sm mb-1">
                       Your Privacy is Protected
@@ -184,7 +185,7 @@ function SubmitSMSPage() {
               {/* Statistics */}
               <div className="bg-red-50 border border-red-200 rounded-lg p-4">
                 <div className="flex items-start gap-3">
-                  <AlertTriangle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                  <AlertTriangle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
                   <div>
                     <h3 className="font-semibold text-red-900 text-sm mb-1">
                       Smishing on the Rise
@@ -202,7 +203,7 @@ function SubmitSMSPage() {
               {/* Guidelines */}
               <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
                 <div className="flex items-start gap-3">
-                  <Info className="w-5 h-5 text-slate-600 flex-shrink-0 mt-0.5" />
+                  <Info className="w-5 h-5 text-slate-600 shrink-0 mt-0.5" />
                   <div>
                     <h3 className="font-semibold text-slate-900 text-sm mb-2">
                       Submission Tips
@@ -253,7 +254,7 @@ function SubmitSMSPage() {
 
               {error && (
                 <div className="mb-6 bg-red-50 border border-red-200 rounded-lg p-4 flex items-start gap-3">
-                  <AlertTriangle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                  <AlertTriangle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
                   <div>
                     <h3 className="font-semibold text-red-900 text-sm mb-1">Submission Error</h3>
                     <p className="text-red-700 text-sm">{error}</p>
@@ -401,7 +402,7 @@ function SubmitSMSPage() {
                 {/* Warning Banner */}
                 <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
                   <div className="flex items-start gap-3">
-                    <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                    <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
                     <div>
                       <h3 className="font-semibold text-amber-900 text-sm mb-1">
                         Safety Reminder
@@ -463,19 +464,19 @@ function SubmitSMSPage() {
               </h3>
               <div className="space-y-3 text-sm text-slate-600">
                 <div className="flex gap-3">
-                  <div className="flex-shrink-0 w-6 h-6 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center font-semibold text-xs">1</div>
+                  <div className="shrink-0 w-6 h-6 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center font-semibold text-xs">1</div>
                   <p>Your message is automatically scanned and all phone numbers and personal info are redacted</p>
                 </div>
                 <div className="flex gap-3">
-                  <div className="flex-shrink-0 w-6 h-6 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center font-semibold text-xs">2</div>
+                  <div className="shrink-0 w-6 h-6 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center font-semibold text-xs">2</div>
                   <p>AI models analyze the content, URLs, and patterns to categorize the threat type</p>
                 </div>
                 <div className="flex gap-3">
-                  <div className="flex-shrink-0 w-6 h-6 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center font-semibold text-xs">3</div>
+                  <div className="shrink-0 w-6 h-6 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center font-semibold text-xs">3</div>
                   <p>The anonymized SMS is added to the public dataset for AI training</p>
                 </div>
                 <div className="flex gap-3">
-                  <div className="flex-shrink-0 w-6 h-6 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center font-semibold text-xs">4</div>
+                  <div className="shrink-0 w-6 h-6 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center font-semibold text-xs">4</div>
                   <p>Mobile carriers and security companies use this data to block similar smishing attempts</p>
                 </div>
               </div>

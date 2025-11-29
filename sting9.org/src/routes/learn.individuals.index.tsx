@@ -15,7 +15,7 @@ function IndividualsCourseHub() {
   const { title, subtitle, description, duration, chapters } = metadata
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-linear-to-b from-blue-50 to-white">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Back Link */}
         <Link
@@ -62,7 +62,7 @@ function IndividualsCourseHub() {
             >
               <div className="flex items-start gap-4">
                 {/* Chapter Number */}
-                <div className="flex-shrink-0 w-12 h-12 bg-blue-100 group-hover:bg-blue-200 rounded-lg flex items-center justify-center">
+                <div className="shrink-0 w-12 h-12 bg-blue-100 group-hover:bg-blue-200 rounded-lg flex items-center justify-center">
                   <span className="text-blue-600 font-bold text-lg">{chapter.number}</span>
                 </div>
 
@@ -79,7 +79,7 @@ function IndividualsCourseHub() {
                 </div>
 
                 {/* Completion Indicator (placeholder for now) */}
-                <div className="flex-shrink-0 hidden md:block">
+                <div className="shrink-0 hidden md:block">
                   <CheckCircle2 className="w-6 h-6 text-gray-300" />
                 </div>
               </div>

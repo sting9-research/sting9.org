@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 import { Zap, Lightbulb, TrendingUp, Clock, Target, Users, Mail, CheckCircle2 } from 'lucide-react'
 import Footer from '../components/Footer'
+import * as m from '../paraglide/messages.js'
 
 export const Route = createFileRoute('/partners')({
   component: PartnersPage,
@@ -94,7 +95,7 @@ function PartnersPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="section-spacing bg-gradient-to-b from-slate-50 to-white">
+      <section className="section-spacing bg-linear-to-b from-slate-50 to-white">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-hero font-bold text-slate-900 mb-6">

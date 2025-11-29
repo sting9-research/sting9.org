@@ -107,7 +107,7 @@ export default function ThreatExamples() {
                   <ul className="space-y-3">
                     {example.redFlags.map((flag, flagIndex) => (
                       <li key={flagIndex} className="flex items-start gap-3">
-                        <div className="w-6 h-6 rounded-full bg-red-100 text-red-700 flex items-center justify-center flex-shrink-0 font-bold text-sm mt-0.5">
+                        <div className="w-6 h-6 rounded-full bg-red-100 text-red-700 flex items-center justify-center shrink-0 font-bold text-sm mt-0.5">
                           {flagIndex + 1}
                         </div>
                         <span className="text-slate-700 leading-relaxed">
@@ -124,7 +124,7 @@ export default function ThreatExamples() {
 
         {/* Educational callout */}
         <div className="mt-16 max-w-4xl mx-auto">
-          <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-8 border border-blue-200">
+          <div className="bg-linear-to-br from-blue-50 to-purple-50 rounded-xl p-8 border border-blue-200">
             <h3 className="text-2xl font-bold text-slate-900 mb-4 text-center">
               Help Us Educate Others
             </h3>

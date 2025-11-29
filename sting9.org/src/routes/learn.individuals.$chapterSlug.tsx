@@ -129,7 +129,7 @@ function ChapterPage() {
               <ul className="space-y-2">
                 {chapter.metadata.learningObjectives.map((objective: string, index: number) => (
                   <li key={index} className="flex items-start gap-2 text-gray-700">
-                    <CheckCircle className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" />
+                    <CheckCircle className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
                     <span>{objective}</span>
                   </li>
                 ))}

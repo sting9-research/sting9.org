@@ -2,7 +2,7 @@ import { Shield, Mail, Smartphone } from 'lucide-react'
 
 export default function Hero() {
   return (
-    <section className="relative bg-gradient-to-b from-slate-50 to-white section-spacing overflow-hidden">
+    <section className="relative bg-linear-to-b from-slate-50 to-white section-spacing overflow-hidden">
       {/* Subtle background pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
@@ -63,7 +63,7 @@ export default function Hero() {
             >
               <Mail className="w-5 h-5" />
               <span>Submit a Phishing Email</span>
-              <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 -skew-x-12 translate-x-full group-hover:translate-x-[-200%]"></div>
+              <div className="absolute inset-0 rounded-lg bg-linear-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 -skew-x-12 translate-x-full group-hover:translate-x-[-200%]"></div>
             </a>
 
             <a
@@ -72,14 +72,14 @@ export default function Hero() {
             >
               <Smartphone className="w-5 h-5" />
               <span>Submit a Smishing Text</span>
-              <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 -skew-x-12 translate-x-full group-hover:translate-x-[-200%]"></div>
+              <div className="absolute inset-0 rounded-lg bg-linear-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 -skew-x-12 translate-x-full group-hover:translate-x-[-200%]"></div>
             </a>
           </div>
 
           {/* Email forwarding alert */}
           <div className="max-w-2xl mx-auto mb-6 mt-8">
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 flex items-start gap-3">
-              <Mail className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+              <Mail className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
               <div className="text-left">
                 <p className="text-sm text-blue-900 font-medium mb-1">
                   Quick submission via email forwarding

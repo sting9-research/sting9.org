@@ -98,7 +98,7 @@ function AboutPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="section-spacing bg-gradient-to-b from-slate-50 to-white">
+      <section className="section-spacing bg-linear-to-b from-slate-50 to-white">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto text-center">
             <div className="mb-8 flex justify-center">
@@ -212,7 +212,7 @@ function AboutPage() {
                   key={index}
                   className="bg-white rounded-xl p-6 border border-slate-200 flex items-start gap-4"
                 >
-                  <div className="bg-amber-100 p-3 rounded-lg text-amber-600 flex-shrink-0">
+                  <div className="bg-amber-100 p-3 rounded-lg text-amber-600 shrink-0">
                     {type.icon}
                   </div>
                   <div>
@@ -228,26 +228,26 @@ function AboutPage() {
             </div>
 
             {/* Privacy First */}
-            <div className="mt-12 bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-10 text-white">
+            <div className="mt-12 bg-linear-to-br from-slate-800 to-slate-900 rounded-2xl p-10 text-white">
               <div className="flex items-center gap-3 mb-4">
                 <Shield className="w-8 h-8 text-emerald-400" />
                 <h3 className="text-2xl font-bold">{m.about_privacy_title()}</h3>
               </div>
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-6 h-6 text-emerald-400 shrink-0 mt-0.5" />
                   <span>{m.about_privacy1()}</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-6 h-6 text-emerald-400 shrink-0 mt-0.5" />
                   <span>{m.about_privacy2()}</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-6 h-6 text-emerald-400 shrink-0 mt-0.5" />
                   <span>{m.about_privacy3()}</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-6 h-6 text-emerald-400 shrink-0 mt-0.5" />
                   <span>{m.about_privacy4()}</span>
                 </li>
               </ul>
@@ -282,7 +282,7 @@ function AboutPage() {
                   <ul className="space-y-2">
                     {phase.goals.map((goal, goalIndex) => (
                       <li key={goalIndex} className="flex items-start gap-2 text-sm text-slate-700">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                         <span>{goal}</span>
                       </li>
                     ))}
@@ -295,7 +295,7 @@ function AboutPage() {
       </section>
 
       {/* Get Involved */}
-      <section className="section-spacing bg-gradient-to-b from-slate-50 to-white">
+      <section className="section-spacing bg-linear-to-b from-slate-50 to-white">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-h2 font-bold text-slate-900 mb-12 text-center">

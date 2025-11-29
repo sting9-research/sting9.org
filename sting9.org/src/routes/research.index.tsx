@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
+import * as m from '../paraglide/messages.js'
 
 export const Route = createFileRoute('/research/')({
   component: ResearchPage,
@@ -6,15 +7,15 @@ export const Route = createFileRoute('/research/')({
 
 function ResearchPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div className="min-h-screen bg-linear-to-br from-purple-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <div className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-6">
-            Research Hub
+            {m.research_title()}
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Access the Sting9 dataset, API documentation, and research resources
+            {m.research_subtitle()}
           </p>
         </div>
 
@@ -42,13 +43,13 @@ function ResearchPage() {
                 </svg>
               </div>
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
-                API Documentation
+                {m.research_api_docs_title()}
               </h3>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
-                Interactive API reference with endpoints, authentication, and code examples
+                {m.research_api_docs_description()}
               </p>
               <div className="flex items-center text-purple-600 dark:text-purple-400 font-semibold group-hover:translate-x-2 transition-transform duration-300">
-                View API Docs
+                {m.research_api_docs_link()}
                 <svg
                   className="w-5 h-5 ml-2"
                   fill="none"
@@ -85,13 +86,13 @@ function ResearchPage() {
                 </svg>
               </div>
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
-                Dataset Access
+                {m.research_dataset_title()}
               </h3>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
-                Download the Sting9 dataset for training your own models (authentication required)
+                {m.research_dataset_description()}
               </p>
               <span className="inline-flex items-center px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded-lg font-medium">
-                Coming Soon
+                {m.research_coming_soon()}
               </span>
             </div>
           </div>
@@ -115,13 +116,13 @@ function ResearchPage() {
                 </svg>
               </div>
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
-                Authentication Guide
+                {m.research_auth_title()}
               </h3>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
-                Learn how to register as a researcher and authenticate API requests with JWT tokens
+                {m.research_auth_description()}
               </p>
               <span className="inline-flex items-center px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded-lg font-medium">
-                Coming Soon
+                {m.research_coming_soon()}
               </span>
             </div>
           </div>
@@ -145,26 +146,26 @@ function ResearchPage() {
                 </svg>
               </div>
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
-                Code Examples
+                {m.research_examples_title()}
               </h3>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
-                Sample code in Python, JavaScript, Go, and more to integrate with the Sting9 API
+                {m.research_examples_description()}
               </p>
               <span className="inline-flex items-center px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded-lg font-medium">
-                Coming Soon
+                {m.research_coming_soon()}
               </span>
             </div>
           </div>
         </div>
 
         {/* Quick Start Section */}
-        <div className="mt-16 max-w-4xl mx-auto bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl shadow-xl p-8 text-white">
-          <h2 className="text-3xl font-bold mb-4">Quick Start</h2>
+        <div className="mt-16 max-w-4xl mx-auto bg-linear-to-r from-purple-600 to-blue-600 rounded-2xl shadow-xl p-8 text-white">
+          <h2 className="text-3xl font-bold mb-4">{m.research_quickstart_title()}</h2>
           <p className="text-purple-100 mb-6">
-            Get started with the Sting9 API in minutes:
+            {m.research_quickstart_intro()}
           </p>
           <div className="bg-black bg-opacity-20 rounded-lg p-6 font-mono text-sm overflow-x-auto">
-            <div className="text-purple-200"># Register as a researcher</div>
+            <div className="text-purple-200">{m.research_quickstart_register()}</div>
             <div className="text-white mt-2">
               curl -X POST https://api.sting9.org/api/v1/auth/register \
             </div>
@@ -172,7 +173,7 @@ function ResearchPage() {
             <div className="text-white ml-4">
               -d '&#123;"email":"researcher@university.edu","password":"SecurePass123!"&#125;'
             </div>
-            <div className="text-purple-200 mt-4"># Submit a suspicious message</div>
+            <div className="text-purple-200 mt-4">{m.research_quickstart_submit()}</div>
             <div className="text-white mt-2">
               curl -X POST https://api.sting9.org/api/v1/submissions \
             </div>
@@ -186,7 +187,7 @@ function ResearchPage() {
               to="/research/api-docs"
               className="inline-flex items-center px-6 py-3 bg-white text-purple-600 font-semibold rounded-lg hover:bg-purple-50 transition-colors duration-300"
             >
-              Explore Full Documentation
+              {m.research_quickstart_explore()}
               <svg
                 className="w-5 h-5 ml-2"
                 fill="none"
@@ -207,16 +208,16 @@ function ResearchPage() {
         {/* Support Section */}
         <div className="mt-16 text-center">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-            Need Help?
+            {m.research_support_title()}
           </h2>
           <p className="text-gray-600 dark:text-gray-400 mb-6">
-            Contact our research team for support, partnerships, or questions
+            {m.research_support_text()}
           </p>
           <a
             href="mailto:research@sting9.org"
             className="inline-flex items-center px-6 py-3 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-colors duration-300"
           >
-            Contact Research Team
+            {m.research_support_button()}
           </a>
         </div>
       </div>

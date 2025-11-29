@@ -138,7 +138,7 @@ export default function Footer() {
                 className="bg-slate-800 hover:bg-slate-700 rounded-lg p-4 transition-all duration-200 group"
               >
                 <div className="flex items-start gap-3">
-                  <Mail className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
+                  <Mail className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
                   <div>
                     <div className="text-sm font-semibold text-white mb-1">
                       {contact.label}

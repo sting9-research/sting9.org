@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useRef } from 'react'
+import * as m from '../paraglide/messages.js'
 
 export const Route = createFileRoute('/research/api-docs')({
   component: ApiDocsPage,
@@ -71,10 +72,10 @@ function ApiDocsPage() {
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            Sting9 API Documentation
+            {m.api_docs_title()}
           </h1>
           <p className="text-gray-600">
-            REST API for submitting and analyzing phishing, smishing, and scam messages
+            {m.api_docs_subtitle()}
           </p>
         </div>
         <div id="swagger-ui" ref={containerRef}></div>

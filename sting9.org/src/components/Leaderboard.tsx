@@ -111,7 +111,7 @@ export default function Leaderboard() {
               {/* 2nd Place */}
               {topThree[1] && (
                 <div className="md:order-1 md:mt-8">
-                  <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl p-6 shadow-lg border-2 border-slate-300 text-center">
+                  <div className="bg-linear-to-br from-slate-50 to-slate-100 rounded-xl p-6 shadow-lg border-2 border-slate-300 text-center">
                     <div className="flex justify-center mb-3">
                       {getRankIcon(1)}
                     </div>
@@ -130,7 +130,7 @@ export default function Leaderboard() {
               {/* 1st Place */}
               {topThree[0] && (
                 <div className="md:order-2">
-                  <div className="bg-gradient-to-br from-amber-50 to-amber-100 rounded-xl p-8 shadow-xl border-2 border-amber-400 text-center relative">
+                  <div className="bg-linear-to-br from-amber-50 to-amber-100 rounded-xl p-8 shadow-xl border-2 border-amber-400 text-center relative">
                     <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-amber-500 text-white px-4 py-1 rounded-full text-xs font-bold">
                       TOP CONTRIBUTOR
                     </div>
@@ -152,7 +152,7 @@ export default function Leaderboard() {
               {/* 3rd Place */}
               {topThree[2] && (
                 <div className="md:order-3 md:mt-8">
-                  <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-6 shadow-lg border-2 border-orange-400 text-center">
+                  <div className="bg-linear-to-br from-orange-50 to-orange-100 rounded-xl p-6 shadow-lg border-2 border-orange-400 text-center">
                     <div className="flex justify-center mb-3">
                       {getRankIcon(2)}
                     </div>
@@ -187,7 +187,7 @@ export default function Leaderboard() {
                       className="flex items-center justify-between p-4 hover:bg-slate-50 transition-colors"
                     >
                       <div className="flex items-center gap-4 flex-1 min-w-0">
-                        <div className={`flex-shrink-0 w-10 h-10 rounded-full border-2 ${getRankBadgeColor(actualRank - 1)} flex items-center justify-center font-bold text-sm`}>
+                        <div className={`shrink-0 w-10 h-10 rounded-full border-2 ${getRankBadgeColor(actualRank - 1)} flex items-center justify-center font-bold text-sm`}>
                           #{actualRank}
                         </div>
                         <div className="flex-1 min-w-0">
@@ -196,7 +196,7 @@ export default function Leaderboard() {
                           </div>
                         </div>
                       </div>
-                      <div className="flex-shrink-0 text-right">
+                      <div className="shrink-0 text-right">
                         <div className="text-xl font-bold text-slate-700">
                           {entry.submission_count.toLocaleString()}
                         </div>

@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { Github, Code, Users, CheckCircle2, Info } from 'lucide-react'
 import Footer from '../components/Footer'
+import * as m from '../paraglide/messages.js'
 
 export const Route = createFileRoute('/dataset')({
   component: DatasetAccessPage,
@@ -10,14 +11,14 @@ function DatasetAccessPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="section-spacing bg-gradient-to-b from-slate-50 to-white">
+      <section className="section-spacing bg-linear-to-b from-slate-50 to-white">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-hero font-bold text-slate-900 mb-6">
-              Dataset Access
+              {m.dataset_title()}
             </h1>
             <p className="text-body-lg text-slate-600 leading-relaxed">
-              Access the world's largest open-source dataset of phishing, smishing, and scam messages. Available for researchers, developers, and organizations committed to fighting digital deception.
+              {m.dataset_subtitle()}
             </p>
           </div>
         </div>
@@ -28,7 +29,7 @@ function DatasetAccessPage() {
         <div className="container-custom">
           <div className="text-center mb-12">
             <h2 className="text-h2 font-bold text-slate-900 mb-4">
-              Access Options
+              {m.dataset_access_title()}
             </h2>
             <p className="text-lg text-slate-600 max-w-3xl mx-auto">
               Choose the access method that best fits your needs. All data is released under Creative Commons CC0 (Public Domain).
@@ -49,19 +50,19 @@ function DatasetAccessPage() {
               </p>
               <ul className="space-y-3 mb-6">
                 <li className="flex items-start">
-                  <CheckCircle2 className="w-5 h-5 text-emerald-600 mr-2 mt-0.5 flex-shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-emerald-600 mr-2 mt-0.5 shrink-0" />
                   <span className="text-sm text-slate-700">Complete dataset export</span>
                 </li>
                 <li className="flex items-start">
-                  <CheckCircle2 className="w-5 h-5 text-emerald-600 mr-2 mt-0.5 flex-shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-emerald-600 mr-2 mt-0.5 shrink-0" />
                   <span className="text-sm text-slate-700">SQL format for easy import</span>
                 </li>
                 <li className="flex items-start">
-                  <CheckCircle2 className="w-5 h-5 text-emerald-600 mr-2 mt-0.5 flex-shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-emerald-600 mr-2 mt-0.5 shrink-0" />
                   <span className="text-sm text-slate-700">No authentication required</span>
                 </li>
                 <li className="flex items-start">
-                  <CheckCircle2 className="w-5 h-5 text-emerald-600 mr-2 mt-0.5 flex-shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-emerald-600 mr-2 mt-0.5 shrink-0" />
                   <span className="text-sm text-slate-700">Weekly updates</span>
                 </li>
               </ul>
@@ -91,19 +92,19 @@ function DatasetAccessPage() {
               </p>
               <ul className="space-y-3 mb-6">
                 <li className="flex items-start">
-                  <CheckCircle2 className="w-5 h-5 text-emerald-600 mr-2 mt-0.5 flex-shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-emerald-600 mr-2 mt-0.5 shrink-0" />
                   <span className="text-sm text-slate-700">Real-time data access</span>
                 </li>
                 <li className="flex items-start">
-                  <CheckCircle2 className="w-5 h-5 text-emerald-600 mr-2 mt-0.5 flex-shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-emerald-600 mr-2 mt-0.5 shrink-0" />
                   <span className="text-sm text-slate-700">Advanced filtering & search</span>
                 </li>
                 <li className="flex items-start">
-                  <CheckCircle2 className="w-5 h-5 text-emerald-600 mr-2 mt-0.5 flex-shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-emerald-600 mr-2 mt-0.5 shrink-0" />
                   <span className="text-sm text-slate-700">OpenAPI documentation</span>
                 </li>
                 <li className="flex items-start">
-                  <CheckCircle2 className="w-5 h-5 text-emerald-600 mr-2 mt-0.5 flex-shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-emerald-600 mr-2 mt-0.5 shrink-0" />
                   <span className="text-sm text-slate-700">Rate limits: 1000 req/hour</span>
                 </li>
               </ul>
@@ -131,19 +132,19 @@ function DatasetAccessPage() {
               </p>
               <ul className="space-y-3 mb-6">
                 <li className="flex items-start">
-                  <CheckCircle2 className="w-5 h-5 text-emerald-600 mr-2 mt-0.5 flex-shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-emerald-600 mr-2 mt-0.5 shrink-0" />
                   <span className="text-sm text-slate-700">Bulk submission API</span>
                 </li>
                 <li className="flex items-start">
-                  <CheckCircle2 className="w-5 h-5 text-emerald-600 mr-2 mt-0.5 flex-shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-emerald-600 mr-2 mt-0.5 shrink-0" />
                   <span className="text-sm text-slate-700">Higher rate limits</span>
                 </li>
                 <li className="flex items-start">
-                  <CheckCircle2 className="w-5 h-5 text-emerald-600 mr-2 mt-0.5 flex-shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-emerald-600 mr-2 mt-0.5 shrink-0" />
                   <span className="text-sm text-slate-700">Early access to new models</span>
                 </li>
                 <li className="flex items-start">
-                  <CheckCircle2 className="w-5 h-5 text-emerald-600 mr-2 mt-0.5 flex-shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-emerald-600 mr-2 mt-0.5 shrink-0" />
                   <span className="text-sm text-slate-700">Dedicated support</span>
                 </li>
               </ul>
@@ -407,7 +408,7 @@ function DatasetAccessPage() {
 
             <div className="bg-white rounded-xl p-6 shadow-md border-l-4 border-emerald-500">
               <div className="flex items-start">
-                <Info className="w-6 h-6 text-emerald-600 mr-3 flex-shrink-0 mt-0.5" />
+                <Info className="w-6 h-6 text-emerald-600 mr-3 shrink-0 mt-0.5" />
                 <div>
                   <h3 className="text-lg font-semibold text-slate-900 mb-2">
                     Privacy Guarantee

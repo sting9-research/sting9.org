@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useState, useEffect } from 'react'
 import { Database, PieChart, Calendar, Globe, TrendingUp, RefreshCw } from 'lucide-react'
 import Footer from '../components/Footer'
+import * as m from '../paraglide/messages.js'
 
 export const Route = createFileRoute('/stats')({
   component: StatsPage,
@@ -74,23 +75,23 @@ function StatsPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="section-spacing bg-gradient-to-b from-slate-50 to-white">
+      <section className="section-spacing bg-linear-to-b from-slate-50 to-white">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 bg-emerald-100 text-emerald-800 px-4 py-2 rounded-full text-sm font-semibold mb-6">
               <PieChart className="w-4 h-4" />
-              <span>Live Dataset Statistics</span>
+              <span>{m.stats_badge()}</span>
             </div>
             <h1 className="text-hero font-bold text-slate-900 mb-6">
-              Real-Time Dataset Insights
+              {m.stats_title()}
             </h1>
             <p className="text-body-lg text-slate-600 leading-relaxed mb-6">
-              Explore comprehensive statistics about our growing dataset of phishing, smishing, and scam messages.
+              {m.stats_description()}
             </p>
             {lastUpdated && (
               <div className="flex items-center justify-center gap-2 text-sm text-slate-500">
                 <Calendar className="w-4 h-4" />
-                <span>Last updated: {lastUpdated}</span>
+                <span>{m.stats_last_updated()} {lastUpdated}</span>
               </div>
             )}
           </div>
@@ -101,40 +102,40 @@ function StatsPage() {
       <section className="section-spacing bg-white">
         <div className="container-custom">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-xl p-6 border border-emerald-200">
+            <div className="bg-linear-to-br from-emerald-50 to-emerald-100 rounded-xl p-6 border border-emerald-200">
               <div className="flex items-center gap-3 mb-2">
                 <Database className="w-6 h-6 text-emerald-600" />
-                <span className="text-sm font-semibold text-emerald-800 uppercase tracking-wide">Total Messages</span>
+                <span className="text-sm font-semibold text-emerald-800 uppercase tracking-wide">{m.stats_total_messages()}</span>
               </div>
               <div className="text-4xl font-bold text-emerald-900">
                 {loading ? '...' : (apiStats?.total_submissions || 0).toLocaleString()}
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 border border-blue-200">
+            <div className="bg-linear-to-br from-blue-50 to-blue-100 rounded-xl p-6 border border-blue-200">
               <div className="flex items-center gap-3 mb-2">
                 <Globe className="w-6 h-6 text-blue-600" />
-                <span className="text-sm font-semibold text-blue-800 uppercase tracking-wide">Message Types</span>
+                <span className="text-sm font-semibold text-blue-800 uppercase tracking-wide">{m.stats_message_types()}</span>
               </div>
               <div className="text-4xl font-bold text-blue-900">
                 {loading ? '...' : Object.keys(apiStats?.submissions_by_type || {}).length}
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-amber-50 to-amber-100 rounded-xl p-6 border border-amber-200">
+            <div className="bg-linear-to-br from-amber-50 to-amber-100 rounded-xl p-6 border border-amber-200">
               <div className="flex items-center gap-3 mb-2">
                 <PieChart className="w-6 h-6 text-amber-600" />
-                <span className="text-sm font-semibold text-amber-800 uppercase tracking-wide">Threat Categories</span>
+                <span className="text-sm font-semibold text-amber-800 uppercase tracking-wide">{m.stats_threat_categories()}</span>
               </div>
               <div className="text-4xl font-bold text-amber-900">
                 {loading ? '...' : Object.keys(apiStats?.submissions_by_category || {}).length}
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 border border-purple-200">
+            <div className="bg-linear-to-br from-purple-50 to-purple-100 rounded-xl p-6 border border-purple-200">
               <div className="flex items-center gap-3 mb-2">
                 <TrendingUp className="w-6 h-6 text-purple-600" />
-                <span className="text-sm font-semibold text-purple-800 uppercase tracking-wide">Languages</span>
+                <span className="text-sm font-semibold text-purple-800 uppercase tracking-wide">{m.stats_languages()}</span>
               </div>
               <div className="text-4xl font-bold text-purple-900">
                 {loading ? '...' : Object.keys(apiStats?.languages_detected || {}).filter(lang => lang !== 'unknown').length}
@@ -149,7 +150,7 @@ function StatsPage() {
               className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-500 hover:bg-emerald-600 disabled:bg-emerald-300 text-white font-semibold rounded-lg transition-colors"
             >
               <RefreshCw className={`w-5 h-5 ${loading ? 'animate-spin' : ''}`} />
-              {loading ? 'Refreshing...' : 'Refresh Stats'}
+              {loading ? m.stats_refreshing() : m.stats_refresh()}
             </button>
           </div>
         </div>
@@ -159,7 +160,7 @@ function StatsPage() {
       <section className="section-spacing bg-slate-50">
         <div className="container-custom">
           <h2 className="text-h2 font-bold text-slate-900 mb-8">
-            Messages by Type
+            {m.stats_by_type()}
           </h2>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -195,7 +196,7 @@ function StatsPage() {
       <section className="section-spacing bg-white">
         <div className="container-custom">
           <h2 className="text-h2 font-bold text-slate-900 mb-8">
-            Threat Categories
+            {m.stats_by_category()}
           </h2>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -233,7 +234,7 @@ function StatsPage() {
       <section className="section-spacing bg-slate-50">
         <div className="container-custom">
           <h2 className="text-h2 font-bold text-slate-900 mb-8">
-            Languages Detected
+            {m.stats_by_language()}
           </h2>
 
           <div className="grid md:grid-cols-4 gap-6">
@@ -268,7 +269,7 @@ function StatsPage() {
       <section className="section-spacing bg-white">
         <div className="container-custom">
           <h2 className="text-h2 font-bold text-slate-900 mb-8">
-            Recent Submission Activity (Last 30 Days)
+            {m.stats_recent_activity()}
           </h2>
 
           <div className="bg-slate-50 rounded-xl p-8 border border-slate-200">
@@ -289,7 +290,7 @@ function StatsPage() {
                       <div className="flex items-center gap-3">
                         <div className="flex-1 bg-slate-300 rounded-full h-6 overflow-hidden">
                           <div
-                            className="bg-gradient-to-r from-emerald-500 to-emerald-600 h-6 flex items-center justify-end pr-2"
+                            className="bg-linear-to-r from-emerald-500 to-emerald-600 h-6 flex items-center justify-end pr-2"
                             style={{
                               width: `${Math.min((count / Math.max(...Object.values(apiStats.submissions_by_date))) * 100, 100)}%`,
                               minWidth: '60px'
@@ -310,27 +311,27 @@ function StatsPage() {
       </section>
 
       {/* Call to Action */}
-      <section className="section-spacing bg-gradient-to-b from-slate-50 to-white">
+      <section className="section-spacing bg-linear-to-b from-slate-50 to-white">
         <div className="container-custom">
           <div className="max-w-3xl mx-auto text-center bg-white rounded-xl p-8 shadow-lg border border-slate-200">
             <h2 className="text-3xl font-bold text-slate-900 mb-4">
-              Help Us Grow the Dataset
+              {m.stats_cta_title()}
             </h2>
             <p className="text-lg text-slate-600 mb-8">
-              Every submission makes our detection models more accurate. Submit suspicious messages you've received to contribute to the fight against digital deception.
+              {m.stats_cta_text()}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="/submit/email"
                 className="px-8 py-4 bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-lg transition-colors"
               >
-                Submit Email
+                {m.stats_submit_email()}
               </a>
               <a
                 href="/submit/sms"
                 className="px-8 py-4 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-lg transition-colors"
               >
-                Submit SMS
+                {m.stats_submit_sms()}
               </a>
             </div>
           </div>

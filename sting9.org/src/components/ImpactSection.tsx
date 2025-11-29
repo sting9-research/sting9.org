@@ -54,7 +54,7 @@ export default function ImpactSection() {
   ]
 
   return (
-    <section className="section-spacing bg-gradient-to-b from-slate-50 to-white">
+    <section className="section-spacing bg-linear-to-b from-slate-50 to-white">
       <div className="container-custom">
         {/* Main heading */}
         <div className="text-center mb-20">
@@ -123,7 +123,7 @@ export default function ImpactSection() {
 
         {/* Open source commitment */}
         <div className="max-w-4xl mx-auto mt-20">
-          <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-12 text-white shadow-2xl relative overflow-hidden">
+          <div className="bg-linear-to-br from-slate-800 to-slate-900 rounded-2xl p-12 text-white shadow-2xl relative overflow-hidden">
             <div className="absolute inset-0 opacity-10">
               <div className="absolute inset-0" style={{
                 backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
@@ -135,28 +135,28 @@ export default function ImpactSection() {
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 <div className="flex items-start gap-3">
-                  <CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-1" />
+                  <CheckCircle2 className="w-6 h-6 text-emerald-400 shrink-0 mt-1" />
                   <div>
                     <div className="font-semibold mb-1">ODC-BY-NC License</div>
                     <div className="text-slate-300 text-sm">Open Data Commons Attribution-NonCommercial—free for research and non-commercial use</div>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-1" />
+                  <CheckCircle2 className="w-6 h-6 text-emerald-400 shrink-0 mt-1" />
                   <div>
                     <div className="font-semibold mb-1">Free API Access</div>
                     <div className="text-slate-300 text-sm">RESTful API for researchers and developers—no paywalls</div>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-1" />
+                  <CheckCircle2 className="w-6 h-6 text-emerald-400 shrink-0 mt-1" />
                   <div>
                     <div className="font-semibold mb-1">Transparent Methodology</div>
                     <div className="text-slate-300 text-sm">Open documentation of collection, anonymization, and classification processes</div>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-1" />
+                  <CheckCircle2 className="w-6 h-6 text-emerald-400 shrink-0 mt-1" />
                   <div>
                     <div className="font-semibold mb-1">Pre-Trained Models</div>
                     <div className="text-slate-300 text-sm">Detection models freely available for personal and research use</div>

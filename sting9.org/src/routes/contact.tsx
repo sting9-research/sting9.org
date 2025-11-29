@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 import { Mail, Phone, MapPin, Github, CheckCircle2, Send, ArrowRight } from 'lucide-react'
 import Footer from '../components/Footer'
+import * as m from '../paraglide/messages.js'
 
 export const Route = createFileRoute('/contact')({
   component: ContactPage,
@@ -54,16 +55,16 @@ function ContactPage() {
             <CheckCircle2 className="w-16 h-16 text-emerald-500 mx-auto" />
           </div>
           <h2 className="text-2xl font-bold text-slate-900 mb-2">
-            Message Sent Successfully!
+            {m.contact_success_title()}
           </h2>
           <p className="text-slate-600 mb-6">
-            Thank you for reaching out to Sting9. We've received your message and will respond within 24-48 hours.
+            {m.contact_success_message()}
           </p>
           <a
             href="/"
             className="inline-block bg-amber-500 hover:bg-amber-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
           >
-            Return to Home
+            {m.contact_success_button()}
           </a>
         </div>
       </div>
@@ -73,14 +74,14 @@ function ContactPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="section-spacing bg-gradient-to-b from-slate-50 to-white">
+      <section className="section-spacing bg-linear-to-b from-slate-50 to-white">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-hero font-bold text-slate-900 mb-6">
-              Get in Touch
+              {m.contact_title()}
             </h1>
             <p className="text-body-lg text-slate-600 leading-relaxed">
-              Have questions, feedback, or want to learn more about Sting9? We'd love to hear from you.
+              {m.contact_subtitle()}
             </p>
           </div>
         </div>
@@ -91,23 +92,23 @@ function ContactPage() {
           {/* Contact Information */}
           <div className="lg:col-span-1">
             <h2 className="text-2xl font-bold text-slate-900 mb-6">
-              Contact Information
+              {m.contact_info_title()}
             </h2>
 
             <div className="space-y-6">
               {/* Email Contacts */}
               <div>
                 <h3 className="text-lg font-semibold text-slate-900 mb-3">
-                  Email Us
+                  {m.contact_email_title()}
                 </h3>
                 <div className="space-y-3">
                   <a
                     href="mailto:hello@sting9.org"
                     className="flex items-start text-slate-600 hover:text-amber-600 transition-colors"
                   >
-                    <Mail className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0 text-amber-600" />
+                    <Mail className="w-5 h-5 mr-3 mt-0.5 shrink-0 text-amber-600" />
                     <div>
-                      <div className="font-medium text-slate-900">General Inquiries</div>
+                      <div className="font-medium text-slate-900">{m.contact_email_general()}</div>
                       <div className="text-sm">hello@sting9.org</div>
                     </div>
                   </a>
@@ -116,9 +117,9 @@ function ContactPage() {
                     href="mailto:research@sting9.org"
                     className="flex items-start text-slate-600 hover:text-amber-600 transition-colors"
                   >
-                    <Mail className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0 text-amber-600" />
+                    <Mail className="w-5 h-5 mr-3 mt-0.5 shrink-0 text-amber-600" />
                     <div>
-                      <div className="font-medium text-slate-900">Research Inquiries</div>
+                      <div className="font-medium text-slate-900">{m.contact_email_research()}</div>
                       <div className="text-sm">research@sting9.org</div>
                     </div>
                   </a>
@@ -127,9 +128,9 @@ function ContactPage() {
                     href="mailto:partners@sting9.org"
                     className="flex items-start text-slate-600 hover:text-amber-600 transition-colors"
                   >
-                    <Mail className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0 text-amber-600" />
+                    <Mail className="w-5 h-5 mr-3 mt-0.5 shrink-0 text-amber-600" />
                     <div>
-                      <div className="font-medium text-slate-900">Partnerships</div>
+                      <div className="font-medium text-slate-900">{m.contact_email_partners()}</div>
                       <div className="text-sm">partners@sting9.org</div>
                     </div>
                   </a>
@@ -138,9 +139,9 @@ function ContactPage() {
                     href="mailto:press@sting9.org"
                     className="flex items-start text-slate-600 hover:text-amber-600 transition-colors"
                   >
-                    <Mail className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0 text-amber-600" />
+                    <Mail className="w-5 h-5 mr-3 mt-0.5 shrink-0 text-amber-600" />
                     <div>
-                      <div className="font-medium text-slate-900">Media & Press</div>
+                      <div className="font-medium text-slate-900">{m.contact_email_press()}</div>
                       <div className="text-sm">press@sting9.org</div>
                     </div>
                   </a>
@@ -150,18 +151,18 @@ function ContactPage() {
               {/* Submit Suspicious Messages */}
               <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
                 <div className="flex items-start">
-                  <Send className="w-5 h-5 text-amber-600 mr-2 mt-0.5 flex-shrink-0" />
+                  <Send className="w-5 h-5 text-amber-600 mr-2 mt-0.5 shrink-0" />
                   <div>
                     <div className="font-medium text-slate-900 text-sm mb-1">
-                      Submit Suspicious Messages
+                      {m.contact_submit_title()}
                     </div>
                     <p className="text-slate-600 text-sm mb-2">
-                      To contribute to the dataset, use our submission portal:
+                      {m.contact_submit_text()}
                     </p>
                     <div className="space-y-1">
                       <a href="/submit" className="text-amber-600 hover:text-amber-700 text-sm block flex items-center">
                         <ArrowRight className="w-4 h-4 mr-1" />
-                        Web Submission Form
+                        {m.contact_submit_web()}
                       </a>
                       <a href="mailto:submit@sting9.org" className="text-amber-600 hover:text-amber-700 text-sm block flex items-center">
                         <ArrowRight className="w-4 h-4 mr-1" />
@@ -175,7 +176,7 @@ function ContactPage() {
               {/* Social Media */}
               <div>
                 <h3 className="text-lg font-semibold text-slate-900 mb-3">
-                  Follow Us
+                  {m.contact_social_title()}
                 </h3>
                 <div className="flex gap-4">
                   <a
@@ -212,10 +213,10 @@ function ContactPage() {
               {/* Response Time */}
               <div className="bg-slate-50 rounded-lg p-4 border border-slate-200">
                 <h3 className="text-sm font-semibold text-slate-900 mb-2">
-                  Response Time
+                  {m.contact_response_title()}
                 </h3>
                 <p className="text-sm text-slate-600">
-                  We typically respond to inquiries within <strong>24-48 hours</strong> during business days. For urgent matters, please indicate this in your message.
+                  {m.contact_response_text()}
                 </p>
               </div>
             </div>
@@ -225,7 +226,7 @@ function ContactPage() {
           <div className="lg:col-span-2">
             <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-8">
               <h2 className="text-2xl font-bold text-slate-900 mb-6">
-                Send Us a Message
+                {m.contact_form_title()}
               </h2>
 
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -233,7 +234,7 @@ function ContactPage() {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-2">
-                      Your Name <span className="text-red-600">*</span>
+                      {m.contact_form_name()} <span className="text-red-600">*</span>
                     </label>
                     <input
                       type="text"
@@ -243,13 +244,13 @@ function ContactPage() {
                       value={formData.name}
                       onChange={handleInputChange}
                       className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                      placeholder="John Doe"
+                      placeholder={m.contact_form_name_placeholder()}
                     />
                   </div>
 
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">
-                      Email Address <span className="text-red-600">*</span>
+                      {m.contact_form_email()} <span className="text-red-600">*</span>
                     </label>
                     <input
                       type="email"
@@ -259,7 +260,7 @@ function ContactPage() {
                       value={formData.email}
                       onChange={handleInputChange}
                       className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                      placeholder="john@example.com"
+                      placeholder={m.contact_form_email_placeholder()}
                     />
                   </div>
                 </div>
@@ -267,7 +268,7 @@ function ContactPage() {
                 {/* Organization */}
                 <div>
                   <label htmlFor="organization" className="block text-sm font-medium text-slate-700 mb-2">
-                    Organization (Optional)
+                    {m.contact_form_organization()}
                   </label>
                   <input
                     type="text"
@@ -276,7 +277,7 @@ function ContactPage() {
                     value={formData.organization}
                     onChange={handleInputChange}
                     className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                    placeholder="Your company or institution"
+                    placeholder={m.contact_form_organization_placeholder()}
                   />
                 </div>
 
@@ -284,7 +285,7 @@ function ContactPage() {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="inquiryType" className="block text-sm font-medium text-slate-700 mb-2">
-                      Inquiry Type <span className="text-red-600">*</span>
+                      {m.contact_form_inquiry_type()} <span className="text-red-600">*</span>
                     </label>
                     <select
                       id="inquiryType"
@@ -294,21 +295,21 @@ function ContactPage() {
                       onChange={handleInputChange}
                       className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
                     >
-                      <option value="">Select type...</option>
-                      <option value="general">General Inquiry</option>
-                      <option value="research">Research & Academic</option>
-                      <option value="media">Media & Press</option>
-                      <option value="partnership">Partnership Opportunity</option>
-                      <option value="technical">Technical Support</option>
-                      <option value="data_request">Data Access Request</option>
-                      <option value="bug_report">Bug Report</option>
-                      <option value="other">Other</option>
+                      <option value="">{m.contact_form_inquiry_type_select()}</option>
+                      <option value="general">{m.contact_form_inquiry_type_general()}</option>
+                      <option value="research">{m.contact_form_inquiry_type_research()}</option>
+                      <option value="media">{m.contact_form_inquiry_type_media()}</option>
+                      <option value="partnership">{m.contact_form_inquiry_type_partnership()}</option>
+                      <option value="technical">{m.contact_form_inquiry_type_technical()}</option>
+                      <option value="data_request">{m.contact_form_inquiry_type_data()}</option>
+                      <option value="bug_report">{m.contact_form_inquiry_type_bug()}</option>
+                      <option value="other">{m.contact_form_inquiry_type_other()}</option>
                     </select>
                   </div>
 
                   <div>
                     <label htmlFor="urgency" className="block text-sm font-medium text-slate-700 mb-2">
-                      Priority Level
+                      {m.contact_form_priority()}
                     </label>
                     <select
                       id="urgency"
@@ -317,9 +318,9 @@ function ContactPage() {
                       onChange={handleInputChange}
                       className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
                     >
-                      <option value="low">Low - Can wait a few days</option>
-                      <option value="normal">Normal - Standard response time</option>
-                      <option value="high">High - Need quick response</option>
+                      <option value="low">{m.contact_form_priority_low()}</option>
+                      <option value="normal">{m.contact_form_priority_normal()}</option>
+                      <option value="high">{m.contact_form_priority_high()}</option>
                     </select>
                   </div>
                 </div>
@@ -327,7 +328,7 @@ function ContactPage() {
                 {/* Subject */}
                 <div>
                   <label htmlFor="subject" className="block text-sm font-medium text-slate-700 mb-2">
-                    Subject <span className="text-red-600">*</span>
+                    {m.contact_form_subject()} <span className="text-red-600">*</span>
                   </label>
                   <input
                     type="text"
@@ -337,14 +338,14 @@ function ContactPage() {
                     value={formData.subject}
                     onChange={handleInputChange}
                     className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                    placeholder="Brief summary of your inquiry"
+                    placeholder={m.contact_form_subject_placeholder()}
                   />
                 </div>
 
                 {/* Message */}
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-2">
-                    Message <span className="text-red-600">*</span>
+                    {m.contact_form_message()} <span className="text-red-600">*</span>
                   </label>
                   <textarea
                     id="message"
@@ -354,10 +355,10 @@ function ContactPage() {
                     value={formData.message}
                     onChange={handleInputChange}
                     className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                    placeholder="Please provide as much detail as possible..."
+                    placeholder={m.contact_form_message_placeholder()}
                   />
                   <p className="mt-2 text-sm text-slate-500">
-                    Minimum 10 characters. Be as specific as possible.
+                    {m.contact_form_message_hint()}
                   </p>
                 </div>
 
@@ -372,7 +373,7 @@ function ContactPage() {
                       className="mt-1 h-4 w-4 text-amber-600 focus:ring-amber-500 border-slate-300 rounded"
                     />
                     <span className="ml-3 text-sm text-slate-700">
-                      Subscribe to Sting9 newsletter for updates on dataset milestones, new research findings, and AI model releases
+                      {m.contact_form_newsletter()}
                     </span>
                   </label>
                 </div>
@@ -383,7 +384,7 @@ function ContactPage() {
                     href="/"
                     className="px-6 py-3 border border-slate-300 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors"
                   >
-                    Cancel
+                    {m.contact_form_cancel()}
                   </a>
                   <button
                     type="submit"
@@ -396,12 +397,12 @@ function ContactPage() {
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
-                        Sending...
+                        {m.contact_form_sending()}
                       </>
                     ) : (
                       <>
                         <Send className="w-5 h-5 mr-2" />
-                        Send Message
+                        {m.contact_form_send()}
                       </>
                     )}
                   </button>
@@ -412,24 +413,24 @@ function ContactPage() {
             {/* FAQ Quick Links */}
             <div className="mt-8 bg-slate-50 border border-slate-200 rounded-lg p-6">
               <h3 className="text-lg font-semibold text-slate-900 mb-3">
-                Looking for something specific?
+                {m.contact_faq_title()}
               </h3>
               <div className="grid md:grid-cols-2 gap-3">
                 <a href="/about" className="text-amber-600 hover:text-amber-700 text-sm flex items-center">
                   <ArrowRight className="w-4 h-4 mr-2" />
-                  About the Project
+                  {m.contact_faq_about()}
                 </a>
                 <a href="/dataset" className="text-amber-600 hover:text-amber-700 text-sm flex items-center">
                   <ArrowRight className="w-4 h-4 mr-2" />
-                  Dataset Access
+                  {m.contact_faq_dataset()}
                 </a>
                 <a href="/research" className="text-amber-600 hover:text-amber-700 text-sm flex items-center">
                   <ArrowRight className="w-4 h-4 mr-2" />
-                  API Documentation
+                  {m.contact_faq_api()}
                 </a>
                 <a href="/partners" className="text-amber-600 hover:text-amber-700 text-sm flex items-center">
                   <ArrowRight className="w-4 h-4 mr-2" />
-                  Partnership Information
+                  {m.contact_faq_partners()}
                 </a>
               </div>
             </div>

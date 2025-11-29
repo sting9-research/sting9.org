@@ -55,19 +55,19 @@ export default function HowItWorks() {
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
             {/* Connection lines - hidden on mobile */}
-            <div className="hidden lg:block absolute top-24 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-500 via-purple-500 via-emerald-500 to-amber-500 opacity-20"></div>
+            <div className="hidden lg:block absolute top-24 left-0 right-0 h-0.5 bg-linear-to-r from-blue-500 via-purple-500 via-emerald-500 to-amber-500 opacity-20"></div>
 
             {steps.map((step, index) => (
               <div key={index} className="relative flex">
                 {/* Step card */}
                 <div className="bg-slate-50 rounded-xl p-6 border border-slate-200 hover:border-slate-300 hover:shadow-lg transition-all duration-300 relative z-10 flex flex-col h-full w-full">
                   {/* Step number badge */}
-                  <div className={`${step.color} text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl mb-4 shadow-lg flex-shrink-0`}>
+                  <div className={`${step.color} text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl mb-4 shadow-lg shrink-0`}>
                     {step.number}
                   </div>
 
                   {/* Icon */}
-                  <div className="text-slate-700 mb-4 flex-shrink-0">
+                  <div className="text-slate-700 mb-4 shrink-0">
                     {step.icon}
                   </div>
 
