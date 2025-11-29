@@ -1,4 +1,6 @@
 import { Upload, Lock, Database, Brain, ArrowRight } from 'lucide-react'
+import * as m from '../paraglide/messages'
+import { localizeUrl } from '../paraglide/runtime'
 
 interface Step {
   number: number
@@ -13,42 +15,48 @@ export default function HowItWorks() {
     {
       number: 1,
       icon: <Upload className="w-8 h-8" />,
-      title: 'Submit Suspicious Message',
-      description: 'Forward phishing emails or paste smishing texts. Upload screenshots or message files. Anonymous submissions welcome.',
+      title: m.home_how_it_works_step1_title(),
+      description: m.home_how_it_works_step1_description(),
       color: 'bg-blue-500',
     },
     {
       number: 2,
       icon: <Lock className="w-8 h-8" />,
-      title: 'Automated Anonymization',
-      description: 'Our system immediately redacts all personal information—emails, phone numbers, names, addresses, and identifiers—to protect your privacy.',
+      title: m.home_how_it_works_step2_title(),
+      description: m.home_how_it_works_step2_description(),
       color: 'bg-purple-500',
     },
     {
       number: 3,
       icon: <Database className="w-8 h-8" />,
-      title: 'Added to Open Dataset',
-      description: 'The anonymized message joins our CC0 public dataset, categorized by type, language, and threat characteristics for research access.',
+      title: m.home_how_it_works_step3_title(),
+      description: m.home_how_it_works_step3_description(),
       color: 'bg-emerald-500',
     },
     {
       number: 4,
       icon: <Brain className="w-8 h-8" />,
-      title: 'Powers AI Detection',
-      description: 'Your contribution trains machine learning models used by individuals, organizations, and researchers to detect and prevent future attacks.',
+      title: m.home_how_it_works_step4_title(),
+      description: m.home_how_it_works_step4_description(),
       color: 'bg-amber-500',
     },
   ]
+
+  // Helper function to properly handle localizeUrl return type
+  const getLocalizedHref = (href: string): string => {
+    const result = localizeUrl(href)
+    return typeof result === 'string' ? result : result.href
+  }
 
   return (
     <section className="section-spacing bg-white">
       <div className="container-custom">
         <div className="text-center mb-16">
           <h2 className="text-h2 font-bold text-slate-900 mb-4">
-            How It Works
+            {m.home_how_it_works_title()}
           </h2>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            From submission to protection in four transparent steps
+            {m.home_how_it_works_subtitle()}
           </p>
         </div>
 
@@ -88,17 +96,16 @@ export default function HowItWorks() {
         <div className="mt-16 text-center">
           <div className="bg-slate-50 rounded-xl p-8 max-w-3xl mx-auto border border-slate-200">
             <h3 className="text-2xl font-bold text-slate-900 mb-3">
-              Your Contribution Matters
+              {m.home_how_it_works_cta_title()}
             </h3>
             <p className="text-slate-600 mb-6">
-              Every message you submit helps protect millions of people from digital deception.
-              Together, we're building the most comprehensive anti-phishing defense system ever created.
+              {m.home_how_it_works_cta_text()}
             </p>
             <a
-              href="/about"
+              href={getLocalizedHref('/about')}
               className="inline-flex items-center gap-2 text-amber-600 hover:text-amber-700 font-semibold transition-colors"
             >
-              Learn more about our mission
+              {m.home_how_it_works_cta_link()}
               <ArrowRight className="w-4 h-4" />
             </a>
           </div>

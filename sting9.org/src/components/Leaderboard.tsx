@@ -1,5 +1,7 @@
 import { Trophy, Medal, Award, TrendingUp } from 'lucide-react'
 import { useState, useEffect } from 'react'
+import * as m from '../paraglide/messages'
+import { localizeUrl } from '../paraglide/runtime'
 
 interface LeaderboardEntry {
   nickname: string
@@ -70,6 +72,12 @@ export default function Leaderboard() {
   const topThree = data?.leaderboard.slice(0, 3) || []
   const rest = data?.leaderboard.slice(3, 10) || []
 
+  // Helper function to properly handle localizeUrl return type
+  const getLocalizedHref = (href: string): string => {
+    const result = localizeUrl(href)
+    return typeof result === 'string' ? result : result.href
+  }
+
   return (
     <section className="section-spacing bg-white">
       <div className="container-custom">
@@ -81,10 +89,10 @@ export default function Leaderboard() {
             </div>
           </div>
           <h2 className="text-h2 font-bold text-slate-900 mb-4">
-            Top Contributors
+            {m.home_leaderboard_title()}
           </h2>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Recognizing the heroes who help build the world's largest phishing detection dataset
+            {m.home_leaderboard_subtitle()}
           </p>
         </div>
 
@@ -92,14 +100,14 @@ export default function Leaderboard() {
         {isLoading && (
           <div className="text-center py-12">
             <div className="inline-block h-12 w-12 animate-spin rounded-full border-4 border-solid border-emerald-600 border-r-transparent"></div>
-            <p className="mt-4 text-slate-600">Loading leaderboard...</p>
+            <p className="mt-4 text-slate-600">{m.home_leaderboard_loading()}</p>
           </div>
         )}
 
         {/* Error State */}
         {error && !isLoading && (
           <div className="max-w-2xl mx-auto bg-red-50 border border-red-200 rounded-xl p-6 text-center">
-            <p className="text-red-600 font-medium">Failed to load leaderboard</p>
+            <p className="text-red-600 font-medium">{m.home_leaderboard_error()}</p>
             <p className="text-red-500 text-sm mt-2">{error}</p>
           </div>
         )}
@@ -122,7 +130,7 @@ export default function Leaderboard() {
                     <div className="text-2xl font-bold text-slate-600">
                       {topThree[1].submission_count.toLocaleString()}
                     </div>
-                    <div className="text-xs text-slate-500 mt-1">submissions</div>
+                    <div className="text-xs text-slate-500 mt-1">{m.home_leaderboard_submissions()}</div>
                   </div>
                 </div>
               )}
@@ -132,7 +140,7 @@ export default function Leaderboard() {
                 <div className="md:order-2">
                   <div className="bg-linear-to-br from-amber-50 to-amber-100 rounded-xl p-8 shadow-xl border-2 border-amber-400 text-center relative">
                     <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-amber-500 text-white px-4 py-1 rounded-full text-xs font-bold">
-                      TOP CONTRIBUTOR
+                      {m.home_leaderboard_top_contributor()}
                     </div>
                     <div className="flex justify-center mb-3 mt-2">
                       {getRankIcon(0)}
@@ -144,7 +152,7 @@ export default function Leaderboard() {
                     <div className="text-3xl font-bold text-amber-600">
                       {topThree[0].submission_count.toLocaleString()}
                     </div>
-                    <div className="text-sm text-slate-600 mt-1">submissions</div>
+                    <div className="text-sm text-slate-600 mt-1">{m.home_leaderboard_submissions()}</div>
                   </div>
                 </div>
               )}
@@ -163,7 +171,7 @@ export default function Leaderboard() {
                     <div className="text-2xl font-bold text-orange-600">
                       {topThree[2].submission_count.toLocaleString()}
                     </div>
-                    <div className="text-xs text-slate-500 mt-1">submissions</div>
+                    <div className="text-xs text-slate-500 mt-1">{m.home_leaderboard_submissions()}</div>
                   </div>
                 </div>
               )}
@@ -175,7 +183,7 @@ export default function Leaderboard() {
         {!isLoading && !error && rest.length > 0 && (
           <div className="max-w-3xl mx-auto">
             <h3 className="text-xl font-bold text-slate-900 mb-6 text-center">
-              Top 4-10 Contributors
+              {m.home_leaderboard_top_4_10()}
             </h3>
             <div className="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden">
               <div className="divide-y divide-slate-100">
@@ -200,7 +208,7 @@ export default function Leaderboard() {
                         <div className="text-xl font-bold text-slate-700">
                           {entry.submission_count.toLocaleString()}
                         </div>
-                        <div className="text-xs text-slate-500">submissions</div>
+                        <div className="text-xs text-slate-500">{m.home_leaderboard_submissions()}</div>
                       </div>
                     </div>
                   )
@@ -215,10 +223,10 @@ export default function Leaderboard() {
           <div className="max-w-2xl mx-auto bg-slate-50 border border-slate-200 rounded-xl p-12 text-center">
             <Trophy className="w-16 h-16 text-slate-300 mx-auto mb-4" />
             <h3 className="text-xl font-bold text-slate-700 mb-2">
-              No Contributors Yet
+              {m.home_leaderboard_no_contributors()}
             </h3>
             <p className="text-slate-600">
-              Be the first to contribute and claim the top spot!
+              {m.home_leaderboard_be_first()}
             </p>
           </div>
         )}
@@ -228,13 +236,13 @@ export default function Leaderboard() {
           <div className="mt-12 text-center">
             <div className="bg-emerald-50 border-2 border-emerald-200 rounded-xl p-6 max-w-2xl mx-auto">
               <p className="text-slate-700 mb-4">
-                <strong>Want to see your nickname here?</strong> Submit suspicious messages and include your nickname to join the leaderboard!
+                <strong>{m.home_leaderboard_cta_text()}</strong> {m.home_leaderboard_cta_description()}
               </p>
               <a
-                href="/submit/email"
+                href={getLocalizedHref('/submit/email')}
                 className="inline-block bg-emerald-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-emerald-700 transition-colors shadow-md hover:shadow-lg"
               >
-                Start Contributing
+                {m.home_leaderboard_cta_button()}
               </a>
             </div>
           </div>

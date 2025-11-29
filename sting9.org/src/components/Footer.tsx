@@ -1,4 +1,6 @@
 import { Shield, Mail, Github, Twitter, Linkedin, ExternalLink } from 'lucide-react'
+import * as m from '../paraglide/messages'
+import { localizeUrl } from '../paraglide/runtime'
 
 interface FooterLink {
   label: string
@@ -13,46 +15,52 @@ interface FooterSection {
 export default function Footer() {
   const sections: FooterSection[] = [
     {
-      title: 'Get Started',
+      title: m.footer_section_get_started(),
       links: [
-        { label: 'Submit Email', href: '/submit/email' },
-        { label: 'Submit SMS', href: '/submit/sms' },
-        { label: 'How It Works', href: '/#how-it-works' },
-        { label: 'Learn About Threats', href: '/learn' },
+        { label: m.footer_link_submit_email(), href: '/submit/email' },
+        { label: m.footer_link_submit_sms(), href: '/submit/sms' },
+        { label: m.footer_link_how_it_works(), href: '/#how-it-works' },
+        { label: m.footer_link_learn_threats(), href: '/learn' },
       ],
     },
     {
-      title: 'Research',
+      title: m.footer_section_research(),
       links: [
-        { label: 'Dataset Access', href: '/dataset' },
-        { label: 'API Documentation', href: '/research/api-docs' },
-        { label: 'Statistics', href: '/stats' },
+        { label: m.footer_link_dataset(), href: '/dataset' },
+        { label: m.footer_link_api_docs(), href: '/research/api-docs' },
+        { label: m.footer_link_statistics(), href: '/stats' },
       ],
     },
     {
-      title: 'About',
+      title: m.footer_section_about(),
       links: [
-        { label: 'Mission & Vision', href: '/about' },
-        { label: 'Partners', href: '/partners' },
+        { label: m.footer_link_mission(), href: '/about' },
+        { label: m.footer_link_partners(), href: '/partners' },
       ],
     },
     {
-      title: 'Legal',
+      title: m.footer_section_legal(),
       links: [
-        { label: 'Privacy Policy', href: '/privacy' },
-        { label: 'Terms of Service', href: '/terms' },
-        { label: 'ODC-BY-NC License', href: '/license' },
-        { label: 'Contact', href: '/contact' },
+        { label: m.footer_link_privacy(), href: '/privacy' },
+        { label: m.footer_link_terms(), href: '/terms' },
+        { label: m.footer_link_license(), href: '/license' },
+        { label: m.footer_link_contact(), href: '/contact' },
       ],
     },
   ]
 
   const contactEmails = [
-    { label: 'Research Inquiries', email: 'research@sting9.org' },
-    { label: 'Partnerships', email: 'partners@sting9.org' },
-    { label: 'Press & Media', email: 'press@sting9.org' },
-    { label: 'General', email: 'info@sting9.org' },
+    { label: m.footer_contact_research(), email: 'research@sting9.org' },
+    { label: m.footer_contact_partners(), email: 'partners@sting9.org' },
+    { label: m.footer_contact_press(), email: 'press@sting9.org' },
+    { label: m.footer_contact_general(), email: 'info@sting9.org' },
   ]
+
+  // Helper function to properly handle localizeUrl return type
+  const getLocalizedHref = (href: string): string => {
+    const result = localizeUrl(href)
+    return typeof result === 'string' ? result : result.href
+  }
 
   return (
     <footer className="bg-slate-900 text-slate-300 border-t border-slate-800">
@@ -70,8 +78,7 @@ export default function Footer() {
               <div className="text-2xl font-bold text-white">Sting9</div>
             </div>
             <p className="text-slate-400 mb-6 leading-relaxed">
-              Building the world's most comprehensive open-source dataset of phishing and smishing messages
-              to make digital deception obsolete.
+              {m.footer_tagline()}
             </p>
             <div className="flex items-center gap-4">
               <a
@@ -112,7 +119,7 @@ export default function Footer() {
                 {section.links.map((link, linkIndex) => (
                   <li key={linkIndex}>
                     <a
-                      href={link.href}
+                      href={getLocalizedHref(link.href)}
                       className="text-slate-400 hover:text-white transition-colors inline-flex items-center gap-1 group"
                     >
                       {link.label}
@@ -129,7 +136,7 @@ export default function Footer() {
 
         {/* Contact section */}
         <div className="border-t border-slate-800 pt-12 mb-12">
-          <h3 className="font-bold text-white mb-6 text-center">Contact Us</h3>
+          <h3 className="font-bold text-white mb-6 text-center">{m.footer_contact_title()}</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
             {contactEmails.map((contact, index) => (
               <a
@@ -157,20 +164,20 @@ export default function Footer() {
         <div className="border-t border-slate-800 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
             <div className="text-center md:text-left">
-              © {new Date().getFullYear()} Sting9 Research Initiative. Dataset released under{' '}
-              <a href="/license" className="text-emerald-400 hover:text-emerald-300 transition-colors">
-                ODC-BY-NC License
+              © {new Date().getFullYear()} {m.footer_copyright()}{' '}
+              <a href={getLocalizedHref('/license')} className="text-emerald-400 hover:text-emerald-300 transition-colors">
+                {m.footer_link_license()}
               </a>
             </div>
             <div className="flex items-center gap-6">
-              <a href="/privacy" className="hover:text-slate-300 transition-colors">
-                Privacy
+              <a href={getLocalizedHref('/privacy')} className="hover:text-slate-300 transition-colors">
+                {m.footer_link_privacy()}
               </a>
-              <a href="/terms" className="hover:text-slate-300 transition-colors">
-                Terms
+              <a href={getLocalizedHref('/terms')} className="hover:text-slate-300 transition-colors">
+                {m.footer_link_terms()}
               </a>
-              <a href="/security" className="hover:text-slate-300 transition-colors">
-                Security
+              <a href={getLocalizedHref('/security')} className="hover:text-slate-300 transition-colors">
+                {m.footer_link_security()}
               </a>
             </div>
           </div>
@@ -185,9 +192,9 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-slate-300 transition-colors group"
             >
-              <span>Hosted with</span>
+              <span>{m.footer_hosted_with()}</span>
               <span className="text-purple-400 group-hover:scale-110 transition-transform inline-block">💜</span>
-              <span>by <span className="font-semibold text-slate-300">Upsun</span></span>
+              <span>{m.footer_hosted_by()} <span className="font-semibold text-slate-300">Upsun</span></span>
             </a>
           </div>
         </div>

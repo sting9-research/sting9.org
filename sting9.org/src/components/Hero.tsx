@@ -1,4 +1,6 @@
 import { Shield, Mail, Smartphone } from 'lucide-react'
+import * as m from '../paraglide/messages'
+import { localizeUrl } from '../paraglide/runtime'
 
 export default function Hero() {
   return (
@@ -28,50 +30,49 @@ export default function Hero() {
 
           {/* Main Headline */}
           <h1 className="text-hero font-bold text-slate-900 mb-6">
-            Building the World's Most Comprehensive
-            <span className="block text-amber-600 mt-2">Anti-Phishing Dataset</span>
+            {m.home_hero_title_part1()}
+            <span className="block text-amber-600 mt-2">{m.home_hero_title_part2()}</span>
           </h1>
 
           {/* Subheadline */}
           <p className="text-body-lg text-slate-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-            An open-source research initiative collecting phishing, smishing, and scam messages
-            to train AI models capable of detecting malicious communications with{' '}
-            <span className="font-semibold text-slate-900">99.9% accuracy</span>.
+            {m.home_hero_subtitle()}{' '}
+            <span className="font-semibold text-slate-900">{m.home_hero_subtitle_accuracy()}</span>.
           </p>
 
           {/* Key stats bar */}
           <div className="flex flex-wrap justify-center gap-8 mb-12 text-sm">
             <div className="flex items-center gap-2 text-slate-600">
               <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-              <span><strong className="text-slate-900">5.3B</strong> phishing emails sent daily</span>
+              <span><strong className="text-slate-900">5.3B</strong> {m.home_hero_stat1()}</span>
             </div>
             <div className="flex items-center gap-2 text-slate-600">
               <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-              <span><strong className="text-slate-900">$10.3B</strong> lost to scams annually</span>
+              <span><strong className="text-slate-900">$10.3B</strong> {m.home_hero_stat2()}</span>
             </div>
             <div className="flex items-center gap-2 text-slate-600">
               <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-              <span><strong className="text-slate-900">1 in 3</strong> people have fallen victim</span>
+              <span><strong className="text-slate-900">1 in 3</strong> {m.home_hero_stat3()}</span>
             </div>
           </div>
 
           {/* Dual CTAs */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">
             <a
-              href="/submit/email"
+              href={typeof localizeUrl('/submit/email') === 'string' ? localizeUrl('/submit/email') : localizeUrl('/submit/email').href}
               className="group relative inline-flex items-center gap-3 px-8 py-4 bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-lg transition-all duration-200 shadow-lg shadow-amber-500/30 hover:shadow-xl hover:shadow-amber-500/40 hover:scale-105"
             >
               <Mail className="w-5 h-5" />
-              <span>Submit a Phishing Email</span>
+              <span>{m.home_hero_submit_email()}</span>
               <div className="absolute inset-0 rounded-lg bg-linear-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 -skew-x-12 translate-x-full group-hover:translate-x-[-200%]"></div>
             </a>
 
             <a
-              href="/submit/sms"
+              href={typeof localizeUrl('/submit/sms') === 'string' ? localizeUrl('/submit/sms') : localizeUrl('/submit/sms').href}
               className="group relative inline-flex items-center gap-3 px-8 py-4 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-lg transition-all duration-200 shadow-lg shadow-slate-800/30 hover:shadow-xl hover:shadow-slate-800/40 hover:scale-105"
             >
               <Smartphone className="w-5 h-5" />
-              <span>Submit a Smishing Text</span>
+              <span>{m.home_hero_submit_sms()}</span>
               <div className="absolute inset-0 rounded-lg bg-linear-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 -skew-x-12 translate-x-full group-hover:translate-x-[-200%]"></div>
             </a>
           </div>
@@ -82,17 +83,17 @@ export default function Hero() {
               <Mail className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
               <div className="text-left">
                 <p className="text-sm text-blue-900 font-medium mb-1">
-                  Quick submission via email forwarding
+                  {m.home_hero_email_forward_title()}
                 </p>
                 <p className="text-sm text-blue-800">
-                  Simply forward suspicious emails to{' '}
+                  {m.home_hero_email_forward_text()}{' '}
                   <a
                     href="mailto:submit@sting9.org"
                     className="font-semibold underline hover:text-blue-600 transition-colors"
                   >
                     submit@sting9.org
                   </a>
-                  {' '}and we'll automatically process them.
+                  {' '}{m.home_hero_email_forward_and()}
                 </p>
               </div>
             </div>
@@ -101,7 +102,7 @@ export default function Hero() {
           {/* Privacy note */}
           <p className="text-sm text-slate-500">
             <Shield className="w-4 h-4 inline-block mr-1" />
-            All submissions are automatically anonymized. No tracking. GDPR compliant.
+            {m.home_hero_privacy_notice()}
           </p>
         </div>
       </div>

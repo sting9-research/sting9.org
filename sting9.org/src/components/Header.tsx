@@ -10,6 +10,7 @@ import {
   X,
 } from 'lucide-react'
 import { getLocale, locales, localizeUrl } from '../paraglide/runtime.js'
+import * as m from '../paraglide/messages'
 
 // Flag components for language selector
 function FlagEN() {
@@ -60,13 +61,13 @@ export default function Header() {
   const currentLocale = getLocale()
 
   const navLinks = [
-    { to: '/', label: 'Home', icon: <Home size={20} /> },
-    { to: '/stats', label: 'Statistics', icon: <PieChart size={20} /> },
-    { to: '/dataset', label: 'Dataset', icon: <Database size={20} /> },
-    { to: '/learn', label: 'Learn About Threats', icon: <BookOpen size={20} /> },
-    { to: '/submit/email', label: 'Submit Email', icon: <Upload size={20} /> },
-    { to: '/submit/sms', label: 'Submit SMS', icon: <Upload size={20} /> },
-    { to: '/about', label: 'About', icon: <BookOpen size={20} /> },
+    { to: '/', label: m.nav_home(), icon: <Home size={20} /> },
+    { to: '/stats', label: m.nav_statistics(), icon: <PieChart size={20} /> },
+    { to: '/dataset', label: m.nav_dataset(), icon: <Database size={20} /> },
+    { to: '/learn', label: m.nav_learn(), icon: <BookOpen size={20} /> },
+    { to: '/submit/email', label: m.nav_submit_email(), icon: <Upload size={20} /> },
+    { to: '/submit/sms', label: m.nav_submit_sms(), icon: <Upload size={20} /> },
+    { to: '/about', label: m.nav_about(), icon: <BookOpen size={20} /> },
   ]
 
   // Get the URL for switching to a different locale

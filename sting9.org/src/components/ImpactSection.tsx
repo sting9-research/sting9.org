@@ -1,4 +1,5 @@
-import { Users, Building2, GraduationCap, CheckCircle2, TrendingUp, Zap } from 'lucide-react'
+import { Users, Building2, GraduationCap, CheckCircle2, TrendingUp, Zap, Brain } from 'lucide-react'
+import * as m from '../paraglide/messages'
 
 interface Benefit {
   icon: React.ReactNode
@@ -17,39 +18,39 @@ export default function ImpactSection() {
   const whatWeEnable: Enabler[] = [
     {
       icon: <Brain className="w-8 h-8" />,
-      title: '99.9% Accurate AI Models',
-      description: 'State-of-the-art machine learning trained on the largest, most diverse phishing dataset ever created.',
-      stat: '99.9%',
+      title: m.home_impact_enable1_title(),
+      description: m.home_impact_enable1_description(),
+      stat: m.home_impact_enable1_stat(),
     },
     {
       icon: <Zap className="w-8 h-8" />,
-      title: 'Real-Time Threat Intelligence',
-      description: 'Live feeds of emerging attack patterns, malicious URLs, and new scam techniques as they appear.',
-      stat: 'Real-time',
+      title: m.home_impact_enable2_title(),
+      description: m.home_impact_enable2_description(),
+      stat: m.home_impact_enable2_stat(),
     },
     {
       icon: <TrendingUp className="w-8 h-8" />,
-      title: 'Open Research Access',
-      description: 'Free API and dataset downloads for academic researchers, developers, and security professionals worldwide.',
-      stat: 'Free',
+      title: m.home_impact_enable3_title(),
+      description: m.home_impact_enable3_description(),
+      stat: m.home_impact_enable3_stat(),
     },
   ]
 
   const whoBenefits: Benefit[] = [
     {
       icon: <Users className="w-10 h-10" />,
-      title: 'Individuals',
-      description: 'Everyday users gain protection through email clients, messaging apps, and browsers powered by our detection models.',
+      title: m.home_impact_benefit1_title(),
+      description: m.home_impact_benefit1_description(),
     },
     {
       icon: <Building2 className="w-10 h-10" />,
-      title: 'Organizations',
-      description: 'Businesses integrate our API to protect employees from BEC, credential harvesting, and targeted phishing campaigns.',
+      title: m.home_impact_benefit2_title(),
+      description: m.home_impact_benefit2_description(),
     },
     {
       icon: <GraduationCap className="w-10 h-10" />,
-      title: 'Researchers',
-      description: 'Academic institutions and security labs use our dataset to advance cybersecurity science and develop new defenses.',
+      title: m.home_impact_benefit3_title(),
+      description: m.home_impact_benefit3_description(),
     },
   ]
 
@@ -59,17 +60,17 @@ export default function ImpactSection() {
         {/* Main heading */}
         <div className="text-center mb-20">
           <h2 className="text-h2 font-bold text-slate-900 mb-4">
-            The Impact We're Creating
+            {m.home_impact_title()}
           </h2>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            From open data to global protection, our mission reaches millions
+            {m.home_impact_subtitle()}
           </p>
         </div>
 
         {/* What we enable */}
         <div className="mb-20">
           <h3 className="text-h3 font-bold text-slate-900 text-center mb-12">
-            What This Dataset Enables
+            {m.home_impact_what_enables_title()}
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {whatWeEnable.map((item, index) => (
@@ -99,7 +100,7 @@ export default function ImpactSection() {
         {/* Who benefits */}
         <div className="mb-16">
           <h3 className="text-h3 font-bold text-slate-900 text-center mb-12">
-            Who Benefits
+            {m.home_impact_who_benefits_title()}
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {whoBenefits.map((benefit, index) => (
@@ -131,40 +132,40 @@ export default function ImpactSection() {
             </div>
             <div className="relative z-10">
               <h3 className="text-3xl font-bold mb-6 text-center">
-                Our Open-Source Commitment
+                {m.home_impact_opensource_title()}
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 <div className="flex items-start gap-3">
                   <CheckCircle2 className="w-6 h-6 text-emerald-400 shrink-0 mt-1" />
                   <div>
-                    <div className="font-semibold mb-1">ODC-BY-NC License</div>
-                    <div className="text-slate-300 text-sm">Open Data Commons Attribution-NonCommercial—free for research and non-commercial use</div>
+                    <div className="font-semibold mb-1">{m.home_impact_opensource_item1_title()}</div>
+                    <div className="text-slate-300 text-sm">{m.home_impact_opensource_item1_text()}</div>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle2 className="w-6 h-6 text-emerald-400 shrink-0 mt-1" />
                   <div>
-                    <div className="font-semibold mb-1">Free API Access</div>
-                    <div className="text-slate-300 text-sm">RESTful API for researchers and developers—no paywalls</div>
+                    <div className="font-semibold mb-1">{m.home_impact_opensource_item2_title()}</div>
+                    <div className="text-slate-300 text-sm">{m.home_impact_opensource_item2_text()}</div>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle2 className="w-6 h-6 text-emerald-400 shrink-0 mt-1" />
                   <div>
-                    <div className="font-semibold mb-1">Transparent Methodology</div>
-                    <div className="text-slate-300 text-sm">Open documentation of collection, anonymization, and classification processes</div>
+                    <div className="font-semibold mb-1">{m.home_impact_opensource_item3_title()}</div>
+                    <div className="text-slate-300 text-sm">{m.home_impact_opensource_item3_text()}</div>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle2 className="w-6 h-6 text-emerald-400 shrink-0 mt-1" />
                   <div>
-                    <div className="font-semibold mb-1">Pre-Trained Models</div>
-                    <div className="text-slate-300 text-sm">Detection models freely available for personal and research use</div>
+                    <div className="font-semibold mb-1">{m.home_impact_opensource_item4_title()}</div>
+                    <div className="text-slate-300 text-sm">{m.home_impact_opensource_item4_text()}</div>
                   </div>
                 </div>
               </div>
               <p className="text-center text-slate-300 italic text-lg">
-                "Making digital deception obsolete through radical transparency and collaboration"
+                "{m.home_impact_opensource_quote()}"
               </p>
             </div>
           </div>
@@ -173,6 +174,3 @@ export default function ImpactSection() {
     </section>
   )
 }
-
-// Import Brain icon
-import { Brain } from 'lucide-react'

@@ -1,5 +1,6 @@
 import { Database, Globe, Languages, Target } from 'lucide-react'
 import { useState, useEffect } from 'react'
+import * as m from '../paraglide/messages'
 
 interface Stat {
   icon: React.ReactNode
@@ -45,26 +46,26 @@ export default function StatsCounter() {
     {
       icon: <Database className="w-8 h-8" />,
       value: loading ? '...' : totalSubmissions.toLocaleString(),
-      label: 'Messages Collected',
+      label: m.home_stats_messages_collected(),
       color: 'text-emerald-600',
     },
     {
       icon: <Languages className="w-8 h-8" />,
       value: loading ? '...' : languageCount.toString(),
-      label: 'Languages Detected',
+      label: m.home_stats_languages_detected(),
       suffix: '+',
       color: 'text-blue-600',
     },
     {
       icon: <Globe className="w-8 h-8" />,
       value: loading ? '...' : Object.keys(apiStats?.submissions_by_type || {}).length.toString(),
-      label: 'Message Types',
+      label: m.home_stats_message_types(),
       color: 'text-purple-600',
     },
     {
       icon: <Target className="w-8 h-8" />,
       value: loading ? '...' : categoryCount.toString(),
-      label: 'Threat Categories',
+      label: m.home_stats_threat_categories(),
       suffix: '+',
       color: 'text-amber-600',
     },
@@ -75,10 +76,10 @@ export default function StatsCounter() {
       <div className="container-custom">
         <div className="text-center mb-16">
           <h2 className="text-h2 font-bold text-slate-900 mb-4">
-            Live Dataset Statistics
+            {m.home_stats_title()}
           </h2>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Real-time progress toward our goal of 1 million messages
+            {m.home_stats_subtitle()}
           </p>
         </div>
 
@@ -106,7 +107,7 @@ export default function StatsCounter() {
           <div className="bg-white rounded-xl p-8 shadow-md border border-slate-200">
             <div className="flex justify-between items-center mb-3">
               <span className="text-sm font-semibold text-slate-700 uppercase tracking-wide">
-                Progress to 1M Goal
+                {m.home_stats_progress_title()}
               </span>
               <span className="text-2xl font-bold text-slate-900">
                 {loading ? '...' : `${((totalSubmissions / 1000000) * 100).toFixed(2)}%`}
@@ -121,7 +122,7 @@ export default function StatsCounter() {
               </div>
             </div>
             <p className="text-sm text-slate-500 mt-3 text-center">
-              {loading ? 'Loading...' : `${totalSubmissions.toLocaleString()} of 1,000,000 messages • Every submission brings us closer to 99.9% detection accuracy`}
+              {loading ? m.home_stats_loading() : `${totalSubmissions.toLocaleString()} ${m.home_stats_progress_text()}`}
             </p>
           </div>
         </div>

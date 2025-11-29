@@ -1,4 +1,6 @@
 import { AlertTriangle, Mail, Smartphone, ExternalLink } from 'lucide-react'
+import * as m from '../paraglide/messages'
+import { localizeUrl } from '../paraglide/runtime'
 
 interface ThreatExample {
   type: 'email' | 'sms'
@@ -12,41 +14,47 @@ export default function ThreatExamples() {
   const examples: ThreatExample[] = [
     {
       type: 'email',
-      title: 'Fake Package Delivery',
-      preview: 'From: delivery@amaz0n-support.com\nSubject: Your package is waiting - Action Required!\n\nDear Customer,\n\nYour package has been held due to incomplete address information. Click here to update your delivery details within 24 hours or your package will be returned...',
+      title: m.home_threats_example1_title(),
+      preview: m.home_threats_example1_preview(),
       redFlags: [
-        'Suspicious sender domain (amaz0n with zero)',
-        'Urgency tactics ("within 24 hours")',
-        'Generic greeting ("Dear Customer")',
-        'Unsolicited link to update information',
+        m.home_threats_example1_flag1(),
+        m.home_threats_example1_flag2(),
+        m.home_threats_example1_flag3(),
+        m.home_threats_example1_flag4(),
       ],
-      category: 'BEC / Impersonation',
+      category: m.home_threats_example1_category(),
     },
     {
       type: 'sms',
-      title: 'Bank Account Alert',
-      preview: 'ALERT: Unusual activity detected on your account ending in 3847. Verify your identity immediately: http://bit.ly/2xK9pL\n\nIf you did not authorize this transaction, click the link now to prevent further charges.\n\n-Your Bank Security Team',
+      title: m.home_threats_example2_title(),
+      preview: m.home_threats_example2_preview(),
       redFlags: [
-        'Shortened URL hiding real destination',
-        'Creates panic with "unusual activity"',
-        'No official branding or identifiers',
-        'Pressure to act immediately',
+        m.home_threats_example2_flag1(),
+        m.home_threats_example2_flag2(),
+        m.home_threats_example2_flag3(),
+        m.home_threats_example2_flag4(),
       ],
-      category: 'Credential Harvesting',
+      category: m.home_threats_example2_category(),
     },
     {
       type: 'email',
-      title: 'Prize Winnings Notification',
-      preview: 'From: winners@international-lottery-commission.biz\nSubject: CONGRATULATIONS! You\'ve Won $2,500,000 USD\n\nDear Lucky Winner,\n\nYou have been selected as the winner of our international sweepstakes. To claim your prize, please provide your bank details and pay a processing fee of $450...',
+      title: m.home_threats_example3_title(),
+      preview: m.home_threats_example3_preview(),
       redFlags: [
-        'Unsolicited prize notification',
-        'Request for payment to receive winnings',
-        'Asks for sensitive bank information',
-        'Too good to be true offer',
+        m.home_threats_example3_flag1(),
+        m.home_threats_example3_flag2(),
+        m.home_threats_example3_flag3(),
+        m.home_threats_example3_flag4(),
       ],
-      category: 'Advance Fee Fraud',
+      category: m.home_threats_example3_category(),
     },
   ]
+
+  // Helper function to properly handle localizeUrl return type
+  const getLocalizedHref = (href: string): string => {
+    const result = localizeUrl(href)
+    return typeof result === 'string' ? result : result.href
+  }
 
   return (
     <section className="section-spacing bg-white border-t border-slate-200">
@@ -54,13 +62,13 @@ export default function ThreatExamples() {
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 bg-red-50 text-red-700 px-4 py-2 rounded-full mb-4 font-semibold text-sm">
             <AlertTriangle className="w-4 h-4" />
-            Educational Examples
+            {m.home_threats_badge()}
           </div>
           <h2 className="text-h2 font-bold text-slate-900 mb-4">
-            Learn to Spot the Red Flags
+            {m.home_threats_title()}
           </h2>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Real examples from our dataset (anonymized and redacted) showing common phishing and smishing techniques
+            {m.home_threats_subtitle()}
           </p>
         </div>
 
@@ -101,7 +109,7 @@ export default function ThreatExamples() {
                   <div className="flex items-center gap-2 mb-4">
                     <AlertTriangle className="w-5 h-5 text-red-600" />
                     <h4 className="font-bold text-slate-900 text-lg">
-                      Red Flags to Watch For
+                      {m.home_threats_red_flags_title()}
                     </h4>
                   </div>
                   <ul className="space-y-3">
@@ -126,25 +134,24 @@ export default function ThreatExamples() {
         <div className="mt-16 max-w-4xl mx-auto">
           <div className="bg-linear-to-br from-blue-50 to-purple-50 rounded-xl p-8 border border-blue-200">
             <h3 className="text-2xl font-bold text-slate-900 mb-4 text-center">
-              Help Us Educate Others
+              {m.home_threats_cta_title()}
             </h3>
             <p className="text-slate-700 mb-6 text-center leading-relaxed">
-              When you submit a suspicious message, you're not just protecting yourself—you're helping us
-              identify new attack patterns and educate millions of people worldwide about emerging threats.
+              {m.home_threats_cta_text()}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="/submit/email"
+                href={getLocalizedHref('/submit/email')}
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-lg transition-all duration-200"
               >
-                Submit an Example
+                {m.home_threats_cta_submit()}
                 <ExternalLink className="w-4 h-4" />
               </a>
               <a
-                href="/learn"
+                href={getLocalizedHref('/learn')}
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white hover:bg-slate-50 text-slate-700 font-semibold rounded-lg border-2 border-slate-300 hover:border-slate-400 transition-all duration-200"
               >
-                Learn More About Threats
+                {m.home_threats_cta_learn()}
                 <ExternalLink className="w-4 h-4" />
               </a>
             </div>
