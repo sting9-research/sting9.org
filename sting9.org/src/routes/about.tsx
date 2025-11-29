@@ -4,7 +4,6 @@ import {
   Target,
   Users,
   Globe,
-  TrendingUp,
   CheckCircle2,
   Mail,
   Smartphone,
@@ -15,83 +14,84 @@ import {
   Heart
 } from 'lucide-react'
 import Footer from '../components/Footer'
+import * as m from '../paraglide/messages.js'
 
 export const Route = createFileRoute('/about')({ component: AboutPage })
 
 function AboutPage() {
   const problems = [
-    { stat: '5.3B', label: 'phishing emails sent daily' },
-    { stat: '$10.3B', label: 'lost to scams annually' },
-    { stat: '1 in 3', label: 'people have fallen victim' },
-    { stat: '87%', label: 'of smishing attacks bypass filters' },
+    { stat: '5.3B', label: m.about_problem_stat1() },
+    { stat: '$10.3B', label: m.about_problem_stat2() },
+    { stat: '1 in 3', label: m.about_problem_stat3() },
+    { stat: '87%', label: m.about_problem_stat4() },
   ]
 
   const approaches = [
     {
       icon: <Users className="w-8 h-8" />,
-      title: 'Community-Driven Collection',
-      description: 'Building a global network of contributors who submit suspected phishing and smishing messages. Every contribution helps our AI learn new attack patterns.',
+      title: m.about_approach1_title(),
+      description: m.about_approach1_description(),
     },
     {
       icon: <Globe className="w-8 h-8" />,
-      title: 'Multi-Source Integration',
-      description: 'Aggregating and standardizing data from user submissions, partner organizations, academic research, threat intelligence feeds, and honeypot networks.',
+      title: m.about_approach2_title(),
+      description: m.about_approach2_description(),
     },
     {
       icon: <Target className="w-8 h-8" />,
-      title: 'Advanced AI Training',
-      description: 'Machine learning models analyze message content, sender patterns, URLs, social engineering tactics, and cross-language threat patterns.',
+      title: m.about_approach3_title(),
+      description: m.about_approach3_description(),
     },
     {
       icon: <Code className="w-8 h-8" />,
-      title: 'Open-Source Commitment',
-      description: 'All datasets and trained models freely available to researchers, security companies, developers, and anyone combating digital fraud.',
+      title: m.about_approach4_title(),
+      description: m.about_approach4_description(),
     },
   ]
 
   const messageTypes = [
     {
       icon: <Mail className="w-6 h-6" />,
-      title: 'Emails',
-      description: 'Phishing, spear-phishing, business email compromise (BEC)',
+      title: m.about_collect_emails_title(),
+      description: m.about_collect_emails_description(),
     },
     {
       icon: <Smartphone className="w-6 h-6" />,
-      title: 'SMS/Text',
-      description: 'Smishing, spam texts, fraudulent alerts',
+      title: m.about_collect_sms_title(),
+      description: m.about_collect_sms_description(),
     },
     {
       icon: <MessageSquare className="w-6 h-6" />,
-      title: 'Messaging Apps',
-      description: 'WhatsApp, Telegram, Signal scams',
+      title: m.about_collect_messaging_title(),
+      description: m.about_collect_messaging_description(),
     },
     {
       icon: <Users className="w-6 h-6" />,
-      title: 'Social Media',
-      description: 'Fraudulent DMs and posts',
+      title: m.about_collect_social_title(),
+      description: m.about_collect_social_description(),
     },
   ]
 
   const roadmap = [
     {
-      phase: 'Phase 1: Foundation',
-      period: 'Q3 2025',
-      goals: ['Launch collection platform', 'Build initial dataset (1M messages)', 'Release alpha AI model'],
+      phase: m.about_phase1_title(),
+      period: m.about_phase1_period(),
+      goals: [m.about_phase1_goal1(), m.about_phase1_goal2(), m.about_phase1_goal3()],
     },
     {
-      phase: 'Phase 2: Growth',
-      period: 'Q4 2025',
-      goals: ['Scale to 10M messages', 'Multi-language support', 'Public API release'],
+      phase: m.about_phase2_title(),
+      period: m.about_phase2_period(),
+      goals: [m.about_phase2_goal1(), m.about_phase2_goal2(), m.about_phase2_goal3()],
     },
     {
-      phase: 'Phase 3: Intelligence',
-      period: 'Q1 2026',
-      goals: ['Advanced ML models', 'Real-time threat feeds', 'Industry partnerships'],
+      phase: m.about_phase3_title(),
+      period: m.about_phase3_period(),
+      goals: [m.about_phase3_goal1(), m.about_phase3_goal2(), m.about_phase3_goal3()],
     },
     {
-      phase: 'Phase 4: Impact',
-      period: '2026',
-      goals: ['50M message dataset', '99.9% accuracy achieved', 'Global protection network'],
+      phase: m.about_phase4_title(),
+      period: m.about_phase4_period(),
+      goals: [m.about_phase4_goal1(), m.about_phase4_goal2(), m.about_phase4_goal3()],
     },
   ]
 
@@ -115,11 +115,10 @@ function AboutPage() {
             </div>
 
             <h1 className="text-hero font-bold text-slate-900 mb-6">
-              About Sting9
+              {m.about_title()}
             </h1>
             <p className="text-body-lg text-slate-600 leading-relaxed mb-8">
-              Named after the legendary sword from Lord of the Rings that glows blue when danger is near,
-              Sting9 illuminates the threats hiding in your inbox.
+              {m.about_tagline()}
             </p>
           </div>
         </div>
@@ -130,13 +129,10 @@ function AboutPage() {
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-h2 font-bold text-slate-900 mb-6 text-center">
-              Our Mission
+              {m.about_mission_title()}
             </h2>
             <p className="text-lg text-slate-700 leading-relaxed text-center mb-12">
-              The Sting9 Research Initiative is building the world's most comprehensive open-source dataset
-              of phishing, smishing, and scam messages to train AI models capable of detecting malicious
-              communications with 99.9% accuracy. By combining community contributions with existing datasets,
-              we're creating a powerful resource to protect billions of users from digital deception.
+              {m.about_mission_text()}
             </p>
           </div>
         </div>
@@ -147,12 +143,10 @@ function AboutPage() {
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-h2 font-bold text-slate-900 mb-6 text-center">
-              The Problem
+              {m.about_problem_title()}
             </h2>
             <p className="text-lg text-slate-700 leading-relaxed text-center mb-12">
-              Every day, millions of people receive fraudulent messages designed to steal their personal
-              information, money, and digital identities. Current detection systems struggle to keep pace
-              with evolving threats:
+              {m.about_problem_text()}
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -179,7 +173,7 @@ function AboutPage() {
         <div className="container-custom">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-h2 font-bold text-slate-900 mb-12 text-center">
-              Our Approach
+              {m.about_approach_title()}
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -209,7 +203,7 @@ function AboutPage() {
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-h2 font-bold text-slate-900 mb-12 text-center">
-              What We Collect
+              {m.about_collect_title()}
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -237,24 +231,24 @@ function AboutPage() {
             <div className="mt-12 bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-10 text-white">
               <div className="flex items-center gap-3 mb-4">
                 <Shield className="w-8 h-8 text-emerald-400" />
-                <h3 className="text-2xl font-bold">Privacy First</h3>
+                <h3 className="text-2xl font-bold">{m.about_privacy_title()}</h3>
               </div>
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-0.5" />
-                  <span>All personal information is automatically redacted</span>
+                  <span>{m.about_privacy1()}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-0.5" />
-                  <span>Submissions are anonymized</span>
+                  <span>{m.about_privacy2()}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-0.5" />
-                  <span>No tracking of contributors</span>
+                  <span>{m.about_privacy3()}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-0.5" />
-                  <span>GDPR and privacy law compliant</span>
+                  <span>{m.about_privacy4()}</span>
                 </li>
               </ul>
             </div>
@@ -267,7 +261,7 @@ function AboutPage() {
         <div className="container-custom">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-h2 font-bold text-slate-900 mb-12 text-center">
-              Roadmap
+              {m.about_roadmap_title()}
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -305,47 +299,47 @@ function AboutPage() {
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-h2 font-bold text-slate-900 mb-12 text-center">
-              Get Involved
+              {m.about_involved_title()}
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
               <div className="bg-white rounded-xl p-8 shadow-md border border-slate-200">
                 <GraduationCap className="w-10 h-10 text-blue-600 mb-4" />
-                <h3 className="text-2xl font-bold text-slate-900 mb-3">Researchers</h3>
+                <h3 className="text-2xl font-bold text-slate-900 mb-3">{m.about_researchers_title()}</h3>
                 <ul className="space-y-2 text-slate-600">
-                  <li>• Access our API and datasets</li>
-                  <li>• Contribute analysis and improvements</li>
-                  <li>• Collaborate on papers and studies</li>
+                  <li>• {m.about_researchers_item1()}</li>
+                  <li>• {m.about_researchers_item2()}</li>
+                  <li>• {m.about_researchers_item3()}</li>
                 </ul>
               </div>
 
               <div className="bg-white rounded-xl p-8 shadow-md border border-slate-200">
                 <Code className="w-10 h-10 text-purple-600 mb-4" />
-                <h3 className="text-2xl font-bold text-slate-900 mb-3">Developers</h3>
+                <h3 className="text-2xl font-bold text-slate-900 mb-3">{m.about_developers_title()}</h3>
                 <ul className="space-y-2 text-slate-600">
-                  <li>• Integrate Sting9 detection into apps</li>
-                  <li>• Contribute to open-source tools</li>
-                  <li>• Build on our infrastructure</li>
+                  <li>• {m.about_developers_item1()}</li>
+                  <li>• {m.about_developers_item2()}</li>
+                  <li>• {m.about_developers_item3()}</li>
                 </ul>
               </div>
 
               <div className="bg-white rounded-xl p-8 shadow-md border border-slate-200">
                 <Building2 className="w-10 h-10 text-emerald-600 mb-4" />
-                <h3 className="text-2xl font-bold text-slate-900 mb-3">Organizations</h3>
+                <h3 className="text-2xl font-bold text-slate-900 mb-3">{m.about_organizations_title()}</h3>
                 <ul className="space-y-2 text-slate-600">
-                  <li>• Protect users and employees</li>
-                  <li>• Share threat intelligence</li>
-                  <li>• Sponsor dataset growth</li>
+                  <li>• {m.about_organizations_item1()}</li>
+                  <li>• {m.about_organizations_item2()}</li>
+                  <li>• {m.about_organizations_item3()}</li>
                 </ul>
               </div>
 
               <div className="bg-white rounded-xl p-8 shadow-md border border-slate-200">
                 <Heart className="w-10 h-10 text-red-600 mb-4" />
-                <h3 className="text-2xl font-bold text-slate-900 mb-3">Individuals</h3>
+                <h3 className="text-2xl font-bold text-slate-900 mb-3">{m.about_individuals_title()}</h3>
                 <ul className="space-y-2 text-slate-600">
-                  <li>• Submit suspicious messages</li>
-                  <li>• Beta test new features</li>
-                  <li>• Spread awareness</li>
+                  <li>• {m.about_individuals_item1()}</li>
+                  <li>• {m.about_individuals_item2()}</li>
+                  <li>• {m.about_individuals_item3()}</li>
                 </ul>
               </div>
             </div>
@@ -353,10 +347,10 @@ function AboutPage() {
             {/* CTA */}
             <div className="text-center bg-slate-50 rounded-xl p-8 border border-slate-200">
               <h3 className="text-2xl font-bold text-slate-900 mb-4">
-                Ready to Make a Difference?
+                {m.about_cta_title()}
               </h3>
               <p className="text-slate-600 mb-6">
-                Join the fight against digital deception. Every contribution matters.
+                {m.about_cta_text()}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
@@ -364,14 +358,14 @@ function AboutPage() {
                   className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-lg transition-all duration-200 shadow-lg"
                 >
                   <Mail className="w-5 h-5" />
-                  Submit a Message
+                  {m.about_cta_submit()}
                 </a>
                 <a
                   href="/partners"
                   className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-lg transition-all duration-200 shadow-lg"
                 >
                   <Users className="w-5 h-5" />
-                  Become a Partner
+                  {m.about_cta_partner()}
                 </a>
               </div>
             </div>
@@ -383,7 +377,7 @@ function AboutPage() {
       <section className="py-16 bg-slate-900 text-white">
         <div className="container-custom text-center">
           <p className="text-2xl font-bold mb-2">
-            Together, we can make digital deception obsolete.
+            {m.about_closing()}
           </p>
         </div>
       </section>

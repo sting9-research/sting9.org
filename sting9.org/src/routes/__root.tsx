@@ -6,6 +6,8 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import NotFound from '../components/NotFound'
 
+import { getLocale } from '../paraglide/runtime.js'
+
 import appCss from '../styles.css?url'
 
 export const Route = createRootRoute({
@@ -84,8 +86,9 @@ export const Route = createRootRoute({
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+  const locale = getLocale()
   return (
-    <html lang="en">
+    <html lang={locale}>
       <head>
         <HeadContent />
       </head>
